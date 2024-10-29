@@ -1,0 +1,445 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+/************************************
+  Search Form Definitions
+************************************/
+
+#odr_rruff_search_dialog {
+    margin-top: 160px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#ODRMainMenu {
+    position: absolute;
+    top: 100px;
+    width: 100%;
+}
+
+.display-options-list {
+    list-style-type: none;
+    margin-left: 18px;
+    width: 100%;
+}
+
+table.search_form {
+    padding: 12px 6px;
+}
+
+.search_form input[type=email],
+.search_form input[type=number],
+.search_form input[type=password],
+.search_form input[type=reset],
+.search_form input[type=search],
+.search_form input[type=tel],
+.search_form input[type=text],
+.search_form input[type=url],
+.search_form select,
+.search_form textarea {
+    padding: 0.25em 0.25em 0.25em 0.25em;
+    font-size: 13px;
+}
+
+
+.search_form input[type=button],
+.search_form input[type=submit] {
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    margin-right: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 0;
+    position: relative;
+    background-color: rgba(82, 171, 117, 1.0);
+    color:rgb(255,255,255);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+
+
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    text-shadow:0px 1px 0px rgba(0,0,0,0.5);
+    -ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ff123852,Positive=true)";zoom:1;
+    filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ff123852,Positive=true);
+
+    -moz-box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+    -webkit-box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+    box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+    -ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true)";
+    filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true);
+}
+
+/*
+.search_form input[type=button]:active,
+.search_form input[type=submit]:active {
+    margin-top: 2px;
+    margin-bottom: 13px;
+
+    -moz-box-shadow:0px 1px 0px rgba(255,255,255,0.5);
+    -webkit-box-shadow:0px 1px 0px rgba(255,255,255,0.5);
+    box-shadow:0px 1px 0px rgba(255,255,255,0.5);
+    -ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ccffffff,Positive=true)";
+    filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ccffffff,Positive=true);
+}
+ */
+
+.search_form input[type=button]:disabled,
+.search_form input[type=submit]:disabled {
+    background-color: rgba(82, 171, 117, 0.4);
+}
+
+
+
+
+th.search_form {
+    vertical-align: middle;
+    text-align: right;
+}
+
+#searchbutton input {
+    font-size: 1.2em;
+}
+
+#searchResults {
+    /* text-decoration: underline; */
+}
+
+#element_chooser {
+    visibility:hidden;
+}
+#element_chooser_holder {
+    visibility:hidden;
+}
+
+#frm_search_results tr td {
+    font-size: 1em;
+}
+
+
+/************************************
+Search Form Definitions
+************************************/
+#rruff-search-form {
+    padding: 12px 12px 12px 12px;
+    background-color: rgba(0, 0, 0, 0.20);
+    border: none;
+    color: #ffffff;
+    border-radius: 18px;
+    width: 600px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (min-width: 1024px) {
+    .summary-search-form {
+        width: 900px !important;
+    }
+
+    .summary-submit-block {
+        float: right;
+        margin-top: -34px;
+        margin-right: 18px !important;
+    }
+}
+
+.input_wrapper {
+    padding: 0 0 10px 0;
+}
+
+.first_input {
+    padding-top: 12px;
+}
+
+.submit_wrapper {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.chemistry_lookup_link {
+    line-height: 20px;
+    display: block;
+}
+
+
+label > a:visited,
+label > a:active,
+label > a:focus,
+label > a:hover,
+label > a {
+    color: #a0ffa0 !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.search_form label {
+    vertical-align: middle;
+    line-height: 20px;
+    display: inline-block;
+    min-width: 200px;
+    margin-right: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right;
+}
+@media screen and (max-width: 460px) {
+
+    /* Deal with Elementor Padding Issues */
+    .elementor-top-section {
+        padding: 20px 0px 0px 0px !important;
+    }
+    .elementor-top-section .elementor-widget-container {
+        margin: 0 0 30px 0 !important;
+    }
+    /* END Deal with Elementor Padding Issues */
+
+
+    #rruff-periodic-table {
+        transform-origin: left top;
+        transform: scale(0.7);
+        margin-left: calc(16px + (100% - 360px)/2);
+        margin-bottom: -100px;
+        /*
+        margin-left: -10px;
+        padding-left: 0;
+        */
+        /* left: calc(-50px + (100% - 360px)/2); */
+    }
+
+
+    #rruff-search-form {
+        padding-left: 40px;
+        padding-right: 20px;
+        width: 360px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .input_wrapper {
+        padding: 0 0 4px 0;
+    }
+
+    .submit_wrapper {
+        padding-top: 8px;
+    }
+
+    .chemistry_lookup_link {
+        line-height: 12px;
+        display: inline-block;
+        margin-left: 60px;
+    }
+
+    .search_form label {
+        vertical-align: middle;
+        line-height: 20px;
+        width: 100%;
+        display: inline-block;
+        margin-right: 12px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+}
+
+/* Designing for 380px min width */
+@media screen and (min-width: 461px) and (max-width: 688px) {
+    /* Deal with Elementor Padding Issues */
+    .elementor-top-section {
+        padding: 20px 0px 0px 0px !important;
+    }
+    .elementor-top-section .elementor-widget-container {
+        margin: 0 0 30px 0 !important;
+    }
+    /* END Deal with Elementor Padding Issues */
+
+    /* Ensure Periodic Table is Scaled to 90% of Screen Width */
+    #rruff-periodic-table {
+        /* transform-origin: left top; */
+        transform: scale(0.8);
+        position: relative;
+        top: 0;
+        /* left: -42px; */
+    }
+    /*
+    #div_periodic_table {
+        transform: scale(0.8);
+    }
+
+     */
+
+    #rruff-search-form {
+        padding-left: 40px;
+        padding-right: 20px;
+        width: 360px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .input_wrapper {
+        padding: 0 0 4px 0;
+    }
+
+    .submit_wrapper {
+        padding-top: 8px;
+    }
+
+    .chemistry_lookup_link {
+        line-height: 12px;
+        display: inline-block;
+        margin-left: 60px;
+    }
+
+    .search_form label {
+        vertical-align: middle;
+        line-height: 20px;
+        width: 100%;
+        display: inline-block;
+        margin-right: 12px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+}
+
+
+table.search_form {
+    background-color: rgba(0, 0, 0, 0.20);
+    border: none;
+    color: #ffffff;
+    border-radius: 18px;
+    width: 600px;
+}
+
+table.search_form td,
+table.search_form th {
+   border: none;
+}
+
+#searchResults  {
+    color: #a1c2e3;
+}
+
+#div_periodic_table {
+   max-width: 740px;
+   margin-left: auto;
+   margin-right: auto;
+   display: none;
+}
+
+#rruff-periodic-table {
+    background-color: rgba(220,220,220, 0.0);
+    border: none;
+}
+
+#rruff-periodic-table td,
+#rruff-periodic-table td {
+    border: none;
+    padding: 0 0 0 0 !important;
+}
+
+.pt_alkali_metals {
+    text-align:center; cursor: pointer;  background:#ffbbdd;
+}
+
+.pt_alkaline_earth_metals {
+    text-align:center; cursor: pointer;  background:#ffdead;
+}
+
+.pt_metalloid {
+    text-align:center; cursor: pointer;  background:#cccc99;
+}
+
+.pt_nonmetal {
+    text-align:center; cursor: pointer;  background:#a0ffa0;
+}
+
+.pt_noble_gases {
+    text-align:center; cursor: pointer;  background:#c0ffff;
+}
+
+.pt_halides {
+    text-align:center; cursor: pointer;  background:#ffff99;
+}
+
+.pt_transition_metals {
+    text-align:center; cursor: pointer;  background:#ffc0c0;
+}
+
+.pt_lanthanides {
+    text-align:center; cursor: pointer;  background:#ffb888;
+}
+
+.pt_actinides {
+    text-align:center; cursor: pointer;  background:#ff99cc;
+}
+
+.periodic_table {
+    margin: 1px 1px 1px 1px;
+    font-weight: normal;
+    border: 2px solid rgba(255,255,255,0.4);
+    -webkit-transition : font-weight 500ms ease-out;
+    -moz-transition : font-weight 500ms ease-out;
+    -o-transition : font-weight 500ms ease-out;
+    transition : font-weight 500ms ease-out;
+    -webkit-transition : color 500ms ease-out;
+    -moz-transition : color 500ms ease-out;
+    -o-transition : color 500ms ease-out;
+    transition : color 500ms ease-out;
+    -webkit-transition : border 500ms ease-out;
+    -moz-transition : border 500ms ease-out;
+    -o-transition : border 500ms ease-out;
+    transition : border 500ms ease-out;
+}
+
+.included {
+    border: 2px solid rgba(0,0,255,0.8);
+    font-weight: bold;
+    color: blue;
+    -webkit-transition : font-weight 500ms ease-out;
+    -moz-transition : font-weight 500ms ease-out;
+    -o-transition : font-weight 500ms ease-out;
+    transition : font-weight 500ms ease-out;
+    -webkit-transition : color 500ms ease-out;
+    -moz-transition : color 500ms ease-out;
+    -o-transition : color 500ms ease-out;
+    transition : color 500ms ease-out;
+    -webkit-transition : border 500ms ease-out;
+    -moz-transition : border 500ms ease-out;
+    -o-transition : border 500ms ease-out;
+    transition : border 500ms ease-out;
+}
+
+.excluded {
+    border: 2px solid rgba(255,0,0,0.8);
+    font-weight: bold;
+    color: red;
+    -webkit-transition : font-weight 500ms ease-out;
+    -moz-transition : font-weight 500ms ease-out;
+    -o-transition : font-weight 500ms ease-out;
+    transition : font-weight 500ms ease-out;
+    -webkit-transition : color 500ms ease-out;
+    -moz-transition : color 500ms ease-out;
+    -o-transition : color 500ms ease-out;
+    transition : color 500ms ease-out;
+    -webkit-transition : border 500ms ease-in;
+    -moz-transition : border 500ms ease-in;
+    -o-transition : border 500ms ease-in;
+    transition : border 500ms ease-in;
+}
+
+#periodic_table_instructions,
+#periodic_table_lanthanides_alt,
+#periodic_table_actinides_alt {
+    border: none;
+    font-weight: bold;
+    color: rgba(255,255,255, 0.8) !important;
+}
