@@ -46,6 +46,147 @@
 </script>
 
 
+<center>
+    <!-- frame enclosing table -->
+    <table width="850"><tbody><tr><td>
+        <p>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#0a0806">
+            <tbody><tr>
+                <td>
+                    <div align="center" style="font-weight: bold; color:#eee;margin-left: 50px; margin-right: 50px;"><!--Notice: The RRUFF Database and associated websites will be down for scheduled maintenance on Monday, October 1, 2007 from 12:00 AM to 8:00 AM PST (GMT +8). -->
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><div align="center"><a href="/AMS/amcsd.php"><img src="/AMS/images/header.gif" title="Return to AMCSD main page" width="479" height="33" alt="American Mineralogist Crystal Structure Database" border="0" id="ams"></a></div></td>
+            </tr>
+            </tbody></table>
+        </p><p>
+        </p><p>
+            This site is an interface to a crystal structure database that includes every structure published in the American Mineralogist, The Canadian Mineralogist, European Journal of Mineralogy and Physics and Chemistry of Minerals, as well as selected datasets from other journals. The database is maintained under the care of the Mineralogical Society of America and the Mineralogical Association of Canada, and financed by the National Science Foundation.
+
+        </p><p>
+        </p><center>
+            <form name="myForm" action="/AMS/result.php" method="POST">
+                <table cellspacing="3" cellpadding="3" class="interface_table" width="75%">
+                    <tbody><tr>
+                        <td width="50%"><input type="text" name="Mineral" value="" size="50"></td>
+                        <td><a href="javascript:submitForm('index_min.php');" class="title">Mineral</a></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="Author" value="" size="50"></td>
+                        <td><a href="javascript:submitForm('index_auth.php');" class="title">Author</a> </td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="Periodic" value="" size="50"></td>
+                        <td><a href="javascript:submitForm('periodictable.php');" class="title">Chemistry Search</a></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="CellParam" value="" size="50"></td>
+                        <td><a href="javascript:submitForm('CellParamSg.php');" class="title">Cell Parameters and Symmetry</a> </td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="diff" value="" size="50"></td>
+                        <td><a href="javascript:submitForm('diffpatt.php');" class="title">Diffraction Search</a> </td>
+                    </tr>
+                    <tr valign="top">
+                        <td><input type="text" name="Key" size="50" value=""></td>
+                        <td><strong>General Search</strong><br>
+                            <b><a href="/AMS/tips.php" class="title" title="Click for more details...">Search Tips</a></b></td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" colspan="2">
+                            <input type="submit" value="Search">
+                            <input type="button" value="Reset" onclick="resetForm(); return true;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center"></td>
+                    </tr>
+                    </tbody></table>
+                <p>
+
+                <table cellspacing="3" cellpadding="3" class="interface_table" width="75%">
+                    <tbody><tr>
+                        <td nowrap=""><b> Logic interface</b></td>
+                        <td width="75%">
+                            <input type="radio" name="logic" value="AND" checked=""> <b>AND</b>
+                            <input type="radio" name="logic" value="OR"> <b>OR</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td nowrap=""><b>Viewing</b> (About <a href="/AMS/format.php" class="title">File Formats</a>)</td>
+                        <td>
+                            <input type="radio" name="Viewing" value="amclongform" checked="">amc long form
+                            <input type="radio" name="Viewing" value="amcshortform"> amc short form
+                            <input type="radio" name="Viewing" value="cif"> cif <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td nowrap=""><b>Download</b> </td>
+                        <td>
+                            <input type="radio" name="Download" value="amc" checked=""> amc
+                            <input type="radio" name="Download" value="cif"> cif
+                            <input type="radio" name="Download" value="dif"> diffraction data
+                            <input type="hidden" name="hid1" value="">
+                        </td>
+                    </tr>
+                    </tbody></table>
+                </p></form></center>
+
+
+        <hr>
+
+
+        <center>
+            <table>
+                <tbody><tr>
+                    <td><a href="/AMS/people.php"><img src="/AMS/images/people.gif" align="absmiddle" hspace="15" border="0"></a></td>
+                    <td><a href="http://www.nsf.gov/"><img src="/AMS/images/nsf.gif" align="leftt" hspace="15" border="0"></a></td>
+                    <td><a href="http://www.minsocam.org"><img src="/AMS/images/MSAws.gif" title="MSA" align="left" border="0" hspace="15"></a></td>
+                    <td><a href="http://www.mineralogicalassociation.ca/"><img src="/AMS/images/canmin.gif" align="left" title="CanMin" border="0" hspace="15"></a>
+                    </td>
+                    <td><a href="http://www.schweizerbart.de/j/ejm/"><img src="/AMS/images/ejm.gif" align="left" border="0" hspace="15"></a></td>
+                    <td><a href="http://www.geo.arizona.edu/xtal/"><img src="/AMS/images/UofA.gif" align="left" border="0" hspace="15</A"></a></td>
+                    <td><a href="/AMS/extra.php"><img src="/AMS/images/extra.gif" align="left" border="0" hspace="15</A"></a></td>
+                </tr>
+                </tbody></table>
+        </center>
+        <p>
+
+
+
+        </p><p>
+        </p><p>
+
+
+        <table width="100%" border="0" cellpadding="10" cellspacing="0" class="footer">
+            <tbody><tr>
+                <td>
+                    <p>
+                        <b>Number of Files downloaded since Apr 1, 2003:</b> 1169958259					<br><b>Data Last Updated:</b> January 08, 2024
+                        <br>
+                        <b>Web Page Last Updated:</b> July 31, 2018<br>		  			This page has been accessed 4605651 times.
+                    </p><p>
+                        Also see our <a href="all_minerals.php">complete list of minerals</a> and <a href="all_authors.php">complete list of authors</a>.
+                    </p><p>
+                        This material is based upon work supported by the National Science Foundation under Grant Nos. EAR-0112782. and EAR-0622371.
+                        Any opinions, findings, and conclusions or recommendations expressed in this material are those of the authors
+                        and do not necessarily reflect the views of the National Science Foundation.
+                    </p><p>
+                        Should the use of the database require a citation, then please use: Downs, R.T. and Hall-Wallace, M. (2003) The American Mineralogist Crystal Structure Database. American Mineralogist 88, 247-250. (<a href="http://geo.arizona.edu/xtal/group/pdf/am88_247.pdf" target="_new">pdf file</a>)
+                    </p><p>
+                        Contact <a href="mailto:rdowns@u.arizona.edu" class="title">Robert T Downs</a> for suggestions and corrections.</p>
+                </td>
+            </tr>
+            </tbody></table>
+
+
+        </p></td></tr></tbody></table>
+    <!-- /frame enclosing table -->
+</center>
+
 <!-- form id="amcsd-search-form-wrapper" -->
 <div id="amcsd-search-form" class="search_form">
     <div id="down_arrow" class="hidden">
