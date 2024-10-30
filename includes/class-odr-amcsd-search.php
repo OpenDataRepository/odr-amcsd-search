@@ -9,8 +9,8 @@
  * @link       https://opendatarepository.org
  * @since      1.0.0
  *
- * @package    Odr_Rruff_Search
- * @subpackage Odr_Rruff_Search/includes
+ * @package    Odr_Amcsd_Search
+ * @subpackage Odr_Amcsd_Search/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Odr_Rruff_Search
- * @subpackage Odr_Rruff_Search/includes
+ * @package    Odr_Amcsd_Search
+ * @subpackage Odr_Amcsd_Search/includes
  * @author     Nathan Stone <nate.stone@opendatarepository.org>
  */
-class Odr_Rruff_Search {
+class Odr_Amcsd_Search {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class Odr_Rruff_Search {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Odr_Rruff_Search_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Odr_Amcsd_Search_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -67,12 +67,12 @@ class Odr_Rruff_Search {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'ODR_RRUFF_SEARCH_VERSION' ) ) {
-			$this->version = ODR_RRUFF_SEARCH_VERSION;
+		if ( defined( 'ODR_AMCSD_SEARCH_VERSION' ) ) {
+			$this->version = ODR_AMCSD_SEARCH_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'odr-rruff-search';
+		$this->plugin_name = 'odr-amcsd-search';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -86,10 +86,10 @@ class Odr_Rruff_Search {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Odr_Rruff_Search_Loader. Orchestrates the hooks of the plugin.
-	 * - Odr_Rruff_Search_i18n. Defines internationalization functionality.
-	 * - Odr_Rruff_Search_Admin. Defines all hooks for the admin area.
-	 * - Odr_Rruff_Search_Public. Defines all hooks for the public side of the site.
+	 * - Odr_Amcsd_Search_Loader. Orchestrates the hooks of the plugin.
+	 * - Odr_Amcsd_Search_i18n. Defines internationalization functionality.
+	 * - Odr_Amcsd_Search_Admin. Defines all hooks for the admin area.
+	 * - Odr_Amcsd_Search_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -103,33 +103,33 @@ class Odr_Rruff_Search {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-odr-rruff-search-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-odr-amcsd-search-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-odr-rruff-search-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-odr-amcsd-search-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-odr-rruff-search-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-odr-amcsd-search-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-odr-rruff-search-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-odr-amcsd-search-public.php';
 
-		$this->loader = new Odr_Rruff_Search_Loader();
+		$this->loader = new Odr_Amcsd_Search_Loader();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Odr_Rruff_Search_i18n class in order to set the domain and to register the hook
+	 * Uses the Odr_Amcsd_Search_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -137,7 +137,7 @@ class Odr_Rruff_Search {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Odr_Rruff_Search_i18n();
+		$plugin_i18n = new Odr_Amcsd_Search_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -152,7 +152,7 @@ class Odr_Rruff_Search {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Odr_Rruff_Search_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Odr_Amcsd_Search_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -168,7 +168,7 @@ class Odr_Rruff_Search {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Odr_Rruff_Search_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Odr_Amcsd_Search_Public( $this->get_plugin_name(), $this->get_version() );
 
         $this->loader->add_action( 'init', $plugin_public, 'enqueue_styles' );
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
@@ -200,7 +200,7 @@ class Odr_Rruff_Search {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Odr_Rruff_Search_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Odr_Amcsd_Search_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

@@ -8,18 +8,18 @@
  * @link       https://opendatarepository.org
  * @since      1.0.0
  *
- * @package    Odr_Rruff_Search
- * @subpackage Odr_Rruff_Search/admin/partials
+ * @package    Odr_Amcsd_Search
+ * @subpackage Odr_Amcsd_Search/admin/partials
  */
 /**
  *
  * [
- *   odr-rruff-search-display datatype_id = "738"
+ *   odr-amcsd-search-display datatype_id = "738"
  *   general_search = "gen"
  *   chemistry_incl = "7055"
  *   mineral_name = "7052"
  *   sample_id = "7069"
- *   redirect_url = "/odr/rruff_sample#/odr/search/display/2010"
+ *   redirect_url = "/odr/amcsd_sample#/odr/search/display/2010"
  * ]
  *
  */

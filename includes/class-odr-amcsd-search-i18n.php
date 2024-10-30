@@ -9,8 +9,8 @@
  * @link       https://opendatarepository.org
  * @since      1.0.0
  *
- * @package    Odr_Rruff_Search
- * @subpackage Odr_Rruff_Search/includes
+ * @package    Odr_Amcsd_Search
+ * @subpackage Odr_Amcsd_Search/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Odr_Rruff_Search
- * @subpackage Odr_Rruff_Search/includes
+ * @package    Odr_Amcsd_Search
+ * @subpackage Odr_Amcsd_Search/includes
  * @author     Nathan Stone <nate.stone@opendatarepository.org>
  */
-class Odr_Rruff_Search_i18n {
+class Odr_Amcsd_Search_i18n {
 
 
 	/**
@@ -35,7 +35,7 @@ class Odr_Rruff_Search_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'odr-rruff-search',
+			'odr-amcsd-search',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

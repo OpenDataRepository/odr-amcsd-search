@@ -8,13 +8,13 @@
  * @link       https://opendatarepository.org
  * @since      1.0.0
  *
- * @package    Odr_Rruff_Search
- * @subpackage Odr_Rruff_Search/public/partials
+ * @package    Odr_Amcsd_Search
+ * @subpackage Odr_Amcsd_Search/public/partials
  */
 
 /*
     [
-        odr-rruff-search-display datatype_id = "738"
+        odr-amcsd-search-display datatype_id = "738"
         general_search = "gen"
         chemistry_incl = "7055"
         mineral_name = "7052"
@@ -22,7 +22,7 @@
         default_search = "2229"
         search_pictures = "2010"
         search_spectra = "111"
-        redirect_url = "/odr/rruff_sample#/odr/search/display"
+        redirect_url = "/odr/amcsd_sample#/odr/search/display"
     ]
 */
 
@@ -38,7 +38,7 @@
     search_options['chemistry_incl'] = "<?php echo $odr_search_plugin_options['chemistry_incl']; ?>";
     search_options['mineral_name'] = "<?php echo $odr_search_plugin_options['mineral_name']; ?>";
     search_options['sample_id'] = "<?php echo $odr_search_plugin_options['sample_id']; ?>";
-    search_options['rruff_id'] = "<?php echo $odr_search_plugin_options['rruff_id']; ?>";
+    search_options['amcsd_id'] = "<?php echo $odr_search_plugin_options['amcsd_id']; ?>";
     search_options['redirect_url'] = "<?php echo $odr_search_plugin_options['redirect_url']; ?>";
     search_options['default_search'] = "<?php echo $odr_search_plugin_options['default_search']; ?>";
     search_options['search_pictures'] = "<?php echo $odr_search_plugin_options['search_pictures']; ?>";
@@ -46,8 +46,8 @@
 </script>
 
 
-<!-- form id="rruff-search-form-wrapper" -->
-<div id="rruff-search-form" class="search_form">
+<!-- form id="amcsd-search-form-wrapper" -->
+<div id="amcsd-search-form" class="search_form">
     <div id="down_arrow" class="hidden">
         <i class="fa-solid fa-caret-down"></i>
     </div>
@@ -59,7 +59,7 @@
         <input type="text" id="txt_mineral" name="txt_mineral" size="30" maxlength="255" value="" />
         <input type="hidden" id="mineral_ids" name="mineral_ids" value="">
         <input type="hidden" id="txt_tag_ids" name="txt_tag_ids" value="">
-        <!-- <a class="page_link_1" href="Javascript:MM_openBrWindow('https://rruff.info/index.php/r=lookup_minerals/calling_form=frm_sample_search/name_field=txt_mineral','MineralLookup','scrollbars=yes,width=800,height=600')">lookup</a> -->
+        <!-- <a class="page_link_1" href="Javascript:MM_openBrWindow('https://amcsd.info/index.php/r=lookup_minerals/calling_form=frm_sample_search/name_field=txt_mineral','MineralLookup','scrollbars=yes,width=800,height=600')">lookup</a> -->
     </div>
 
     <div id="rsf_chemistry_incl_block" class="input_wrapper">
@@ -84,19 +84,19 @@
     </div>
 
     <!--
-    [odr-rruff-search-display datatype_id = "738"
+    [odr-amcsd-search-display datatype_id = "738"
     general_search = "gen"
     chemistry_incl = "7055"
     mineral_name = "7052"
     sample_id = "7069"
-    redirect_url = "/odr/rruff_sample#/odr/search/display/2010"]
+    redirect_url = "/odr/amcsd_sample#/odr/search/display/2010"]
     -->
 
     <div id="rsf_sort_block" class="input_wrapper">
         <label for="sel_sort">Sort By:</label>
         <select name="sel_sort" id="sel_sort" size="1">
             <option value="<?php echo $odr_search_plugin_options['sort_name_field']; ?>">Names</option>
-            <option value="<?php echo $odr_search_plugin_options['sort_rruff_id_field']; ?>">RRUFF ID</option>
+            <option value="<?php echo $odr_search_plugin_options['sort_amcsd_id_field']; ?>">AMCSD ID</option>
             <option value="<?php echo $odr_search_plugin_options['sort_ideal_chemistry_field']; ?>">Ideal Chemistry</option>
             <option value="<?php echo $odr_search_plugin_options['sort_source_field']; ?>">Locality</option>
             <option value="<?php echo $odr_search_plugin_options['sort_locality_field']; ?>">Source</option>
@@ -109,7 +109,7 @@
 
     <div id="rsf_submit_block" class="input_wrapper submit_wrapper">
         <label for="submit"></label>
-        <input id="rruff-search-form-submit" name="submit" type="submit" value="search">&nbsp;
+        <input id="amcsd-search-form-submit" name="submit" type="submit" value="search">&nbsp;
         <input id="reset_sample_search" type="button" name="reset_sample_search" value="reset">
         <a class="show-options" onclick="$('#div_display_options').toggle('slow');return false;">display options</a>
     </div>
@@ -119,7 +119,7 @@
         <div id="div_display_options_contents" style="padding-top: 10px;">
             <span class="title">Display Options</span><br>
             <ul class="display-options-list">
-                <li><input type="radio" id="display" name="display" value="default" checked="checked"> Default display - Name, RRUFF ID, Ideal Chemistry, Source, Locality.</li>
+                <li><input type="radio" id="display" name="display" value="default" checked="checked"> Default display - Name, AMCSD ID, Ideal Chemistry, Source, Locality.</li>
                 <li><input type="radio" id="display" name="display" value="picture"> Display pictures with the search results (limited to 100 per page).</li>
                 <li><input type="radio" id="display" name="display" value="raman"> Display Raman Spectra with the search results (limited to 100 per page).</li>
                 <li><input type="checkbox" id="save_as_default" name="save_as_default" value="true"> Save these options as your default search options.</li>
@@ -167,7 +167,7 @@
                 <div id="div_display_options_contents" style="padding-top: 10px;">
                     <span class="title">Display Options</span><br>
                     <ul>
-                        <li><input type="radio" id="display" name="display" value="default" checked="checked"> Default display - Name, RRUFF ID, Ideal Chemistry, Source, Locality.</li>
+                        <li><input type="radio" id="display" name="display" value="default" checked="checked"> Default display - Name, AMCSD ID, Ideal Chemistry, Source, Locality.</li>
                         <li><input type="radio" id="display" name="display" value="picture"> Display pictures with the search results (limited to 100 per page).</li>
                         <li><input type="radio" id="display" name="display" value="raman"> Display Raman Spectra with the search results (limited to 100 per page).</li>
                         <li><input type="checkbox" id="save_as_default" name="save_as_default" value="true"> Save these options as your default search options.</li>
@@ -211,7 +211,7 @@
 
 <div id="div_periodic_table" style="overflow: visible;">
     <div id="div_periodic_table_contents" style="min-height: 200px; padding-top: 10px;">
-        <table id="rruff-periodic-table">
+        <table id="amcsd-periodic-table">
             <tbody><tr>
                 <td><div style="display: block; text-align:center; cursor: pointer;  background:#a0ffa0;" class="periodic_table chem_ele_unselected" id="periodic_table_H">H</div></td>
                 <td colspan="16" align="center" id="periodic_table_instructions">Click an element once to include, twice to exclude.</td>

@@ -7,7 +7,7 @@
   Search Form Definitions
 ************************************/
 
-#odr_rruff_search_dialog {
+#odr_amcsd_search_dialog {
     margin-top: 160px;
     margin-left: auto;
     margin-right: auto;
@@ -126,7 +126,7 @@ th.search_form {
 /************************************
 Search Form Definitions
 ************************************/
-#rruff-search-form {
+#amcsd-search-form {
     padding: 12px 12px 12px 12px;
     background-color: rgba(0, 0, 0, 0.20);
     border: none;
@@ -203,7 +203,7 @@ label > a {
     /* END Deal with Elementor Padding Issues */
 
 
-    #rruff-periodic-table {
+    #amcsd-periodic-table {
         transform-origin: left top;
         transform: scale(0.7);
         margin-left: calc(16px + (100% - 360px)/2);
@@ -216,7 +216,7 @@ label > a {
     }
 
 
-    #rruff-search-form {
+    #amcsd-search-form {
         padding-left: 40px;
         padding-right: 20px;
         width: 360px;
@@ -262,7 +262,7 @@ label > a {
     /* END Deal with Elementor Padding Issues */
 
     /* Ensure Periodic Table is Scaled to 90% of Screen Width */
-    #rruff-periodic-table {
+    #amcsd-periodic-table {
         /* transform-origin: left top; */
         transform: scale(0.8);
         position: relative;
@@ -276,7 +276,7 @@ label > a {
 
      */
 
-    #rruff-search-form {
+    #amcsd-search-form {
         padding-left: 40px;
         padding-right: 20px;
         width: 360px;
@@ -335,13 +335,13 @@ table.search_form th {
    display: none;
 }
 
-#rruff-periodic-table {
+#amcsd-periodic-table {
     background-color: rgba(220,220,220, 0.0);
     border: none;
 }
 
-#rruff-periodic-table td,
-#rruff-periodic-table td {
+#amcsd-periodic-table td,
+#amcsd-periodic-table td {
     border: none;
     padding: 0 0 0 0 !important;
 }

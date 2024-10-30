@@ -6,8 +6,8 @@
  * @link       https://opendatarepository.org
  * @since      1.0.0
  *
- * @package    Odr_Rruff_Search
- * @subpackage Odr_Rruff_Search/public
+ * @package    Odr_Amcsd_Search
+ * @subpackage Odr_Amcsd_Search/public
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
- * @package    Odr_Rruff_Search
- * @subpackage Odr_Rruff_Search/public
+ * @package    Odr_Amcsd_Search
+ * @subpackage Odr_Amcsd_Search/public
  * @author     Nathan Stone <nate.stone@opendatarepository.org>
  */
-class Odr_Rruff_Search_Public {
+class Odr_Amcsd_Search_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -65,18 +65,18 @@ class Odr_Rruff_Search_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Odr_Rruff_Search_Loader as all of the hooks are defined
+		 * defined in Odr_Amcsd_Search_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Odr_Rruff_Search_Loader will then create the relationship
+		 * The Odr_Amcsd_Search_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-        add_shortcode('odr-rruff-search-display', array($this, 'odr_render_html'));
+        add_shortcode('odr-amcsd-search-display', array($this, 'odr_render_html'));
 
         // TODO Need to read configuration variables for other pages
-        wp_register_style( $this->plugin_name . '-style', plugin_dir_url( __FILE__ ) . 'css/odr-rruff-search-public.css', array(), $this->version, 'all' );
+        wp_register_style( $this->plugin_name . '-style', plugin_dir_url( __FILE__ ) . 'css/odr-amcsd-search-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -91,16 +91,16 @@ class Odr_Rruff_Search_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Odr_Rruff_Search_Loader as all of the hooks are defined
+		 * defined in Odr_Amcsd_Search_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Odr_Rruff_Search_Loader will then create the relationship
+		 * The Odr_Amcsd_Search_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-        wp_register_script( $this->plugin_name . '-js', plugin_dir_url( __FILE__ ) . 'js/odr-rruff-search-public.js', array( 'jquery' ), $this->version, false );
-        wp_register_script( $this->plugin_name . '-mineral-data', 'https://beta.rruff.net/odr_rruff/uploads/IMA/mineral_data.js', '', '', false);
+        wp_register_script( $this->plugin_name . '-js', plugin_dir_url( __FILE__ ) . 'js/odr-amcsd-search-public.js', array( 'jquery' ), $this->version, false );
+        wp_register_script( $this->plugin_name . '-mineral-data', 'https://beta.amcsd.net/odr_amcsd/uploads/IMA/mineral_data.js', '', '', false);
 
 	}
 
@@ -114,7 +114,7 @@ class Odr_Rruff_Search_Public {
         // override default attributes with user attributes
 
         /*
-            [odr-rruff-search-display datatype_id = "738"
+            [odr-amcsd-search-display datatype_id = "738"
                 general_search = "gen"
                 chemistry_incl = "7055"
                 mineral_name = "7052"
@@ -122,14 +122,14 @@ class Odr_Rruff_Search_Public {
                 default_search = "2229"
                 search_pictures = "2010"
                 search_spectra = "111"
-                redirect_url = "/odr/rruff_sample#/odr/search/display/2010"
+                redirect_url = "/odr/amcsd_sample#/odr/search/display/2010"
         ]
         */
 
 
-        $odr_rruff_search_vars = shortcode_atts(
+        $odr_amcsd_search_vars = shortcode_atts(
             array(
-                'redirect_url' => '/odr/rruff_sample#/odr/search/display/7',
+                'redirect_url' => '/odr/amcsd_sample#/odr/search/display/7',
                 datatype_id => "77",
                 general_search => "gen",
                 chemistry_incl => "199",
@@ -148,7 +148,7 @@ class Odr_Rruff_Search_Public {
         $odr_search_plugin_options = get_option( 'odr_search_plugin_options' );
 
         ob_start();
-        include_once('partials/odr-rruff-search-public-display.php');
+        include_once('partials/odr-amcsd-search-public-display.php');
         $search_block = ob_get_contents();
         ob_end_clean();
         return $search_block;

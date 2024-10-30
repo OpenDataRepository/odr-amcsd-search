@@ -8,56 +8,56 @@
  * @link       https://opendatarepository.org
  * @since      1.0.0
  *
- * @package    Odr_Rruff_Search
- * @subpackage Odr_Rruff_Search/admin/partials
+ * @package    Odr_Amcsd_Search
+ * @subpackage Odr_Amcsd_Search/admin/partials
  */
 /**
  *
  * [
- *   odr-rruff-search-display datatype_id = "738"
+ *   odr-amcsd-search-display datatype_id = "738"
  *   general_search = "gen"
  *   chemistry_incl = "7055"
  *   mineral_name = "7052"
  *   sample_id = "7069"
- *   redirect_url = "/odr/rruff_sample#/odr/search/display/2010"
+ *   redirect_url = "/odr/amcsd_sample#/odr/search/display/2010"
  * ]
  *
  */
 
-// Need to load RRUFF CSS
+// Need to load AMCSD CSS
 
 ?>
 <script type="text/javascript">
     let link = document.createElement("link");
-    link.href = "/odr_rruff/css/external/pure-min.css";
+    link.href = "/odr_amcsd/css/external/pure-min.css";
     link.type = "text/css";
     link.rel = "stylesheet";
     link.media = "screen,print";
     document.getElementsByTagName("head")[0].appendChild(link);
 
     link = document.createElement("link");
-    link.href = "/odr_rruff/css/external/pure-grids-responsive-min.css";
+    link.href = "/odr_amcsd/css/external/pure-grids-responsive-min.css";
     link.type = "text/css";
     link.rel = "stylesheet";
     link.media = "screen,print";
     document.getElementsByTagName("head")[0].appendChild(link);
 
     link = document.createElement("link");
-    link.href = "/odr_rruff/css/odr_wordpress.1.8.0.css";
+    link.href = "/odr_amcsd/css/odr_wordpress.1.8.0.css";
     link.type = "text/css";
     link.rel = "stylesheet";
     link.media = "screen,print";
     document.getElementsByTagName("head")[0].appendChild(link);
 
     link = document.createElement("link");
-    link.href = "/odr_rruff/css/themes/css_smart/smart_wordpress.1.8.0.css";
+    link.href = "/odr_amcsd/css/themes/css_smart/smart_wordpress.1.8.0.css";
     link.type = "text/css";
     link.rel = "stylesheet";
     link.media = "screen,print";
     document.getElementsByTagName("head")[0].appendChild(link);
 
     link = document.createElement("link");
-    link.href = "/odr_rruff/css/themes/css_smart/style_wordpress.1.8.0.css";
+    link.href = "/odr_amcsd/css/themes/css_smart/style_wordpress.1.8.0.css";
     link.type = "text/css";
     link.rel = "stylesheet";
     link.media = "screen,print";
@@ -82,7 +82,7 @@
     <div id="main" style="width: 100%">
         <div id="odr_content">
             <div id="ODRSearchContent" class="pure-u-1 pure-u-sm-2-3 pure-u-md-2-3 pure-u-xl-3-4" style="opacity: 1;">
-                <div class="ODRCreatedBy pure-u-1 PadRight"><strong>Created by: </strong>rruff@rruff.info
+                <div class="ODRCreatedBy pure-u-1 PadRight"><strong>Created by: </strong>amcsd@amcsd.info
                     <strong>on</strong> 2005-04-13 12:04:00 (UTC-5)
                     <strong>Last Modified by: </strong>David Hubler
                     <strong>on</strong> 2024-02-19 11:02:39 (UTC-5)
@@ -134,7 +134,7 @@
                                             <form class="pure-u-1" id="ViewForm_691090_7150">
                                                 <fieldset><label for="Input_691090_7150" class="ODRFieldLabel"
                                                                  title="The id of the sample or sample fragment/child used in the analysis.">Child
-                                                        RRUFF ID</label>
+                                                        AMCSD ID</label>
                                                     <div class="ODRFieldWrapper" id="Input_691090_7150"><input
                                                                 id="MediumVarcharForm_691090_7150"
                                                                 class="pure-u-1 Cursor"

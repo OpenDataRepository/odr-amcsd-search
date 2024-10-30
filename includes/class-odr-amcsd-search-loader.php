@@ -6,8 +6,8 @@
  * @link       https://opendatarepository.org
  * @since      1.0.0
  *
- * @package    Odr_Rruff_Search
- * @subpackage Odr_Rruff_Search/includes
+ * @package    Odr_Amcsd_Search
+ * @subpackage Odr_Amcsd_Search/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Odr_Rruff_Search
- * @subpackage Odr_Rruff_Search/includes
+ * @package    Odr_Amcsd_Search
+ * @subpackage Odr_Amcsd_Search/includes
  * @author     Nathan Stone <nate.stone@opendatarepository.org>
  */
-class Odr_Rruff_Search_Loader {
+class Odr_Amcsd_Search_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

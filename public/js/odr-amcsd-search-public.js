@@ -36,8 +36,8 @@
 		$("#rsf_general_block").hide();
 		$("#rsf_sort_block").hide();
 		$("#rsf_submit_block").addClass('summary-submit-block')
-		$("#odr_rruff_search_dialog").addClass('summary-search-form')
-		$("#rruff-search-form").addClass('summary-search-form')
+		$("#odr_amcsd_search_dialog").addClass('summary-search-form')
+		$("#amcsd-search-form").addClass('summary-search-form')
 	}
 
 	$( window ).load(function() {
@@ -48,7 +48,7 @@
 
 		// Check if hash is a search page and reveal search block
 		if(location.hash.match(/odr\/search\/display/)) {
-			$("#odr_rruff_search_dialog").show('fast');
+			$("#odr_amcsd_search_dialog").show('fast');
 			summarySearchMode();
 		}
 
@@ -106,7 +106,7 @@
 								$("#txt_mineral").val(value);
 								$("#rsf_mineral_block").show();
 								break;
-							case 'rruff_id':
+							case 'amcsd_id':
 								$("#txt_mineral").val(value);
 								$("#rsf_mineral_block").show();
 								break;
@@ -252,7 +252,7 @@
 
 
 		/*
-		$("#rruff-search-form-wrapper").submit(
+		$("#amcsd-search-form-wrapper").submit(
 			function () {
 				submitSearchForm();
 				return false;
@@ -260,7 +260,7 @@
 		);
 		 */
 
-		$("#rruff-search-form-submit").click(
+		$("#amcsd-search-form-submit").click(
 			// Use BtoA to encode
 			function () {
 				submitSearchForm();
@@ -272,14 +272,14 @@
 	function submitSearchForm() {
 		console.log('Submit Search Form')
 		// UnicodeDecodeB64("JUUyJTlDJTkzJTIwJUMzJUEwJTIwbGElMjBtb2Rl"); // "✓ à la mode"
-		// Get mineral names or RRUFF IDS from txt_mineral
+		// Get mineral names or AMCSD IDS from txt_mineral
 		let search_json = {
 			"dt_id": search_options['datatype_id']
 		};
 		if($("#txt_mineral").val().trim().match(/^R\d+$/i)) {
 			// display specific mineral id
 			// {"dt_id":"3","34":"r040034"}
-			search_json[ search_options['rruff_id'] ] = $("#txt_mineral").val().trim();
+			search_json[ search_options['amcsd_id'] ] = $("#txt_mineral").val().trim();
 		}
 		else if($("#txt_mineral").val().trim() !== '') {
 			// Check for commas (separated minerals)
@@ -343,7 +343,7 @@
 	    let search_string = b64EncodeUnicode(JSON.stringify(search_json)); // "JUUyJTlDJTkzJTIwJUMzJUEwJTIwbGElMjBtb2Rl"
 		search_string = search_string.replace(/==$/, '');
 		search_string = search_string.replace(/=$/, '');
-		// https://beta.rruff.net/odr/rruff_samples#/odr/search/display/7/eyJkdF9pZCI6IjMifQ/1
+		// https://beta.amcsd.net/odr/amcsd_samples#/odr/search/display/7/eyJkdF9pZCI6IjMifQ/1
 
 
 		if(search_options['redirect_url'] === '/odr/network') {

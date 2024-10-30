@@ -6,8 +6,8 @@
  * @link       https://opendatarepository.org
  * @since      1.0.0
  *
- * @package    Odr_Rruff_Search
- * @subpackage Odr_Rruff_Search/admin
+ * @package    Odr_Amcsd_Search
+ * @subpackage Odr_Amcsd_Search/admin
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Odr_Rruff_Search
- * @subpackage Odr_Rruff_Search/admin
+ * @package    Odr_Amcsd_Search
+ * @subpackage Odr_Amcsd_Search/admin
  * @author     Nathan Stone <nate.stone@opendatarepository.org>
  */
-class Odr_Rruff_Search_Admin {
+class Odr_Amcsd_Search_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -72,15 +72,15 @@ class Odr_Rruff_Search_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Odr_Rruff_Search_Loader as all of the hooks are defined
+		 * defined in Odr_Amcsd_Search_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Odr_Rruff_Search_Loader will then create the relationship
+		 * The Odr_Amcsd_Search_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-        wp_register_style( $this->plugin_name . '-style', plugin_dir_url( __FILE__ ) . 'css/odr-rruff-search-admin.css', array(), $this->version, 'all' );
+        wp_register_style( $this->plugin_name . '-style', plugin_dir_url( __FILE__ ) . 'css/odr-amcsd-search-admin.css', array(), $this->version, 'all' );
         wp_register_style( $this->plugin_name . '-coloris-style', plugin_dir_url( __FILE__ ) . 'css/coloris.min.css', array(), $this->version, 'all' );
 
 	}
@@ -96,15 +96,15 @@ class Odr_Rruff_Search_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Odr_Rruff_Search_Loader as all of the hooks are defined
+		 * defined in Odr_Amcsd_Search_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Odr_Rruff_Search_Loader will then create the relationship
+		 * The Odr_Amcsd_Search_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-        wp_register_script( $this->plugin_name . '-js', plugin_dir_url( __FILE__ ) . 'js/odr-rruff-search-admin.js', array( ), $this->version, false );
+        wp_register_script( $this->plugin_name . '-js', plugin_dir_url( __FILE__ ) . 'js/odr-amcsd-search-admin.js', array( ), $this->version, false );
         wp_register_script( $this->plugin_name . '-coloris-js', plugin_dir_url( __FILE__ ) . 'js/coloris.min.js', array( ), $this->version, false );
 
         add_action( 'admin_menu', 'odr_search_add_settings_page' );
@@ -135,7 +135,7 @@ class Odr_Rruff_Search_Admin {
 
     public function displayPluginAdminDashboard() {
         // List all records IMA
-        // https://beta.rruff.net/odr/api/v1/search/database/0f59b751673686197f49f4e117e9/records/0/0.json
+        // https://beta.amcsd.net/odr/api/v1/search/database/0f59b751673686197f49f4e117e9/records/0/0.json
         require_once 'partials/'.$this->plugin_name.'-admin-display.php';
     }
 
@@ -148,7 +148,7 @@ class Odr_Rruff_Search_Admin {
 
         // set this var to be used in the settings-display view
         // IMA List UUID
-        // RRUFF Cell Parameters
+        // AMCSD Cell Parameters
         $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'general';
         if(isset($_GET['error_message'])){
             // add_action('admin_notices', array($this,'pluginNameSettingsMessages'));
@@ -177,12 +177,12 @@ class Odr_Rruff_Search_Admin {
         /**
          *
          * [
-         *   odr-rruff-search-display datatype_id = "738"
+         *   odr-amcsd-search-display datatype_id = "738"
          *   general_search = "gen"
          *   chemistry_incl = "7055"
          *   mineral_name = "7052"
          *   sample_id = "7069"
-         *   redirect_url = "/odr/rruff_sample#/odr/search/display/2010"
+         *   redirect_url = "/odr/amcsd_sample#/odr/search/display/2010"
          * ]
          *
          */
@@ -230,9 +230,9 @@ class Odr_Rruff_Search_Admin {
             'field_settings'
         );
         add_settings_field(
-            'odr_search_rruff_id',
-            'RRUFF ID Field',
-            array( $this, 'odr_search_rruff_id' ),
+            'odr_search_amcsd_id',
+            'AMCSD ID Field',
+            array( $this, 'odr_search_amcsd_id' ),
             $this->plugin_name,
             'field_settings'
         );
@@ -282,9 +282,9 @@ class Odr_Rruff_Search_Admin {
             'field_settings'
         );
         add_settings_field(
-            'odr_search_sort_rruff_id_field',
-            'Sort by RRUFF ID Field ID',
-            array( $this, 'odr_search_sort_rruff_id_field' ),
+            'odr_search_sort_amcsd_id_field',
+            'Sort by AMCSD ID Field ID',
+            array( $this, 'odr_search_sort_amcsd_id_field' ),
             $this->plugin_name,
             'field_settings'
         );
@@ -340,9 +340,9 @@ class Odr_Rruff_Search_Admin {
         $options = get_option( 'odr_search_plugin_options' );
         echo "<input id='odr_search_sample_id' name='odr_search_plugin_options[sample_id]' type='text' value='" . esc_attr( $options['sample_id'] ) . "' />";
     }
-    function odr_search_rruff_id() {
+    function odr_search_amcsd_id() {
         $options = get_option( 'odr_search_plugin_options' );
-        echo "<input id='odr_search_rruff_id' name='odr_search_plugin_options[rruff_id]' type='text' value='" . esc_attr( $options['rruff_id'] ) . "' />";
+        echo "<input id='odr_search_amcsd_id' name='odr_search_plugin_options[amcsd_id]' type='text' value='" . esc_attr( $options['amcsd_id'] ) . "' />";
     }
     function odr_search_redirect_url() {
         $options = get_option( 'odr_search_plugin_options' );
@@ -364,9 +364,9 @@ class Odr_Rruff_Search_Admin {
         $options = get_option( 'odr_search_plugin_options' );
         echo "<input id='odr_search_sort_name_field' name='odr_search_plugin_options[sort_name_field]' type='text' value='" . esc_attr( $options['sort_name_field'] ) . "' />";
     }
-    function odr_search_sort_rruff_id_field() {
+    function odr_search_sort_amcsd_id_field() {
         $options = get_option( 'odr_search_plugin_options' );
-        echo "<input id='odr_search_sort_rruff_id_field' name='odr_search_plugin_options[sort_rruff_id_field]' type='text' value='" . esc_attr( $options['sort_rruff_id_field'] ) . "' />";
+        echo "<input id='odr_search_sort_amcsd_id_field' name='odr_search_plugin_options[sort_amcsd_id_field]' type='text' value='" . esc_attr( $options['sort_amcsd_id_field'] ) . "' />";
     }
     function odr_search_sort_ideal_chemistry_field() {
         $options = get_option( 'odr_search_plugin_options' );

@@ -10,18 +10,18 @@
  *
  * @link              https://opendatarepository.org
  * @since             1.0.0
- * @package           Odr_Rruff_Search
+ * @package           Odr_Amcsd_Search
  *
  * @wordpress-plugin
- * Plugin Name:       RRUFF Search
+ * Plugin Name:       AMCSD Search
  * Plugin URI:        https://opendatarepository.org
- * Description:       A plugin to search ODR Databases that use the RRUFF Structure.
+ * Description:       A plugin to search ODR Databases that use the AMCSD Structure.
  * Version:           1.0.0
  * Author:            Nathan Stone
  * Author URI:        https://opendatarepository.org
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       odr-rruff-search
+ * Text Domain:       odr-amcsd-search
  * Domain Path:       /languages
  */
 
@@ -35,34 +35,34 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-const ODR_RRUFF_SEARCH_VERSION = '1.1.36';
+const ODR_AMCSD_SEARCH_VERSION = '1.1.36';
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-odr-rruff-search-activator.php
+ * This action is documented in includes/class-odr-amcsd-search-activator.php
  */
-function activate_odr_rruff_search() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-odr-rruff-search-activator.php';
-	Odr_Rruff_Search_Activator::activate();
+function activate_odr_amcsd_search() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-odr-amcsd-search-activator.php';
+	Odr_Amcsd_Search_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-odr-rruff-search-deactivator.php
+ * This action is documented in includes/class-odr-amcsd-search-deactivator.php
  */
-function deactivate_odr_rruff_search() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-odr-rruff-search-deactivator.php';
-	Odr_Rruff_Search_Deactivator::deactivate();
+function deactivate_odr_amcsd_search() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-odr-amcsd-search-deactivator.php';
+	Odr_Amcsd_Search_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_odr_rruff_search' );
-register_deactivation_hook( __FILE__, 'deactivate_odr_rruff_search' );
+register_activation_hook( __FILE__, 'activate_odr_amcsd_search' );
+register_deactivation_hook( __FILE__, 'deactivate_odr_amcsd_search' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-odr-rruff-search.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-odr-amcsd-search.php';
 
 /**
  * Begins execution of the plugin.
@@ -73,10 +73,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-odr-rruff-search.php';
  *
  * @since    1.0.0
  */
-function run_odr_rruff_search() {
+function run_odr_amcsd_search() {
 
-	$plugin = new Odr_Rruff_Search();
+	$plugin = new Odr_Amcsd_Search();
 	$plugin->run();
 
 }
-run_odr_rruff_search();
+run_odr_amcsd_search();

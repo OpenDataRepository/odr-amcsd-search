@@ -22,7 +22,7 @@
  * @link       https://opendatarepository.org
  * @since      1.0.0
  *
- * @package    Odr_Rruff_Search
+ * @package    Odr_Amcsd_Search
  */
 
 // If uninstall not called from WordPress, then exit.
