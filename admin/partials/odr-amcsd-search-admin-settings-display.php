@@ -77,7 +77,7 @@
         border: none; !important;
     }
 </style>
-<h2>ODR Search Plugin Settings</h2>
+<h2>AMCSD Search Plugin Settings</h2>
 <div class="pure-skin-odr" id="odr-main-content-wrapper">
     <div id="main" style="width: 100%">
         <div id="odr_content">

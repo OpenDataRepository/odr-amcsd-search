@@ -114,7 +114,7 @@ class Odr_Amcsd_Search_Admin {
         //add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
         add_menu_page(
             $this->plugin_name,
-            'ODR Search',
+            'AMCSD Search',
             'administrator',
             $this->plugin_name,
             array( $this, 'displayPluginAdminDashboard' ),
@@ -125,7 +125,7 @@ class Odr_Amcsd_Search_Admin {
         //add_submenu_page( '$parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
         add_submenu_page(
             $this->plugin_name,
-            'ODR Search Settings',
+            'AMCSD Search Settings',
             'Settings',
             'administrator',
             $this->plugin_name.'-settings',
