@@ -46,467 +46,1755 @@
 </script>
 
 
-<center>
+<div id="AMCSDMainContent">
     <!-- frame enclosing table -->
-    <table width="850"><tbody><tr><td>
-        <p>
-        <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#0a0806">
-            <tbody><tr>
-                <td>
-                    <div align="center" style="font-weight: bold; color:#eee;margin-left: 50px; margin-right: 50px;"><!--Notice: The RRUFF Database and associated websites will be down for scheduled maintenance on Monday, October 1, 2007 from 12:00 AM to 8:00 AM PST (GMT +8). -->
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td><div align="center"><a href="/AMS/amcsd.php"><img src="/AMS/images/header.gif" title="Return to AMCSD main page" width="479" height="33" alt="American Mineralogist Crystal Structure Database" border="0" id="ams"></a></div></td>
-            </tr>
-            </tbody></table>
-        </p><p>
-        </p><p>
-            This site is an interface to a crystal structure database that includes every structure published in the American Mineralogist, The Canadian Mineralogist, European Journal of Mineralogy and Physics and Chemistry of Minerals, as well as selected datasets from other journals. The database is maintained under the care of the Mineralogical Society of America and the Mineralogical Association of Canada, and financed by the National Science Foundation.
-
-        </p><p>
-        </p><center>
-            <form name="myForm" action="/AMS/result.php" method="POST">
-                <table cellspacing="3" cellpadding="3" class="interface_table" width="75%">
-                    <tbody><tr>
-                        <td width="50%"><input type="text" name="Mineral" value="" size="50"></td>
-                        <td><a href="javascript:submitForm('index_min.php');" class="title">Mineral</a></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" name="Author" value="" size="50"></td>
-                        <td><a href="javascript:submitForm('index_auth.php');" class="title">Author</a> </td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" name="Periodic" value="" size="50"></td>
-                        <td><a href="javascript:submitForm('periodictable.php');" class="title">Chemistry Search</a></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" name="CellParam" value="" size="50"></td>
-                        <td><a href="javascript:submitForm('CellParamSg.php');" class="title">Cell Parameters and Symmetry</a> </td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" name="diff" value="" size="50"></td>
-                        <td><a href="javascript:submitForm('diffpatt.php');" class="title">Diffraction Search</a> </td>
-                    </tr>
-                    <tr valign="top">
-                        <td><input type="text" name="Key" size="50" value=""></td>
-                        <td><strong>General Search</strong><br>
-                            <b><a href="/AMS/tips.php" class="title" title="Click for more details...">Search Tips</a></b></td>
-                    </tr>
-
-                    <tr>
-                        <td align="center" colspan="2">
-                            <input type="submit" value="Search">
-                            <input type="button" value="Reset" onclick="resetForm(); return true;">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center"></td>
-                    </tr>
-                    </tbody></table>
-                <p>
-
-                <table cellspacing="3" cellpadding="3" class="interface_table" width="75%">
-                    <tbody><tr>
-                        <td nowrap=""><b> Logic interface</b></td>
-                        <td width="75%">
-                            <input type="radio" name="logic" value="AND" checked=""> <b>AND</b>
-                            <input type="radio" name="logic" value="OR"> <b>OR</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td nowrap=""><b>Viewing</b> (About <a href="/AMS/format.php" class="title">File Formats</a>)</td>
-                        <td>
-                            <input type="radio" name="Viewing" value="amclongform" checked="">amc long form
-                            <input type="radio" name="Viewing" value="amcshortform"> amc short form
-                            <input type="radio" name="Viewing" value="cif"> cif <br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td nowrap=""><b>Download</b> </td>
-                        <td>
-                            <input type="radio" name="Download" value="amc" checked=""> amc
-                            <input type="radio" name="Download" value="cif"> cif
-                            <input type="radio" name="Download" value="dif"> diffraction data
-                            <input type="hidden" name="hid1" value="">
-                        </td>
-                    </tr>
-                    </tbody></table>
-                </p></form></center>
-
-
-        <hr>
-
-
-        <center>
-            <table>
-                <tbody><tr>
-                    <td><a href="/AMS/people.php"><img src="/AMS/images/people.gif" align="absmiddle" hspace="15" border="0"></a></td>
-                    <td><a href="http://www.nsf.gov/"><img src="/AMS/images/nsf.gif" align="leftt" hspace="15" border="0"></a></td>
-                    <td><a href="http://www.minsocam.org"><img src="/AMS/images/MSAws.gif" title="MSA" align="left" border="0" hspace="15"></a></td>
-                    <td><a href="http://www.mineralogicalassociation.ca/"><img src="/AMS/images/canmin.gif" align="left" title="CanMin" border="0" hspace="15"></a>
+    <div align="center" style="font-weight: bold; color:#eee;margin-left: 50px; margin-right: 50px;">
+        <!--Notice: The RRUFF Database and associated websites will be down for scheduled maintenance on Monday, October 1, 2007 from 12:00 AM to 8:00 AM PST (GMT +8). -->
+    </div>
+    <div id="AMCSDMainTitle">
+        American Mineralogist Crystal Structure Database
+    </div>
+    <div class="AMCSDContent">
+        This site is an interface to a crystal structure database that includes every structure published in the
+        American Mineralogist, The Canadian Mineralogist, European Journal of Mineralogy and Physics and Chemistry of
+        Minerals, as well as selected datasets from other journals. The database is maintained under the care of the
+        Mineralogical Society of America and the Mineralogical Association of Canada, and financed by the National
+        Science Foundation.
+    </div>
+    <div class="AMCSDForm">
+        <form name="myForm" action="/AMS/result.php" method="POST">
+            <table class="AMCSDInterfaceTable">
+                <tr>
+                    <td width="50%"><input type="text" id="txt_mineral" name="Mineral" value="" size="50"></td>
+                    <td>
+                        <a href="#AMCSDMineralList" rel="modal:open" class="AMCSDHelperLink">
+                            Mineral
+                        </a>
                     </td>
-                    <td><a href="http://www.schweizerbart.de/j/ejm/"><img src="/AMS/images/ejm.gif" align="left" border="0" hspace="15"></a></td>
-                    <td><a href="http://www.geo.arizona.edu/xtal/"><img src="/AMS/images/UofA.gif" align="left" border="0" hspace="15</A"></a></td>
-                    <td><a href="/AMS/extra.php"><img src="/AMS/images/extra.gif" align="left" border="0" hspace="15</A"></a></td>
                 </tr>
-                </tbody></table>
-        </center>
-        <p>
+                <tr>
+                    <td><input type="text" name="Author" value="" size="50"></td>
+                    <td><a href="javascript:submitForm('index_auth.php');" class="AMCSDHelperLink">Author</a></td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="txt_chemistry_incl" name="Periodic" value="" size="50"></td>
+                    <td><a onclick="togglePeriodicTable()" class="AMCSDHelperLink">Chemistry Search</a></td>
+                </tr>
+                <tr id="AMCSDPeriodicTableTD">
+                    <td colspan="2">
+                        <div class="AMCSDPeriodicTable">
+                            <div id="div_periodic_table" style="overflow: visible;">
+                                <div id="div_periodic_table_contents" style="min-height: 200px; padding-top: 10px;">
+                                    <table id="rruff-periodic-table">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="periodic_table pt_hydrogen chem_ele_unselected"
+                                                     id="periodic_table_H">H
+                                                </div>
+                                            </td>
+                                            <td colspan="16" align="center" id="periodic_table_instructions">
+                                                Click an element: once &raquo; required, twice &raquo; possible, thrice
+                                                &raquo;
+                                                exclude
+                                            </td>
+                                            <td>
+                                                <div class="pt_noble_gases periodic_table chem_ele_unselected"
+                                                     id="periodic_table_He">He
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Li">Li
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkaline_earth_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Be">Be
+                                                </div>
+                                            </td>
+                                            <td colspan="1"></td>
+                                            <td colspan="9">
+                                                <div style="width: 90%;text-align:center; cursor: pointer;  background:#ffdead;"
+                                                     class="periodic_table chem_ele_unselected"
+                                                     id="periodic_table_clear">Clear
+                                                    Chemistry
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_metalloid periodic_table chem_ele_unselected"
+                                                     id="periodic_table_B">
+                                                    B
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_nonmetal periodic_table chem_ele_unselected"
+                                                     id="periodic_table_C">
+                                                    C
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_nonmetal periodic_table chem_ele_unselected"
+                                                     id="periodic_table_N">
+                                                    N
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_nonmetal periodic_table chem_ele_unselected"
+                                                     id="periodic_table_O">
+                                                    O
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_halides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_F">F
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_noble_gases periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ne">Ne
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Na">Na
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkaline_earth_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Mg">Mg
+                                                </div>
+                                            </td>
+                                            <td colspan="1"></td>
+                                            <td colspan="9">
+                                                <div style="width: 90%;text-align:center; cursor: pointer; background:#ffdead;"
+                                                     class="periodic_table chem_ele_unselected" id="periodic_table_all">
+                                                    Exclude&nbsp;all&nbsp;non-selected
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Al">Al
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_metalloid periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Si">
+                                                    Si
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_nonmetal periodic_table chem_ele_unselected"
+                                                     id="periodic_table_P">
+                                                    P
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_nonmetal periodic_table chem_ele_unselected"
+                                                     id="periodic_table_S">
+                                                    S
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_halides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Cl">
+                                                    Cl
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_noble_gases periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ar">Ar
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_K">K
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkaline_earth_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ca">Ca
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Sc">Sc
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ti">Ti
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_V">V
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Cr">Cr
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Mn">Mn
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Fe">Fe
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Co">Co
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ni">Ni
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Cu">Cu
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Zn">Zn
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ga">Ga
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_metalloid periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ge">
+                                                    Ge
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_metalloid periodic_table chem_ele_unselected"
+                                                     id="periodic_table_As">
+                                                    As
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_nonmetal periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Se">
+                                                    Se
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_halides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Br">
+                                                    Br
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_noble_gases periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Kr">Kr
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Rb">Rb
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkaline_earth_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Sr">Sr
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Y">Y
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Zr">Zr
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Nb">Nb
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Mo">Mo
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Tc">Tc
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ru">Ru
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Rh">Rh
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Pd">Pd
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ag">Ag
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Cd">Cd
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_In">In
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Sn">Sn
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_metalloid periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Sb">
+                                                    Sb
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_metalloid periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Te">
+                                                    Te
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_halides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_I">I
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_noble_gases periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Xe">Xe
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Cs">Cs
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkaline_earth_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ba">Ba
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div style="text-align:center; cursor: pointer;  background:#ffb888; font-style: italic;"
+                                                     class="periodic_table chem_ele_unselected"
+                                                     id="periodic_table_lanthanides"
+                                                     title="Shortcut for the lanthanide elements.">Ln
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Hf">Hf
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ta">Ta
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_W">W
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Re">Re
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Os">Os
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ir">Ir
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Pt">Pt
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Au">Au
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_transition_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Hg">Hg
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Tl">Tl
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Pb">Pb
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Bi">Bi
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Po">Po
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_halides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_At">
+                                                    At
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_noble_gases periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Rn">Rn
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="pt_alkali_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Fr">Fr
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_alkaline_earth_metals periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ra">Ra
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div style="text-align:center; cursor: pointer;  background:#ff99cc; font-style: italic;"
+                                                     class="periodic_table chem_ele_unselected"
+                                                     id="periodic_table_actinides"
+                                                     title="Shortcut for the actinide elements.">An
+                                                </div>
+                                            </td>
+                                            <!-- <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Rf" >104<br />Rf</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Db" >105<br />Db</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Sg" >106<br />Sg</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Bh" >107<br />Bh</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Hs" >108<br />Hs</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Mt" >109<br />Mt</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Ds" >110<br />Ds</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Ra" >111<br />Rg</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uub" >112<br />Uub</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#ffbbdd;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uut" >113<br />Uut</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#ffbbdd;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uuq" >114<br />Uuq</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#ffbbdd;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uup" >115<br />Uup</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#ffbbdd;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uuh" >116<br />Uuh</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#ffff99;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uus" >117<br />Uus</div></td>
+                                            <td><div style="text-align:center; cursor: pointer;  background:#c0ffff;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uuo">118<br />Uuo</div></td> -->
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:right; font-size: 10px;">&nbsp;</td>
+                                            <td>
+                                                <div style="text-align:center; cursor: pointer; font-style: italic;"
+                                                     class="periodic_table" id="periodic_table_lanthanides_alt"
+                                                     title="Shortcut for the lanthanide elements.">Ln
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_La">La
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ce">Ce
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Pr">Pr
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Nd">Nd
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Pm">Pm
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Sm">Sm
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Eu">Eu
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Gd">Gd
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Tb">Tb
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Dy">Dy
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ho">Ho
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Er">Er
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Tm">Tm
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Yb">Yb
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_lanthanides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Lu">Lu
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:right; font-size: 10px;">&nbsp;</td>
+                                            <td>
+                                                <div style="text-align:center; cursor: pointer; font-style: italic;"
+                                                     class="periodic_table" id="periodic_table_actinides_alt"
+                                                     title="Shortcut for the actinide elements.">An
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_actinides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Ac">
+                                                    Ac
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_actinides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Th">
+                                                    Th
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_actinides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_Pa">
+                                                    Pa
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pt_actinides periodic_table chem_ele_unselected"
+                                                     id="periodic_table_U">
+                                                    U
+                                                </div>
+                                            </td>
+                                            <!-- <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Np" >Np</div></td>
+                                            <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Pu" >94<br />Pu</div></td>
+                                            <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Am" >95<br />Am</div></td>
+                                            <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Cu" >96<br />Cm</div></td>
+                                            <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Bk" >97<br />Bk</div></td>
+                                            <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Cf" >98<br />Cf</div></td>
+                                            <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Es" >99<br />Es</div></td>
+                                            <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Fm" >100<br />Fm</div></td>
+                                            <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Md" >101<br />Md</div></td>
+                                            <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_No" >102<br />No</div></td>
+                                            <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Lr" >103<br />Lr</div></td> -->
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="CellParam" value="" size="50"></td>
+                    <td>
+                        <a href="#AMCSDCellParametersAndSymmetry" rel="modal:open" class="AMCSDHelperLink">
+                            Cell Parameters and Symmetry
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="diff" value="" size="50"></td>
+                    <td><a href="javascript:submitForm('diffpatt.php');" class="AMCSDHelperLink">Diffraction Search</a>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <td><input type="text" name="Key" size="50" value=""></td>
+                    <td><strong>General Search</strong><br>
+                        <b><a href="/AMS/tips.php" class="AMCSDHelperLink" title="Click for more details...">Search
+                                Tips</a></b>
+                    </td>
+                </tr>
 
+                <tr>
+                    <td align="center" colspan="2">
+                        <input type="button" value="Search">
+                        <input type="button" value="Reset" onclick="resetForm(); return true;">
+                    </td>
+                </tr>
+            </table>
 
+            <table class="AMCSDLogicTable">
+                <tbody>
+                <tr>
+                    <td nowrap=""><b> Logic interface</b></td>
+                    <td width="75%">
+                        <input type="radio" name="logic" value="AND" checked=""> <b>AND</b>
+                        <input type="radio" name="logic" value="OR"> <b>OR</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap=""><b>Viewing</b> (About <a href="/AMS/format.php" class="title">File Formats</a>)</td>
+                    <td>
+                        <input type="radio" name="Viewing" value="amclongform" checked="">amc long form
+                        <input type="radio" name="Viewing" value="amcshortform"> amc short form
+                        <input type="radio" name="Viewing" value="cif"> cif <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap=""><b>Download</b></td>
+                    <td>
+                        <input type="radio" name="Download" value="amc" checked=""> amc
+                        <input type="radio" name="Download" value="cif"> cif
+                        <input type="radio" name="Download" value="dif"> diffraction data
+                        <input type="hidden" name="hid1" value="">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
 
-        </p><p>
-        </p><p>
-
-
-        <table width="100%" border="0" cellpadding="10" cellspacing="0" class="footer">
-            <tbody><tr>
+    <div class="AMCSDLinksDiv">
+        <table>
+            <tbody>
+            <tr>
                 <td>
-                    <p>
-                        <b>Number of Files downloaded since Apr 1, 2003:</b> 1169958259					<br><b>Data Last Updated:</b> January 08, 2024
-                        <br>
-                        <b>Web Page Last Updated:</b> July 31, 2018<br>		  			This page has been accessed 4605651 times.
-                    </p><p>
-                        Also see our <a href="all_minerals.php">complete list of minerals</a> and <a href="all_authors.php">complete list of authors</a>.
-                    </p><p>
-                        This material is based upon work supported by the National Science Foundation under Grant Nos. EAR-0112782. and EAR-0622371.
-                        Any opinions, findings, and conclusions or recommendations expressed in this material are those of the authors
-                        and do not necessarily reflect the views of the National Science Foundation.
-                    </p><p>
-                        Should the use of the database require a citation, then please use: Downs, R.T. and Hall-Wallace, M. (2003) The American Mineralogist Crystal Structure Database. American Mineralogist 88, 247-250. (<a href="http://geo.arizona.edu/xtal/group/pdf/am88_247.pdf" target="_new">pdf file</a>)
-                    </p><p>
-                        Contact <a href="mailto:rdowns@u.arizona.edu" class="title">Robert T Downs</a> for suggestions and corrections.</p>
+                    <a href="/AMS/people.php">
+                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/people.gif"/>
+                    </a>
                 </td>
-            </tr>
-            </tbody></table>
-
-
-        </p></td></tr></tbody></table>
-    <!-- /frame enclosing table -->
-</center>
-
-<!-- form id="amcsd-search-form-wrapper" -->
-<div id="amcsd-search-form" class="search_form">
-    <div id="down_arrow" class="hidden">
-        <i class="fa-solid fa-caret-down"></i>
-    </div>
-    <div id="right_arrow" class="hidden">
-        <i class="fa-solid fa-caret-right"></i>
-    </div>
-    <div id="rsf_mineral_block" class="input_wrapper first_input">
-        <label for="txt_mineral">Mineral:</label>
-        <input type="text" id="txt_mineral" name="txt_mineral" size="30" maxlength="255" value="" />
-        <input type="hidden" id="mineral_ids" name="mineral_ids" value="">
-        <input type="hidden" id="txt_tag_ids" name="txt_tag_ids" value="">
-        <!-- <a class="page_link_1" href="Javascript:MM_openBrWindow('https://amcsd.info/index.php/r=lookup_minerals/calling_form=frm_sample_search/name_field=txt_mineral','MineralLookup','scrollbars=yes,width=800,height=600')">lookup</a> -->
-    </div>
-
-    <div id="rsf_chemistry_incl_block" class="input_wrapper">
-        <label for="txt_chemistry_incl">Chemistry Includes:
-            <a class="chemistry_lookup_link">lookup</a>
-        </label>
-        <input type="text" id="txt_chemistry_incl" name="txt_chemistry_incl" value="" size="30" maxlength="255">
-        <input type="hidden" id="chemistry_incl_txt">
-    </div>
-
-    <div id="rsf_chemistry_excl_block" class="input_wrapper">
-        <label for="txt_chemistry_excl">Chemistry Excludes:
-            <a class="chemistry_lookup_link">lookup</a>
-        </label>
-        <input type="text" id="txt_chemistry_excl" name="txt_chemistry_excl" value="" size="30" maxlength="255">
-        <input type="hidden" id="chemistry_excl_txt">
-    </div>
-
-    <div id="rsf_general_block" class="input_wrapper">
-        <label for="txt_general">General:</label>
-        <input type="text" id="txt_general" name="txt_general" value="" size="30" maxlength="255">
-    </div>
-
-    <!--
-    [odr-amcsd-search-display datatype_id = "738"
-    general_search = "gen"
-    chemistry_incl = "7055"
-    mineral_name = "7052"
-    sample_id = "7069"
-    redirect_url = "/odr/amcsd_sample#/odr/search/display/2010"]
-    -->
-
-    <div id="rsf_sort_block" class="input_wrapper">
-        <label for="sel_sort">Sort By:</label>
-        <select name="sel_sort" id="sel_sort" size="1">
-            <option value="<?php echo $odr_search_plugin_options['sort_name_field']; ?>">Names</option>
-            <option value="<?php echo $odr_search_plugin_options['sort_amcsd_id_field']; ?>">AMCSD ID</option>
-            <option value="<?php echo $odr_search_plugin_options['sort_ideal_chemistry_field']; ?>">Ideal Chemistry</option>
-            <option value="<?php echo $odr_search_plugin_options['sort_source_field']; ?>">Locality</option>
-            <option value="<?php echo $odr_search_plugin_options['sort_locality_field']; ?>">Source</option>
-        </select>
-        <select name="sel_sort_dir" id="sel_sort_dir" size="1">
-            <option value="asc">asc</option>
-            <option value="desc">desc</option>
-        </select>
-    </div>
-
-    <div id="rsf_submit_block" class="input_wrapper submit_wrapper">
-        <label for="submit"></label>
-        <input id="amcsd-search-form-submit" name="submit" type="submit" value="search">&nbsp;
-        <input id="reset_sample_search" type="button" name="reset_sample_search" value="reset">
-        <a class="show-options" onclick="$('#div_display_options').toggle('slow');return false;">display options</a>
-    </div>
-
-
-    <div id="div_display_options" style="overflow: visible; display: none">
-        <div id="div_display_options_contents" style="padding-top: 10px;">
-            <span class="title">Display Options</span><br>
-            <ul class="display-options-list">
-                <li><input type="radio" id="display" name="display" value="default" checked="checked"> Default display - Name, AMCSD ID, Ideal Chemistry, Source, Locality.</li>
-                <li><input type="radio" id="display" name="display" value="picture"> Display pictures with the search results (limited to 100 per page).</li>
-                <li><input type="radio" id="display" name="display" value="raman"> Display Raman Spectra with the search results (limited to 100 per page).</li>
-                <li><input type="checkbox" id="save_as_default" name="save_as_default" value="true"> Save these options as your default search options.</li>
-                <li>
-                    <script type="text/javascript">
-
-                        function checkFilters(toggle) {
-                            if(toggle.checked) {
-                                $("#unoriented_raman_filter_0").prop('disabled', false);
-                                $("#unoriented_raman_filter_1").prop('disabled', false);
-                                $("#unoriented_raman_filter_2").prop('disabled', false);
-                                $("#unoriented_raman_filter_3").prop('disabled', false);
-                                $("#unoriented_raman_filter_4").prop('disabled', false);
-                            }
-                            else {
-                                $("#unoriented_raman_filter_0").prop('disabled', true);
-                                $("#unoriented_raman_filter_1").prop('disabled', true);
-                                $("#unoriented_raman_filter_2").prop('disabled', true);
-                                $("#unoriented_raman_filter_3").prop('disabled', true);
-                                $("#unoriented_raman_filter_4").prop('disabled', true);
-                            }
-                        }
-
-                    </script>
-                    <input type="checkbox" id="unoriented_raman_filter_enabled" name="unoriented_raman_filter_enabled" value="false" onclick="checkFilters(this);">
-                    Unoriented Raman Quality:&nbsp;&nbsp;&nbsp;<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="unoriented_raman_filter_checkbox" type="checkbox" id="unoriented_raman_filter_0" name="unoriented_raman_filter[]" value="2" disabled=""> Excellent&nbsp;&nbsp;&nbsp;
-                    <input class="unoriented_raman_filter_checkbox" type="checkbox" id="unoriented_raman_filter_1" name="unoriented_raman_filter[]" value="1" disabled=""> Fair&nbsp;&nbsp;&nbsp;
-                    <input class="unoriented_raman_filter_checkbox" type="checkbox" id="unoriented_raman_filter_2" name="unoriented_raman_filter[]" value="0" disabled=""> Poor&nbsp;&nbsp;&nbsp;
-                    <input class="unoriented_raman_filter_checkbox" type="checkbox" id="unoriented_raman_filter_3" name="unoriented_raman_filter[]" value="-1" disabled=""> Unrated&nbsp;&nbsp;&nbsp;
-                    <input class="unoriented_raman_filter_checkbox" type="checkbox" id="unoriented_raman_filter_4" name="unoriented_raman_filter[]" value="-2" disabled=""> Ignore&nbsp;&nbsp;&nbsp;
-                    <script type="text/javascript">
-                        checkFilters($("#unoriented_raman_filter_enabled"));
-                    </script>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<!-- /form -->
-
-    <!-- <tr>
-        <td colspan="3">
-            <div id="div_display_options" style="overflow: visible;">
-                <div id="div_display_options_contents" style="padding-top: 10px;">
-                    <span class="title">Display Options</span><br>
-                    <ul>
-                        <li><input type="radio" id="display" name="display" value="default" checked="checked"> Default display - Name, AMCSD ID, Ideal Chemistry, Source, Locality.</li>
-                        <li><input type="radio" id="display" name="display" value="picture"> Display pictures with the search results (limited to 100 per page).</li>
-                        <li><input type="radio" id="display" name="display" value="raman"> Display Raman Spectra with the search results (limited to 100 per page).</li>
-                        <li><input type="checkbox" id="save_as_default" name="save_as_default" value="true"> Save these options as your default search options.</li>
-                        <li>
-                            <script type="text/javascript">
-
-                                function checkFilters(toggle) {
-                                    if(toggle.checked) {
-                                        $("unoriented_raman_filter_0").enable();
-                                        $("unoriented_raman_filter_1").enable();
-                                        $("unoriented_raman_filter_2").enable();
-                                        $("unoriented_raman_filter_3").enable();
-                                        $("unoriented_raman_filter_4").enable();
-                                    }
-                                    else {
-                                        $("unoriented_raman_filter_0").disable();
-                                        $("unoriented_raman_filter_1").disable();
-                                        $("unoriented_raman_filter_2").disable();
-                                        $("unoriented_raman_filter_3").disable();
-                                        $("unoriented_raman_filter_4").disable();
-                                    }
-                                }
-
-                            </script>
-                            <input type="checkbox" id="unoriented_raman_filter_enabled" name="unoriented_raman_filter_enabled" value="false" onclick="checkFilters(this);">
-                            Unoriented Raman Quality:&nbsp;&nbsp;&nbsp;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="unoriented_raman_filter_checkbox" type="checkbox" id="unoriented_raman_filter_0" name="unoriented_raman_filter[]" value="2" disabled=""> Excellent&nbsp;&nbsp;&nbsp;
-                            <input class="unoriented_raman_filter_checkbox" type="checkbox" id="unoriented_raman_filter_1" name="unoriented_raman_filter[]" value="1" disabled=""> Fair&nbsp;&nbsp;&nbsp;
-                            <input class="unoriented_raman_filter_checkbox" type="checkbox" id="unoriented_raman_filter_2" name="unoriented_raman_filter[]" value="0" disabled=""> Poor&nbsp;&nbsp;&nbsp;
-                            <input class="unoriented_raman_filter_checkbox" type="checkbox" id="unoriented_raman_filter_3" name="unoriented_raman_filter[]" value="-1" disabled=""> Unrated&nbsp;&nbsp;&nbsp;
-                            <input class="unoriented_raman_filter_checkbox" type="checkbox" id="unoriented_raman_filter_4" name="unoriented_raman_filter[]" value="-2" disabled=""> Ignore&nbsp;&nbsp;&nbsp;
-                            <script type="text/javascript">
-                                checkFilters($("#unoriented_raman_filter_enabled"));
-                            </script>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </td>
-    </tr> -->
-
-<div id="div_periodic_table" style="overflow: visible;">
-    <div id="div_periodic_table_contents" style="min-height: 200px; padding-top: 10px;">
-        <table id="amcsd-periodic-table">
-            <tbody><tr>
-                <td><div style="display: block; text-align:center; cursor: pointer;  background:#a0ffa0;" class="periodic_table chem_ele_unselected" id="periodic_table_H">H</div></td>
-                <td colspan="16" align="center" id="periodic_table_instructions">Click an element once to include, twice to exclude.</td>
-                <td><div class="pt_noble_gases periodic_table chem_ele_unselected" id="periodic_table_He">He</div></td>
-            </tr>
-            <tr>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_Li">Li</div></td>
-                <td><div class="pt_alkaline_earth_metals periodic_table chem_ele_unselected" id="periodic_table_Be">Be</div></td>
-                <td colspan="1"></td>
-                <td colspan="9">
-                    <div style="width: 90%;text-align:center; cursor: pointer;  background:#ffdead;" class="periodic_table chem_ele_unselected" id="periodic_table_clear">Clear Chemistry</div>
+                <td>
+                    <a href="http://www.nsf.gov/">
+                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/nsf.gif"/>
+                    </a>
                 </td>
-                <td><div class="pt_metalloid periodic_table chem_ele_unselected" id="periodic_table_B">B</div></td>
-                <td><div class="pt_nonmetal periodic_table chem_ele_unselected" id="periodic_table_C">C</div></td>
-                <td><div class="pt_nonmetal periodic_table chem_ele_unselected" id="periodic_table_N">N</div></td>
-                <td><div class="pt_nonmetal periodic_table chem_ele_unselected" id="periodic_table_O">O</div></td>
-                <td><div class="pt_halides periodic_table chem_ele_unselected" id="periodic_table_F">F</div></td>
-                <td><div class="pt_noble_gases periodic_table chem_ele_unselected" id="periodic_table_Ne">Ne</div></td>
-            </tr>
-            <tr>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_Na">Na</div></td>
-                <td><div class="pt_alkaline_earth_metals periodic_table chem_ele_unselected" id="periodic_table_Mg">Mg</div></td>
-                <td colspan="1"></td>
-                <td colspan="9">
-                    <div style="width: 90%;text-align:center; cursor: pointer;  background:#ffdead;" class="periodic_table chem_ele_unselected" id="periodic_table_all">Exclude&nbsp;all&nbsp;non-selected</div>
+                <td>
+                    <a href="http://www.minsocam.org">
+                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/MSAws.gif"/>
+                    </a>
                 </td>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_Al">Al</div></td>
-                <td><div class="pt_metalloid periodic_table chem_ele_unselected" id="periodic_table_Si">Si</div></td>
-                <td><div class="pt_nonmetal periodic_table chem_ele_unselected" id="periodic_table_P">P</div></td>
-                <td><div class="pt_nonmetal periodic_table chem_ele_unselected" id="periodic_table_S">S</div></td>
-                <td><div class="pt_halides periodic_table chem_ele_unselected" id="periodic_table_Cl">Cl</div></td>
-                <td><div class="pt_noble_gases periodic_table chem_ele_unselected" id="periodic_table_Ar">Ar</div></td>
-            </tr>
-            <tr>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_K">K</div></td>
-                <td><div class="pt_alkaline_earth_metals periodic_table chem_ele_unselected" id="periodic_table_Ca">Ca</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Sc">Sc</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Ti">Ti</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_V">V</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Cr">Cr</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Mn">Mn</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Fe">Fe</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Co">Co</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Ni">Ni</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Cu">Cu</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Zn">Zn</div></td>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_Ga">Ga</div></td>
-                <td><div class="pt_metalloid periodic_table chem_ele_unselected" id="periodic_table_Ge">Ge</div></td>
-                <td><div class="pt_metalloid periodic_table chem_ele_unselected" id="periodic_table_As">As</div></td>
-                <td><div class="pt_nonmetal periodic_table chem_ele_unselected" id="periodic_table_Se">Se</div></td>
-                <td><div class="pt_halides periodic_table chem_ele_unselected" id="periodic_table_Br">Br</div></td>
-                <td><div class="pt_noble_gases periodic_table chem_ele_unselected" id="periodic_table_Kr">Kr</div></td>
-            </tr>
-            <tr>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_Rb">Rb</div></td>
-                <td><div class="pt_alkaline_earth_metals periodic_table chem_ele_unselected" id="periodic_table_Sr">Sr</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Y">Y</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Zr">Zr</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Nb">Nb</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Mo">Mo</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Tc">Tc</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Ru">Ru</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Rh">Rh</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Pd">Pd</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Ag">Ag</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Cd">Cd</div></td>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_In">In</div></td>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_Sn">Sn</div></td>
-                <td><div class="pt_metalloid periodic_table chem_ele_unselected" id="periodic_table_Sb">Sb</div></td>
-                <td><div class="pt_metalloid periodic_table chem_ele_unselected" id="periodic_table_Te">Te</div></td>
-                <td><div class="pt_halides periodic_table chem_ele_unselected" id="periodic_table_I">I</div></td>
-                <td><div class="pt_noble_gases periodic_table chem_ele_unselected" id="periodic_table_Xe">Xe</div></td>
-            </tr>
-            <tr>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_Cs">Cs</div></td>
-                <td><div class="pt_alkaline_earth_metals periodic_table chem_ele_unselected" id="periodic_table_Ba">Ba</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffb888; font-style: italic;" class="periodic_table chem_ele_unselected" id="periodic_table_lanthanides" title="Shortcut for the lanthanide elements.">Ln</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Hf">Hf</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Ta">Ta</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_W">W</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Re">Re</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Os">Os</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Ir">Ir</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Pt">Pt</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Au">Au</div></td>
-                <td><div class="pt_transition_metals periodic_table chem_ele_unselected" id="periodic_table_Hg">Hg</div></td>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_Tl">Tl</div></td>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_Pb">Pb</div></td>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_Bi">Bi</div></td>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_Po">Po</div></td>
-                <td><div class="pt_halides periodic_table chem_ele_unselected" id="periodic_table_At">At</div></td>
-                <td><div class="pt_noble_gases periodic_table chem_ele_unselected" id="periodic_table_Rn">Rn</div></td>
-            </tr>
-            <tr>
-                <td><div class="pt_alkali_metals periodic_table chem_ele_unselected" id="periodic_table_Fr">Fr</div></td>
-                <td><div class="pt_alkaline_earth_metals periodic_table chem_ele_unselected" id="periodic_table_Ra">Ra</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ff99cc; font-style: italic;" class="periodic_table chem_ele_unselected" id="periodic_table_actinides" title="Shortcut for the actinide elements.">An</div></td>
-                <!-- <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Rf" >104<br />Rf</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Db" >105<br />Db</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Sg" >106<br />Sg</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Bh" >107<br />Bh</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Hs" >108<br />Hs</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Mt" >109<br />Mt</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Ds" >110<br />Ds</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Ra" >111<br />Rg</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffc0c0;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uub" >112<br />Uub</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffbbdd;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uut" >113<br />Uut</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffbbdd;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uuq" >114<br />Uuq</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffbbdd;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uup" >115<br />Uup</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffbbdd;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uuh" >116<br />Uuh</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#ffff99;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uus" >117<br />Uus</div></td>
-                <td><div style="text-align:center; cursor: pointer;  background:#c0ffff;"    class="periodic_table chem_ele_unselected" id="periodic_table_Uuo">118<br />Uuo</div></td> -->
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align:right; font-size: 10px;">&nbsp;</td>
-                <td><div style="text-align:center; cursor: pointer; font-style: italic;" class="periodic_table" id="periodic_table_lanthanides_alt" title="Shortcut for the lanthanide elements.">Ln</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_La">La</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Ce">Ce</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Pr">Pr</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Nd">Nd</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Pm">Pm</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Sm">Sm</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Eu">Eu</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Gd">Gd</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Tb">Tb</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Dy">Dy</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Ho">Ho</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Er">Er</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Tm">Tm</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Yb">Yb</div></td>
-                <td><div class="pt_lanthanides periodic_table chem_ele_unselected" id="periodic_table_Lu">Lu</div></td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align:right; font-size: 10px;">&nbsp;</td>
-                <td><div style="text-align:center; cursor: pointer; font-style: italic;" class="periodic_table" id="periodic_table_actinides_alt" title="Shortcut for the actinide elements.">An</div></td>
-                <td><div class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Ac">Ac</div></td>
-                <td><div class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Th">Th</div></td>
-                <td><div class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Pa">Pa</div></td>
-                <td><div class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_U">U</div></td>
-                <!-- <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Np" >Np</div></td>
-                <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Pu" >94<br />Pu</div></td>
-                <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Am" >95<br />Am</div></td>
-                <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Cu" >96<br />Cm</div></td>
-                <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Bk" >97<br />Bk</div></td>
-                <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Cf" >98<br />Cf</div></td>
-                <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Es" >99<br />Es</div></td>
-                <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Fm" >100<br />Fm</div></td>
-                <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Md" >101<br />Md</div></td>
-                <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_No" >102<br />No</div></td>
-                <td class="pt_actinides periodic_table chem_ele_unselected" id="periodic_table_Lr" >103<br />Lr</div></td> -->
+                <td>
+                    <a href="http://www.mineralogicalassociation.ca/">
+                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/canmin.gif"/>
+                    </a>
+                </td>
+                <td>
+                    <a href="http://www.schweizerbart.de/j/ejm/">
+                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/ejm.gif"/>
+                    </a>
+                </td>
+                <td>
+                    <a href="http://www.geo.arizona.edu/xtal/">
+                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/UofA.gif"/>
+                    </a>
+                </td>
+                <td>
+                    <a href="/AMS/extra.php">
+                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/extra.gif"/>
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>
-   </div>
-</div>
+    </div>
 
-<!-- <center><a href="#" onclick="new Effect.toggle('disclaimer','blind'); return false;">Terms and Conditions</a></center> -->
+    <div id="AMCSDMineralList" class="modal">
+        <table>
+            <tr>
+                <td colspan="4" class="AMCSDMineralAlpha">
+                    <span class="AMCSDMineralNameLetter">A</span>
+                    <span class="AMCSDMineralNameLetter">B</span>
+                    <span class="AMCSDMineralNameLetter">C</span>
+                    <span class="AMCSDMineralNameLetter">D</span>
+                    <span class="AMCSDMineralNameLetter">E</span>
+                    <span class="AMCSDMineralNameLetter">F</span>
+                    <span class="AMCSDMineralNameLetter">G</span>
+                    <span class="AMCSDMineralNameLetter">H</span>
+                    <span class="AMCSDMineralNameLetter">I</span>
+                    <span class="AMCSDMineralNameLetter">J</span>
+                    <span class="AMCSDMineralNameLetter">K</span>
+                    <span class="AMCSDMineralNameLetter">L</span>
+                    <span class="AMCSDMineralNameLetter">M</span>
+                    <span class="AMCSDMineralNameLetter">N</span>
+                    <span class="AMCSDMineralNameLetter">O</span>
+                    <span class="AMCSDMineralNameLetter">P</span>
+                    <span class="AMCSDMineralNameLetter">Q</span>
+                    <span class="AMCSDMineralNameLetter">R</span>
+                    <span class="AMCSDMineralNameLetter">S</span>
+                    <span class="AMCSDMineralNameLetter">T</span>
+                    <span class="AMCSDMineralNameLetter">U</span>
+                    <span class="AMCSDMineralNameLetter">V</span>
+                    <span class="AMCSDMineralNameLetter">W</span>
+                    <span class="AMCSDMineralNameLetter">X</span>
+                    <span class="AMCSDMineralNameLetter">Y</span>
+                    <span class="AMCSDMineralNameLetter">Z</span>
+                </td>
+            </tr>
+            <?php
+            try {
+                include(__DIR__ . '/../../../../data-publisher/web/uploads/IMA/mineral_names.php');
+                $count = 0;
+                $column_count = 0;
+                foreach ($mineral_names as $mineral_name) {
+
+                    if ($count % 4 === 0) {
+                        ?><tr><?php
+                    }
+                    ?>
+                    <td class="AMCSDMineralName"><?php print $mineral_name ?></td><?php
+                    $column_count++;
+                    if ($column_count === 4) {
+                        ?></tr><?php
+                        $column_count = 0;
+                    }
+                    $count++;
+                }
+            } catch (Exception $e) {
+            }
+            ?>
+        </table>
+    </div>
+
+    <div class="AMCSDInfoDiv">
+        <div class="AMCSDContent">
+            <b>Number of Files downloaded since Apr 1, 2003:</b> 1169958259
+            <br><b>Data Last Updated:</b> January 08, 2024
+        </div>
+        <div class="AMCSDContent">
+            <b>Web Page Last Updated:</b> July 31, 2018<br> This page has been accessed 4605651 times.
+        </div>
+        <div class="AMCSDContent">
+            Also see our <a href="all_minerals.php">complete list of minerals</a> and <a href="all_authors.php">complete
+                list of authors</a>.
+        </div>
+        <div class="AMCSDContent">
+            This material is based upon work supported by the National Science Foundation under Grant Nos.
+            EAR-0112782. and EAR-0622371.
+            Any opinions, findings, and conclusions or recommendations expressed in this material are those of
+            the authors
+            and do not necessarily reflect the views of the National Science Foundation.
+        </div>
+        <div class="AMCSDContent">
+            Should the use of the database require a citation, then please use: Downs, R.T. and Hall-Wallace, M.
+            (2003) The American Mineralogist Crystal Structure Database. American Mineralogist 88, 247-250. (<a
+                    href="http://geo.arizona.edu/xtal/group/pdf/am88_247.pdf" target="_new">pdf file</a>)
+        </div>
+        <div class="AMCSDContent">
+            Contact <a href="mailto:rdowns@u.arizona.edu" class="title">Robert T Downs</a> for suggestions and
+            corrections.
+        </div>
+    </div>
+
+    <div id="AMCSDCellParametersAndSymmetry" class="modal">
+
+        <form name="AMCSDCellParamsForm">
+            <input type="hidden" name="page" value="cellparam">
+
+            <center><h2><b>Cell Parameters and Symmetry</b></h2></center>
+            <center>
+                <table border="0">
+                    <tbody>
+                    <tr>
+                        <td></td>
+                        <td id="one1">Lower Range</td>
+                        <td id="two2">Upper Range</td>
+                    </tr>
+                    <tr>
+                        <td>a</td>
+                        <td><input type="text" name="La" size="10"></td>
+                        <td><input type="text" name="Ua" onchange="ChangeA()" size="10"></td>
+                        <td><input type="radio" name="Ranges" value="Range" size="20" checked="" onclick="Click1()">
+                            Range
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>b</td>
+                        <td><input type="text" name="Lb" size="10"></td>
+                        <td><input type="text" name="Ub" onchange="ChangeB()" size="10"></td>
+                        <td><input type="radio" name="Ranges" value="Tolerance" onclick="Click2()" size="20"> Tolerance
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>c</td>
+                        <td><input type="text" name="Lc" size="10"></td>
+                        <td><input type="text" name="Uc" onchange="ChangeC()" size="10"></td>
+                    </tr>
+                    <tr>
+                        <td>alpha</td>
+                        <td><input type="text" name="Lalpha" size="10"></td>
+                        <td><input type="text" name="Ualpha" onchange="ChangeAl()" size="10"></td>
+                    </tr>
+                    <tr>
+                        <td>beta</td>
+                        <td><input type="text" name="Lbeta" size="10"></td>
+                        <td><input type="text" name="Ubeta" onchange="ChangeBe()" size="10"></td>
+                    </tr>
+                    <tr>
+                        <td>gamma</td>
+                        <td><input type="text" name="Lgamma" size="10"></td>
+                        <td><input type="text" name="Ugamma" size="10" onchange="ChangeGa()"></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            space group
+                        </td>
+                        <td><select name="sg">
+                                <option
+                                =="" ""="">
+                                </option>
+                                <option value="A-1"> A-1</option>
+                                <option value="A2"> A2</option>
+                                <option value="A2/a"> A2/a</option>
+                                <option value="A2/m"> A2/m</option>
+                                <option value="A2/n"> A2/n</option>
+                                <option value="A2mm"> A2mm</option>
+                                <option value="A2_122"> A2_122</option>
+                                <option value="A2_1am"> A2_1am</option>
+                                <option value="A2_1ma"> A2_1ma</option>
+                                <option value="Aa"> Aa</option>
+                                <option value="Aba2"> Aba2</option>
+                                <option value="Abm2"> Abm2</option>
+                                <option value="Abma"> Abma</option>
+                                <option value="Abmm"> Abmm</option>
+                                <option value="Acam"> Acam</option>
+                                <option value="Acmm"> Acmm</option>
+                                <option value="Ama2"> Ama2</option>
+                                <option value="Amaa"> Amaa</option>
+                                <option value="Amam"> Amam</option>
+                                <option value="Amm2"> Amm2</option>
+                                <option value="Amma"> Amma</option>
+                                <option value="Ammm"> Ammm</option>
+                                <option value="B-1"> B-1</option>
+                                <option value="B2"> B2</option>
+                                <option value="B2/b"> B2/b</option>
+                                <option value="B2/m"> B2/m</option>
+                                <option value="B2/n"> B2/n</option>
+                                <option value="B2mb"> B2mb</option>
+                                <option value="B2_1"> B2_1</option>
+                                <option value="B2_1/d"> B2_1/d</option>
+                                <option value="B2_1/m"> B2_1/m</option>
+                                <option value="Bb"> Bb</option>
+                                <option value="Bb2_1m"> Bb2_1m</option>
+                                <option value="Bba2"> Bba2</option>
+                                <option value="Bbam"> Bbam</option>
+                                <option value="Bbcm"> Bbcm</option>
+                                <option value="Bbmm"> Bbmm</option>
+                                <option value="Bm"> Bm</option>
+                                <option value="Bm2m"> Bm2m</option>
+                                <option value="Bmab"> Bmab</option>
+                                <option value="Bmam"> Bmam</option>
+                                <option value="Bmmb"> Bmmb</option>
+                                <option value="C-1"> C-1</option>
+                                <option value="C-42b"> C-42b</option>
+                                <option value="C1"> C1</option>
+                                <option value="C2"> C2</option>
+                                <option value="C2/a"> C2/a</option>
+                                <option value="C2/c"> C2/c</option>
+                                <option value="C2/m"> C2/m</option>
+                                <option value="C222"> C222</option>
+                                <option value="C222_1"> C222_1</option>
+                                <option value="C2cb"> C2cb</option>
+                                <option value="C2_1"> C2_1</option>
+                                <option value="C2_1/d"> C2_1/d</option>
+                                <option value="Cc"> Cc</option>
+                                <option value="Ccc2"> Ccc2</option>
+                                <option value="Ccca"> Ccca</option>
+                                <option value="Cccm"> Cccm</option>
+                                <option value="Ccm2_1"> Ccm2_1</option>
+                                <option value="Ccmb"> Ccmb</option>
+                                <option value="Ccmm"> Ccmm</option>
+                                <option value="Cm"> Cm</option>
+                                <option value="Cm2a"> Cm2a</option>
+                                <option value="Cm2m"> Cm2m</option>
+                                <option value="Cmc2_1"> Cmc2_1</option>
+                                <option value="Cmca"> Cmca</option>
+                                <option value="Cmcm"> Cmcm</option>
+                                <option value="Cmm2"> Cmm2</option>
+                                <option value="Cmma"> Cmma</option>
+                                <option value="Cmmb"> Cmmb</option>
+                                <option value="Cmmm"> Cmmm</option>
+                                <option value="F-1"> F-1</option>
+                                <option value="F-43c"> F-43c</option>
+                                <option value="F-43m"> F-43m</option>
+                                <option value="F-4d2"> F-4d2</option>
+                                <option value="F1"> F1</option>
+                                <option value="F2"> F2</option>
+                                <option value="F2/d"> F2/d</option>
+                                <option value="F2/m"> F2/m</option>
+                                <option value="F23"> F23</option>
+                                <option value="F2dd"> F2dd</option>
+                                <option value="F2mm"> F2mm</option>
+                                <option value="F4/mmm"> F4/mmm</option>
+                                <option value="F4_132"> F4_132</option>
+                                <option value="Fd"> Fd</option>
+                                <option value="Fd-3m"> Fd-3m</option>
+                                <option value="Fd2d"> Fd2d</option>
+                                <option value="Fd3"> Fd3</option>
+                                <option value="Fd3c"> Fd3c</option>
+                                <option value="Fd3m"> Fd3m</option>
+                                <option value="Fdd2"> Fdd2</option>
+                                <option value="Fddd"> Fddd</option>
+                                <option value="Fm-3m"> Fm-3m</option>
+                                <option value="Fm2m"> Fm2m</option>
+                                <option value="Fm3"> Fm3</option>
+                                <option value="Fm3c"> Fm3c</option>
+                                <option value="Fm3m"> Fm3m</option>
+                                <option value="Fmm2"> Fmm2</option>
+                                <option value="Fmmm"> Fmmm</option>
+                                <option value="I-1"> I-1</option>
+                                <option value="I-4"> I-4</option>
+                                <option value="I-42d"> I-42d</option>
+                                <option value="I-42m"> I-42m</option>
+                                <option value="I-43d"> I-43d</option>
+                                <option value="I-43m"> I-43m</option>
+                                <option value="I-4c2"> I-4c2</option>
+                                <option value="I-4m2"> I-4m2</option>
+                                <option value="I2"> I2</option>
+                                <option value="I2/a"> I2/a</option>
+                                <option value="I2/b"> I2/b</option>
+                                <option value="I2/c"> I2/c</option>
+                                <option value="I2/m"> I2/m</option>
+                                <option value="I222"> I222</option>
+                                <option value="I23"> I23</option>
+                                <option value="I2cm"> I2cm</option>
+                                <option value="I2mb"> I2mb</option>
+                                <option value="I2mm"> I2mm</option>
+                                <option value="I2_1/a-3"> I2_1/a-3</option>
+                                <option value="I2_12_12_1"> I2_12_12_1</option>
+                                <option value="I2_13"> I2_13</option>
+                                <option value="I4"> I4</option>
+                                <option value="I4/m"> I4/m</option>
+                                <option value="I4/mcm"> I4/mcm</option>
+                                <option value="I4/mmm"> I4/mmm</option>
+                                <option value="I422"> I422</option>
+                                <option value="I432"> I432</option>
+                                <option value="I4mm"> I4mm</option>
+                                <option value="I4_1/a"> I4_1/a</option>
+                                <option value="I4_1/acd"> I4_1/acd</option>
+                                <option value="I4_1/amd"> I4_1/amd</option>
+                                <option value="I4_122"> I4_122</option>
+                                <option value="I4_132"> I4_132</option>
+                                <option value="I4_1cd"> I4_1cd</option>
+                                <option value="Ia"> Ia</option>
+                                <option value="Ia-3d"> Ia-3d</option>
+                                <option value="Ia3"> Ia3</option>
+                                <option value="Ia3d"> Ia3d</option>
+                                <option value="Ib"> Ib</option>
+                                <option value="Iba2"> Iba2</option>
+                                <option value="Ibam"> Ibam</option>
+                                <option value="Ibca"> Ibca</option>
+                                <option value="Ibm2"> Ibm2</option>
+                                <option value="Ibmm"> Ibmm</option>
+                                <option value="Icma"> Icma</option>
+                                <option value="Im"> Im</option>
+                                <option value="Im-3m"> Im-3m</option>
+                                <option value="Im2m"> Im2m</option>
+                                <option value="Im3"> Im3</option>
+                                <option value="Im3m"> Im3m</option>
+                                <option value="Ima2"> Ima2</option>
+                                <option value="Imab"> Imab</option>
+                                <option value="Imam"> Imam</option>
+                                <option value="Imcb"> Imcb</option>
+                                <option value="Imcm"> Imcm</option>
+                                <option value="Imm2"> Imm2</option>
+                                <option value="Imma"> Imma</option>
+                                <option value="Immm"> Immm</option>
+                                <option value="P-1"> P-1</option>
+                                <option value="P-3"> P-3</option>
+                                <option value="P-31c"> P-31c</option>
+                                <option value="P-31m"> P-31m</option>
+                                <option value="P-3c1"> P-3c1</option>
+                                <option value="P-3m1"> P-3m1</option>
+                                <option value="P-4"> P-4</option>
+                                <option value="P-42c"> P-42c</option>
+                                <option value="P-42m"> P-42m</option>
+                                <option value="P-42_1c"> P-42_1c</option>
+                                <option value="P-42_1m"> P-42_1m</option>
+                                <option value="P-43m"> P-43m</option>
+                                <option value="P-43n"> P-43n</option>
+                                <option value="P-4b2"> P-4b2</option>
+                                <option value="P-4m2"> P-4m2</option>
+                                <option value="P-4n2"> P-4n2</option>
+                                <option value="P-6"> P-6</option>
+                                <option value="P-62c"> P-62c</option>
+                                <option value="P-62m"> P-62m</option>
+                                <option value="P-6c2"> P-6c2</option>
+                                <option value="P-6m2"> P-6m2</option>
+                                <option value="P1"> P1</option>
+                                <option value="P2"> P2</option>
+                                <option value="P2/a"> P2/a</option>
+                                <option value="P2/b"> P2/b</option>
+                                <option value="P2/c"> P2/c</option>
+                                <option value="P2/m"> P2/m</option>
+                                <option value="P2/n"> P2/n</option>
+                                <option value="P222"> P222</option>
+                                <option value="P222_1"> P222_1</option>
+                                <option value="P22_12_1"> P22_12_1</option>
+                                <option value="P23"> P23</option>
+                                <option value="P2an"> P2an</option>
+                                <option value="P2cm"> P2cm</option>
+                                <option value="P2mm"> P2mm</option>
+                                <option value="P2nn"> P2nn</option>
+                                <option value="P2_1"> P2_1</option>
+                                <option value="P2_1/a"> P2_1/a</option>
+                                <option value="P2_1/b"> P2_1/b</option>
+                                <option value="P2_1/c"> P2_1/c</option>
+                                <option value="P2_1/m"> P2_1/m</option>
+                                <option value="P2_1/n"> P2_1/n</option>
+                                <option value="P2_122_1"> P2_122_1</option>
+                                <option value="P2_12_12"> P2_12_12</option>
+                                <option value="P2_12_12_1"> P2_12_12_1</option>
+                                <option value="P2_13"> P2_13</option>
+                                <option value="P2_1ab"> P2_1ab</option>
+                                <option value="P2_1am"> P2_1am</option>
+                                <option value="P2_1ca"> P2_1ca</option>
+                                <option value="P2_1cn"> P2_1cn</option>
+                                <option value="P2_1ma"> P2_1ma</option>
+                                <option value="P2_1mn"> P2_1mn</option>
+                                <option value="P2_1nb"> P2_1nb</option>
+                                <option value="P2_1nm"> P2_1nm</option>
+                                <option value="P3"> P3</option>
+                                <option value="P312"> P312</option>
+                                <option value="P31c"> P31c</option>
+                                <option value="P31m"> P31m</option>
+                                <option value="P321"> P321</option>
+                                <option value="P3c1"> P3c1</option>
+                                <option value="P3m1"> P3m1</option>
+                                <option value="P3_1"> P3_1</option>
+                                <option value="P3_112"> P3_112</option>
+                                <option value="P3_121"> P3_121</option>
+                                <option value="P3_2"> P3_2</option>
+                                <option value="P3_212"> P3_212</option>
+                                <option value="P3_221"> P3_221</option>
+                                <option value="P4"> P4</option>
+                                <option value="P4/m"> P4/m</option>
+                                <option value="P4/m-32/m"> P4/m-32/m</option>
+                                <option value="P4/mbm"> P4/mbm</option>
+                                <option value="P4/mcc"> P4/mcc</option>
+                                <option value="P4/mmm"> P4/mmm</option>
+                                <option value="P4/mnc"> P4/mnc</option>
+                                <option value="P4/n"> P4/n</option>
+                                <option value="P4/nbm"> P4/nbm</option>
+                                <option value="P4/ncc"> P4/ncc</option>
+                                <option value="P4/nmm"> P4/nmm</option>
+                                <option value="P4/nnc"> P4/nnc</option>
+                                <option value="P42_12"> P42_12</option>
+                                <option value="P432"> P432</option>
+                                <option value="P4bm"> P4bm</option>
+                                <option value="P4mm"> P4mm</option>
+                                <option value="P4nc"> P4nc</option>
+                                <option value="P4_1"> P4_1</option>
+                                <option value="P4_122"> P4_122</option>
+                                <option value="P4_12_12"> P4_12_12</option>
+                                <option value="P4_132"> P4_132</option>
+                                <option value="P4_2"> P4_2</option>
+                                <option value="P4_2/m"> P4_2/m</option>
+                                <option value="P4_2/mbc"> P4_2/mbc</option>
+                                <option value="P4_2/mcm"> P4_2/mcm</option>
+                                <option value="P4_2/mmc"> P4_2/mmc</option>
+                                <option value="P4_2/mnm"> P4_2/mnm</option>
+                                <option value="P4_2/n"> P4_2/n</option>
+                                <option value="P4_2/nbc"> P4_2/nbc</option>
+                                <option value="P4_2/ncm"> P4_2/ncm</option>
+                                <option value="P4_2/nmc"> P4_2/nmc</option>
+                                <option value="P4_2/nnm"> P4_2/nnm</option>
+                                <option value="P4_232"> P4_232</option>
+                                <option value="P4_2mc"> P4_2mc</option>
+                                <option value="P4_2nm"> P4_2nm</option>
+                                <option value="P4_3"> P4_3</option>
+                                <option value="P4_322"> P4_322</option>
+                                <option value="P4_32_12"> P4_32_12</option>
+                                <option value="P4_332"> P4_332</option>
+                                <option value="P6/m"> P6/m</option>
+                                <option value="P6/mcc"> P6/mcc</option>
+                                <option value="P6/mmm"> P6/mmm</option>
+                                <option value="P622"> P622</option>
+                                <option value="P6_1"> P6_1</option>
+                                <option value="P6_222"> P6_222</option>
+                                <option value="P6_3"> P6_3</option>
+                                <option value="P6_3/m"> P6_3/m</option>
+                                <option value="P6_3/mcm"> P6_3/mcm</option>
+                                <option value="P6_3/mmc"> P6_3/mmc</option>
+                                <option value="P6_322"> P6_322</option>
+                                <option value="P6_3cm"> P6_3cm</option>
+                                <option value="P6_3mc"> P6_3mc</option>
+                                <option value="P6_422"> P6_422</option>
+                                <option value="P6_5"> P6_5</option>
+                                <option value="P6_522"> P6_522</option>
+                                <option value="Pa"> Pa</option>
+                                <option value="Pa3"> Pa3</option>
+                                <option value="Pb"> Pb</option>
+                                <option value="Pb2_1m"> Pb2_1m</option>
+                                <option value="Pba2"> Pba2</option>
+                                <option value="Pbaa"> Pbaa</option>
+                                <option value="Pbam"> Pbam</option>
+                                <option value="Pban"> Pban</option>
+                                <option value="Pbc2_1"> Pbc2_1</option>
+                                <option value="Pbca"> Pbca</option>
+                                <option value="Pbcb"> Pbcb</option>
+                                <option value="Pbcm"> Pbcm</option>
+                                <option value="Pbcn"> Pbcn</option>
+                                <option value="Pbm2"> Pbm2</option>
+                                <option value="Pbma"> Pbma</option>
+                                <option value="Pbmm"> Pbmm</option>
+                                <option value="Pbmn"> Pbmn</option>
+                                <option value="Pbn2_1"> Pbn2_1</option>
+                                <option value="Pbna"> Pbna</option>
+                                <option value="Pbnb"> Pbnb</option>
+                                <option value="Pbnm"> Pbnm</option>
+                                <option value="Pbnn"> Pbnn</option>
+                                <option value="Pc"> Pc</option>
+                                <option value="Pc2_1b"> Pc2_1b</option>
+                                <option value="Pc2_1n"> Pc2_1n</option>
+                                <option value="Pca2_1"> Pca2_1</option>
+                                <option value="Pcab"> Pcab</option>
+                                <option value="Pcam"> Pcam</option>
+                                <option value="Pcan"> Pcan</option>
+                                <option value="Pcca"> Pcca</option>
+                                <option value="Pccn"> Pccn</option>
+                                <option value="Pcm2_1"> Pcm2_1</option>
+                                <option value="Pcmb"> Pcmb</option>
+                                <option value="Pcmn"> Pcmn</option>
+                                <option value="Pcnb"> Pcnb</option>
+                                <option value="Pcnn"> Pcnn</option>
+                                <option value="Pm"> Pm</option>
+                                <option value="Pm-3m"> Pm-3m</option>
+                                <option value="Pm2a"> Pm2a</option>
+                                <option value="Pm2m"> Pm2m</option>
+                                <option value="Pm3"> Pm3</option>
+                                <option value="Pm3m"> Pm3m</option>
+                                <option value="Pm3n"> Pm3n</option>
+                                <option value="Pm:1"> Pm:1</option>
+                                <option value="Pma2"> Pma2</option>
+                                <option value="Pmab"> Pmab</option>
+                                <option value="Pmam"> Pmam</option>
+                                <option value="Pman"> Pman</option>
+                                <option value="Pmc2_1"> Pmc2_1</option>
+                                <option value="Pmcb"> Pmcb</option>
+                                <option value="Pmcn"> Pmcn</option>
+                                <option value="Pmm2"> Pmm2</option>
+                                <option value="Pmma"> Pmma</option>
+                                <option value="Pmmm"> Pmmm</option>
+                                <option value="Pmmn"> Pmmn</option>
+                                <option value="Pmn2_1"> Pmn2_1</option>
+                                <option value="Pmna"> Pmna</option>
+                                <option value="Pmnb"> Pmnb</option>
+                                <option value="Pmnm"> Pmnm</option>
+                                <option value="Pmnn"> Pmnn</option>
+                                <option value="Pn"> Pn</option>
+                                <option value="Pn2n"> Pn2n</option>
+                                <option value="Pn2_1a"> Pn2_1a</option>
+                                <option value="Pn2_1m"> Pn2_1m</option>
+                                <option value="Pn3"> Pn3</option>
+                                <option value="Pn3m"> Pn3m</option>
+                                <option value="Pn3n"> Pn3n</option>
+                                <option value="Pna2_1"> Pna2_1</option>
+                                <option value="Pnaa"> Pnaa</option>
+                                <option value="Pnab"> Pnab</option>
+                                <option value="Pnam"> Pnam</option>
+                                <option value="Pnan"> Pnan</option>
+                                <option value="Pnc2"> Pnc2</option>
+                                <option value="Pnca"> Pnca</option>
+                                <option value="Pncb"> Pncb</option>
+                                <option value="Pncm"> Pncm</option>
+                                <option value="Pncn"> Pncn</option>
+                                <option value="Pnm2_1"> Pnm2_1</option>
+                                <option value="Pnma"> Pnma</option>
+                                <option value="Pnmb"> Pnmb</option>
+                                <option value="Pnmm"> Pnmm</option>
+                                <option value="Pnmn"> Pnmn</option>
+                                <option value="Pnn2"> Pnn2</option>
+                                <option value="Pnna"> Pnna</option>
+                                <option value="Pnnm"> Pnnm</option>
+                                <option value="R-3"> R-3</option>
+                                <option value="R-32/c"> R-32/c</option>
+                                <option value="R-3c"> R-3c</option>
+                                <option value="R-3m"> R-3m</option>
+                                <option value="R3"> R3</option>
+                                <option value="R32"> R32</option>
+                                <option value="R3c"> R3c</option>
+                                <option value="R3m"> R3m</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            crystal system
+                        </td>
+                        <td><select name="csys" onchange="Change()">
+                                <option
+                                =""="">
+                                </option>
+                                <option value="cubic"> cubic</option>
+                                <option value="tetragonal">tetragonal</option>
+                                <option value="orthorhombic"> orthorhombic</option>
+                                <option value="hexagonal"> hexagonal</option>
+                                <option value="rhombohedral"> rhombohedral</option>
+                                <option value="monoclinic1">monoclinic1</option>
+                                <option value="monoclinic2">monoclinic2</option>
+                                <option value="monoclinic3">monoclinic3</option>
+                                <option value="triclinic">triclinic</option>
+                            </select></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <div id="CellParamLogicInterface">
+                    Logic interface:<br>
+                    <input type="radio" name="logic1" value="AND" checked=""> AND
+                    <input type="radio" name="logic1" value="OR"> OR
+                    <br>
+                    <input type="submit">
+                    <input type="button" value="Reset" onclick="ResetForm()"><br>
+                </div>
+
+
+                <script language="JavaScript"><!--
+                    function Click1() {
+                        if (document.all) {
+                            document.all['one1'].innerText = 'Lower Range';
+                            document.all['two2'].innerText = 'Upper Range';
+                        } else {
+                            document.getElementById('one1').childNodes[0].nodeValue = 'Lower Range';
+                            document.getElementById('two2').childNodes[0].nodeValue = 'Upper Range';
+                        }
+                        document.AMCSDCellParamsForm.Ranges[0].checked = true;
+                    }
+
+                    function Click2() {
+                        if (document.all) {
+                            document.all['one1'].innerText = 'Value';
+                            document.all['two2'].innerText = 'Tolerance';
+                        } else {
+                            document.getElementById('one1').childNodes[0].nodeValue = 'Value';
+                            document.getElementById('two2').childNodes[0].nodeValue = 'Tolerance';
+                        }
+                        document.AMCSDCellParamsForm.Ranges[1].checked = true;
+                    }
+
+                    var text = "";
+
+                    // This is what it's expecting:
+                    // a=1to2%20and%20b=3to4
+
+                    /*
+
+                            MODIFYING THIS FILE?
+                            Watch out for hardcoded javascript field values. Adding/removing fields will break.
+
+                    */
+
+                    if (text.indexOf("and") >= 0) {
+                        arr = text.split("and");
+                        document.AMCSDCellParamsForm.elements[17].checked = true;
+                    } else {
+                        if (text.indexOf("or") >= 0) {
+                            arr = text.split("or");
+                            document.AMCSDCellParamsForm.elements[18].checked = true;
+                        } else
+                            arr = text.split(" ");
+                    }
+                    var count = 0;
+                    if (text.indexOf("to") >= 0) {
+                        while (count < arr.length) {
+                            var arr1 = arr[count].split("=");
+                            while (arr1[0].substring(0, 1) == ' ')
+                                arr1[0] = arr1[0].substring(1, arr1[0].length);
+                            while (arr1[0].substring(arr1[0].length - 1, arr1[0].length) == ' ')
+                                arr1[0] = arr1[0].substring(0, arr1[0].length - 1);
+                            if (arr1[0].indexOf("%") == 0)
+                                arr1[0] = arr1[0].substring(3, arr1[0].length);
+                            arr1[0] = "L" + arr1[0];
+                            while (arr1[1].substring(0, 1) == ' ')
+                                arr1[1] = arr1[1].substring(1, arr1[1].length);
+                            while (arr1[1].substring(arr1[1].length - 1, arr1[1].length) == ' ')
+                                arr1[1] = arr1[1].substring(0, arr1[1].length - 1);
+                            if (arr1[0] != "Lsg") {
+                                for (var i = 1; i < document.AMCSDCellParamsForm.elements.length; i++) {
+                                    var name1 = document.AMCSDCellParamsForm.elements[i].name;
+                                    //alert("name 1 is " + name1);
+                                    if (arr1[0] == name1) {
+                                        var arr2 = arr1[1].split("to");
+                                        if (arr2[0].indexOf("%") == 0)
+                                            arr2[0] = arr2[0].substring(3, arr2[0].length);
+                                        if (arr2[1].indexOf("%") >= 0)
+                                            arr2[1] = arr2[1].substring(0, arr2[1].length - 3);
+                                        while (arr2[0].substring(0, 1) == ' ')
+                                            arr2[0] = arr2[0].substring(1, arr2[0].length);
+                                        while (arr2[0].substring(arr2[0].length - 1, arr2[0].length) == ' ')
+                                            arr2[0] = arr2[0].substring(0, arr2[0].length - 1);
+                                        while (arr2[1].substring(0, 1) == ' ')
+                                            arr2[1] = arr2[1].substring(1, arr2[1].length);
+                                        while (arr2[1].substring(arr2[1].length - 1, arr2[1].length) == ' ')
+                                            arr2[1] = arr2[1].substring(0, arr2[1].length - 1);
+                                        document.AMCSDCellParamsForm.elements[i].value = arr2[0];
+                                        var k = i + 1;
+                                        document.AMCSDCellParamsForm.elements[k].value = arr2[1];
+                                    }
+                                }
+                            } else {
+                                for (var k = 0; k < document.AMCSDCellParamsForm.sg.options.length; k++) {
+                                    if (document.AMCSDCellParamsForm.sg.options[k].value == arr1[1])
+                                        document.AMCSDCellParamsForm.sg.options[k].selected = true;
+                                }
+                            }
+                            count = count + 1;
+                        }
+                    } else {
+                        if (text.indexOf("(") >= 0) {
+                            Click2();
+                            var count = 0;
+                            while (count < arr.length) {
+                                var arr1 = arr[count].split("=");
+                                //Removing leading and trailing blank spaces
+                                while (arr1[0].substring(0, 1) == ' ')
+                                    arr1[0] = arr1[0].substring(1, arr1[0].length);
+                                while (arr1[0].substring(arr1[0].length - 1, arr1[0].length) == ' ')
+                                    arr1[0] = arr1[0].substring(0, arr1[0].length - 1);
+                                while (arr1[1].substring(0, 1) == ' ')
+                                    arr1[1] = arr1[1].substring(1, arr1[1].length);
+                                while (arr1[1].substring(arr1[1].length - 1, arr1[1].length) == ' ')
+                                    arr1[1] = arr1[1].substring(0, arr1[1].length - 1);
+                                if (arr1[0].indexOf("%") == 0)
+                                    arr1[0] = arr1[0].substring(3, arr1[0].length);
+                                arr1[0] = "L" + arr1[0];
+
+                                if (arr1[0] != "Lsg") {
+                                    for (var i = 0; i < document.AMCSDCellParamsForm.elements.length; i++) {
+                                        var name1 = document.AMCSDCellParamsForm.elements[i].name;
+                                        if (arr1[0] == name1) {
+                                            var arr2 = arr1[1].split("(");
+                                            if (arr2[0].indexOf("%") == 0)
+                                                arr2[0] = arr2[0].substring(3, arr2[0].length);
+                                            if (arr2[1].indexOf("%") >= 0)
+                                                arr2[1] = arr2[1].substring(0, arr2[1].length - 3);
+                                            var arr3 = arr2[1].split(")");
+                                            if (arr3[0].indexOf("%") == 0)
+                                                arr3[0] = arr3[0].substring(3, arr3[0].length);
+                                            if (arr2[1].indexOf("%") >= 0)
+                                                arr3[1] = arr3[1].substring(0, arr3[1].length - 3);
+                                            if (arr2[0].indexOf(".") >= 0) {
+                                                arr4 = arr2[0].split(".");
+                                                len = arr4[1].length;
+                                                var zero = "";
+                                                for (var j = 0; j < len; j++)
+                                                    zero = zero + "0";
+                                                var div = "1" + zero;
+                                                arr3[0] = arr3[0] / div;
+                                            }
+                                            document.AMCSDCellParamsForm.elements[i].value = arr2[0];
+                                            var k = i + 1;
+                                            document.AMCSDCellParamsForm.elements[k].value = arr3[0];
+                                        }
+                                    }
+                                } else //If Space group is present
+                                {
+                                    for (var k = 0; k < document.AMCSDCellParamsForm.sg.options.length; k++) {
+                                        if (document.AMCSDCellParamsForm.sg.options[k].value == arr1[1])
+                                            document.AMCSDCellParamsForm.sg.options[k].selected = true;
+                                    }
+                                }
+                                count += 1;
+                                // ianj removed this line on 8/3/2005 kept overriding tolerance choice on return
+                                //document.AMCSDCellParamsForm.elements[12].checked=true;
+                            }
+                        } else {
+                            Click1();
+                            var arr1 = text.split("=");
+                            for (var k = 0; k < document.AMCSDCellParamsForm.sg.options.length; k++) {
+                                if (document.AMCSDCellParamsForm.sg.options[k].value == arr1[1])
+                                    document.AMCSDCellParamsForm.sg.options[k].selected = true;
+                            }
+                        }
+                    }
+
+                    function Change() {
+                        var system = document.AMCSDCellParamsForm.csys.options[document.AMCSDCellParamsForm.csys.selectedIndex].value;
+                        if (system == "cubic") {
+                            document.AMCSDCellParamsForm.Lalpha.value = 90;
+                            document.AMCSDCellParamsForm.Lbeta.value = 90;
+                            document.AMCSDCellParamsForm.Lgamma.value = 90;
+                            if ((document.AMCSDCellParamsForm.elements[3].checked) == true) {
+                                document.AMCSDCellParamsForm.Ualpha.value = 90;
+                                document.AMCSDCellParamsForm.Ubeta.value = 90;
+                                document.AMCSDCellParamsForm.Ugamma.value = 90;
+                            } else {
+                                document.AMCSDCellParamsForm.Ualpha.value = 0;
+                                document.AMCSDCellParamsForm.Ubeta.value = 0;
+                                document.AMCSDCellParamsForm.Ugamma.value = 0;
+                            }
+                        }
+                        if (system == "tetragonal") {
+                            document.AMCSDCellParamsForm.Lalpha.value = 90;
+                            document.AMCSDCellParamsForm.Lbeta.value = 90;
+                            document.AMCSDCellParamsForm.Lgamma.value = 90;
+                            if ((document.AMCSDCellParamsForm.elements[3].checked) == true) {
+                                document.AMCSDCellParamsForm.Ualpha.value = 90;
+                                document.AMCSDCellParamsForm.Ubeta.value = 90;
+                                document.AMCSDCellParamsForm.Ugamma.value = 90;
+                            } else {
+                                document.AMCSDCellParamsForm.Ualpha.value = 0;
+                                document.AMCSDCellParamsForm.Ubeta.value = 0;
+                                document.AMCSDCellParamsForm.Ugamma.value = 0;
+                            }
+                        }
+                        if (system == "hexagonal") {
+                            document.AMCSDCellParamsForm.Lalpha.value = 90;
+                            document.AMCSDCellParamsForm.Lbeta.value = 90;
+                            document.AMCSDCellParamsForm.Lgamma.value = 120;
+                            if ((document.AMCSDCellParamsForm.elements[3].checked) == true) {
+                                document.AMCSDCellParamsForm.Ualpha.value = 90;
+                                document.AMCSDCellParamsForm.Ubeta.value = 90;
+                                document.AMCSDCellParamsForm.Ugamma.value = 120;
+                            } else {
+                                document.AMCSDCellParamsForm.Ualpha.value = 0;
+                                document.AMCSDCellParamsForm.Ubeta.value = 0;
+                                document.AMCSDCellParamsForm.Ugamma.value = 0;
+                            }
+                        }
+                        if (system == "monoclinic1") {
+                            document.AMCSDCellParamsForm.Lalpha.value = 90;
+                            document.AMCSDCellParamsForm.Lbeta.value = 90;
+                            if ((document.AMCSDCellParamsForm.elements[3].checked) == true) {
+                                document.AMCSDCellParamsForm.Ualpha.value = 90;
+                                document.AMCSDCellParamsForm.Ubeta.value = 90;
+                            } else {
+                                document.AMCSDCellParamsForm.Ualpha.value = 0;
+                                document.AMCSDCellParamsForm.Ubeta.value = 0;
+                            }
+                        }
+                        if (system == "monoclinic2") {
+                            document.AMCSDCellParamsForm.Lalpha.value = 90;
+                            document.AMCSDCellParamsForm.Lgamma.value = 90;
+                            if ((document.AMCSDCellParamsForm.elements[3].checked) == true) {
+                                document.AMCSDCellParamsForm.Ualpha.value = 90;
+                                document.AMCSDCellParamsForm.Ugamma.value = 90;
+                            } else {
+                                document.AMCSDCellParamsForm.Ualpha.value = 0;
+                                document.AMCSDCellParamsForm.Ugamma.value = 0;
+                            }
+                        }
+                        if (system == "monoclinic3") {
+                            document.AMCSDCellParamsForm.Lgamma.value = 90;
+                            document.AMCSDCellParamsForm.Lbeta.value = 90;
+                            if ((document.AMCSDCellParamsForm.elements[3].checked) == true) {
+                                document.AMCSDCellParamsForm.Ubeta.value = 90;
+                                document.AMCSDCellParamsForm.Ugamma.value = 90;
+                            } else {
+                                document.AMCSDCellParamsForm.Ubeta.value = 0;
+                                document.AMCSDCellParamsForm.Ugamma.value = 0;
+                            }
+                        }
+                        if (system == "orthorhombic") {
+                            document.AMCSDCellParamsForm.Lalpha.value = 90;
+                            document.AMCSDCellParamsForm.Lbeta.value = 90;
+                            document.AMCSDCellParamsForm.Lgamma.value = 90;
+                            if ((document.AMCSDCellParamsForm.elements[3].checked) == true) {
+                                document.AMCSDCellParamsForm.Ualpha.value = 90;
+                                document.AMCSDCellParamsForm.Ubeta.value = 90;
+                                document.AMCSDCellParamsForm.Ugamma.value = 90;
+                            } else {
+                                document.AMCSDCellParamsForm.Ualpha.value = 0;
+                                document.AMCSDCellParamsForm.Ubeta.value = 0;
+                                document.AMCSDCellParamsForm.Ugamma.value = 0;
+                            }
+                        }
+                        if (document.AMCSDCellParamsForm.La.value != "") {
+                            if (system == "cubic") {
+                                document.AMCSDCellParamsForm.Lb.value = document.AMCSDCellParamsForm.La.value;
+                                document.AMCSDCellParamsForm.Lc.value = document.AMCSDCellParamsForm.La.value;
+                                document.AMCSDCellParamsForm.Ub.value = document.AMCSDCellParamsForm.Ua.value;
+                                document.AMCSDCellParamsForm.Uc.value = document.AMCSDCellParamsForm.Ua.value;
+                            }
+                            if (system == "tetragonal") {
+                                document.AMCSDCellParamsForm.Lb.value = document.AMCSDCellParamsForm.La.value;
+                                document.AMCSDCellParamsForm.Ub.value = document.AMCSDCellParamsForm.Ua.value;
+                            }
+                            if (system == "hexagonal") {
+                                document.AMCSDCellParamsForm.Lb.value = document.AMCSDCellParamsForm.La.value;
+                                document.AMCSDCellParamsForm.Ub.value = document.AMCSDCellParamsForm.Ua.value;
+                            }
+                            if (system == "rhombohedral") {
+                                document.AMCSDCellParamsForm.Lb.value = document.AMCSDCellParamsForm.La.value;
+                                document.AMCSDCellParamsForm.Ub.value = document.AMCSDCellParamsForm.Ua.value;
+                                document.AMCSDCellParamsForm.Lc.value = document.AMCSDCellParamsForm.La.value;
+                                document.AMCSDCellParamsForm.Uc.value = document.AMCSDCellParamsForm.Ua.value;
+                                document.AMCSDCellParamsForm.Lbeta.value = document.AMCSDCellParamsForm.Lalpha.value;
+                                document.AMCSDCellParamsForm.Lgamma.value = document.AMCSDCellParamsForm.Lalpha.value;
+                            }
+                        }
+                        if (document.AMCSDCellParamsForm.Lb.value != "") {
+                            if (system == "cubic") {
+                                document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lb.value;
+                                document.AMCSDCellParamsForm.Lc.value = document.AMCSDCellParamsForm.Lb.value;
+                                document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Ub.value;
+                                document.AMCSDCellParamsForm.Uc.value = document.AMCSDCellParamsForm.Ub.value;
+                            }
+                            if (system == "tetragonal") {
+                                document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lb.value;
+                                document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Ub.value;
+                            }
+                            if (system == "hexagonal") {
+                                document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lb.value;
+                                document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Ub.value;
+                            }
+                            if (system == "rhombohedral") {
+                                document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lb.value;
+                                document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Ub.value;
+                                document.AMCSDCellParamsForm.Lc.value = document.AMCSDCellParamsForm.Lb.value;
+                                document.AMCSDCellParamsForm.Uc.value = document.AMCSDCellParamsForm.Ub.value;
+                            }
+                        }
+                        if (document.AMCSDCellParamsForm.Lc.value != "") {
+                            if (system == "cubic") {
+                                document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lc.value;
+                                document.AMCSDCellParamsForm.Lb.value = document.AMCSDCellParamsForm.Lc.value;
+                                document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Uc.value;
+                                document.AMCSDCellParamsForm.Ub.value = document.AMCSDCellParamsForm.Uc.value;
+                            }
+
+                            if (system == "rhombohedral") {
+                                document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lc.value;
+                                document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Uc.value;
+                                document.AMCSDCellParamsForm.Lb.value = document.AMCSDCellParamsForm.Lc.value;
+                                document.AMCSDCellParamsForm.Ub.value = document.AMCSDCellParamsForm.Uc.value;
+                            }
+                        }
+                        if (document.AMCSDCellParamsForm.Lalpha.value != "") {
+                            if (system == "rhombohedral") {
+                                document.AMCSDCellParamsForm.Lbeta.value = document.AMCSDCellParamsForm.Lalpha.value;
+                                document.AMCSDCellParamsForm.Ubeta.value = document.AMCSDCellParamsForm.Ualpha.value;
+                                document.AMCSDCellParamsForm.Lgamma.value = document.AMCSDCellParamsForm.Lalpha.value;
+                                document.AMCSDCellParamsForm.Ugamma.value = document.AMCSDCellParamsForm.Ualpha.value;
+                            }
+                        }
+                        if (document.AMCSDCellParamsForm.Lbeta.value != "") {
+                            if (system == "rhombohedral") {
+                                document.AMCSDCellParamsForm.Lalpha.value = document.AMCSDCellParamsForm.Lbeta.value;
+                                document.AMCSDCellParamsForm.Ualpha.value = document.AMCSDCellParamsForm.Ubeta.value;
+                                document.AMCSDCellParamsForm.Lgamma.value = document.AMCSDCellParamsForm.Lbeta.value;
+                                document.AMCSDCellParamsForm.Ugamma.value = document.AMCSDCellParamsForm.Ubeta.value;
+                            }
+                        }
+                        if (document.AMCSDCellParamsForm.Lgamma.value != "") {
+                            if (system == "rhombohedral") {
+                                document.AMCSDCellParamsForm.Lalpha.value = document.AMCSDCellParamsForm.Lgamma.value;
+                                document.AMCSDCellParamsForm.Ualpha.value = document.AMCSDCellParamsForm.Ugamma.value;
+                                document.AMCSDCellParamsForm.Lbeta.value = document.AMCSDCellParamsForm.Lgamma.value;
+                                document.AMCSDCellParamsForm.Ubeta.value = document.AMCSDCellParamsForm.Ugamma.value;
+                            }
+                        }
+                    }
+
+                    function ResetForm() {
+                        document.AMCSDCellParamsForm.elements[1].value = "";
+                        document.AMCSDCellParamsForm.elements[2].value = "";
+                        document.AMCSDCellParamsForm.elements[3].value = "";
+                        document.AMCSDCellParamsForm.elements[4].value = "";
+                        document.AMCSDCellParamsForm.elements[5].value = "";
+                        document.AMCSDCellParamsForm.elements[6].value = "";
+                        document.AMCSDCellParamsForm.elements[7].value = "";
+                        document.AMCSDCellParamsForm.elements[8].value = "";
+                        document.AMCSDCellParamsForm.elements[9].value = "";
+                        document.AMCSDCellParamsForm.elements[10].value = "";
+                        document.AMCSDCellParamsForm.elements[11].value = "";
+                        document.AMCSDCellParamsForm.elements[12].value = "";
+                        document.AMCSDCellParamsForm.elements[13].value = "";
+                        document.AMCSDCellParamsForm.elements[14].value = "";
+                    }
+
+                    function ChangeA() {
+                        var system = document.AMCSDCellParamsForm.csys.options[document.AMCSDCellParamsForm.csys.selectedIndex].value;
+                        if (system == "cubic") {
+                            document.AMCSDCellParamsForm.Lb.value = document.AMCSDCellParamsForm.La.value;
+                            document.AMCSDCellParamsForm.Lc.value = document.AMCSDCellParamsForm.La.value;
+                            document.AMCSDCellParamsForm.Ub.value = document.AMCSDCellParamsForm.Ua.value;
+                            document.AMCSDCellParamsForm.Uc.value = document.AMCSDCellParamsForm.Ua.value;
+                        }
+                        if (system == "tetragonal") {
+                            document.AMCSDCellParamsForm.Lb.value = document.AMCSDCellParamsForm.La.value;
+                            document.AMCSDCellParamsForm.Ub.value = document.AMCSDCellParamsForm.Ua.value;
+                        }
+                        if (system == "hexagonal") {
+                            document.AMCSDCellParamsForm.Lb.value = document.AMCSDCellParamsForm.La.value;
+                            document.AMCSDCellParamsForm.Ub.value = document.AMCSDCellParamsForm.Ua.value;
+                        }
+                        if (system == "rhombohedral") {
+                            document.AMCSDCellParamsForm.Lb.value = document.AMCSDCellParamsForm.La.value;
+                            document.AMCSDCellParamsForm.Ub.value = document.AMCSDCellParamsForm.Ua.value;
+                            document.AMCSDCellParamsForm.Lc.value = document.AMCSDCellParamsForm.La.value;
+                            document.AMCSDCellParamsForm.Uc.value = document.AMCSDCellParamsForm.Ua.value;
+                        }
+                    }
+
+                    function ChangeB() {
+                        var system = document.AMCSDCellParamsForm.csys.options[document.AMCSDCellParamsForm.csys.selectedIndex].value;
+                        if (system == "cubic") {
+                            document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lb.value;
+                            document.AMCSDCellParamsForm.Lc.value = document.AMCSDCellParamsForm.Lb.value;
+                            document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Ub.value;
+                            document.AMCSDCellParamsForm.Uc.value = document.AMCSDCellParamsForm.Ub.value;
+                        }
+                        if (system == "tetragonal") {
+                            document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lb.value;
+                            document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Ub.value;
+                        }
+                        if (system == "hexagonal") {
+                            document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lb.value;
+                            document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Ub.value;
+                        }
+                        if (system == "rhombohedral") {
+                            document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lb.value;
+                            document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Ub.value;
+                            document.AMCSDCellParamsForm.Lc.value = document.AMCSDCellParamsForm.Lb.value;
+                            document.AMCSDCellParamsForm.Uc.value = document.AMCSDCellParamsForm.Ub.value;
+                        }
+                    }
+
+                    function ChangeC() {
+                        var system = document.AMCSDCellParamsForm.csys.options[document.AMCSDCellParamsForm.csys.selectedIndex].value;
+                        if (system == "cubic") {
+                            document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lc.value;
+                            document.AMCSDCellParamsForm.Lb.value = document.AMCSDCellParamsForm.Lc.value;
+                            document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Uc.value;
+                            document.AMCSDCellParamsForm.Ub.value = document.AMCSDCellParamsForm.Uc.value;
+                        }
+                        if (system == "tetragonal") {
+                            document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lc.value;
+                            document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Uc.value;
+                        }
+                        if (system == "hexagonal") {
+                            document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lc.value;
+                            document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Uc.value;
+                        }
+                        if (system == "rhombohedral") {
+                            document.AMCSDCellParamsForm.La.value = document.AMCSDCellParamsForm.Lc.value;
+                            document.AMCSDCellParamsForm.Ua.value = document.AMCSDCellParamsForm.Uc.value;
+                            document.AMCSDCellParamsForm.Lc.value = document.AMCSDCellParamsForm.Lc.value;
+                            document.AMCSDCellParamsForm.Uc.value = document.AMCSDCellParamsForm.Uc.value;
+                        }
+                    }
+
+                    function ChangeAl() {
+                        var system = document.AMCSDCellParamsForm.csys.options[document.AMCSDCellParamsForm.csys.selectedIndex].value;
+                        if (system == "rhombohedral") {
+                            document.AMCSDCellParamsForm.Lbeta.value = document.AMCSDCellParamsForm.Lalpha.value;
+                            document.AMCSDCellParamsForm.Ubeta.value = document.AMCSDCellParamsForm.Ualpha.value;
+                            document.AMCSDCellParamsForm.Lgamma.value = document.AMCSDCellParamsForm.Lalpha.value;
+                            document.AMCSDCellParamsForm.Ugamma.value = document.AMCSDCellParamsForm.Ualpha.value;
+                        }
+                    }
+
+                    function ChangeBe() {
+                        var system = document.AMCSDCellParamsForm.csys.options[document.AMCSDCellParamsForm.csys.selectedIndex].value;
+                        if (system == "rhombohedral") {
+                            document.AMCSDCellParamsForm.Lalpha.value = document.AMCSDCellParamsForm.Lbeta.value;
+                            document.AMCSDCellParamsForm.Ualpha.value = document.AMCSDCellParamsForm.Ubeta.value;
+                            document.AMCSDCellParamsForm.Lgamma.value = document.AMCSDCellParamsForm.Lbeta.value;
+                            document.AMCSDCellParamsForm.Ugamma.value = document.AMCSDCellParamsForm.Ubeta.value;
+                        }
+                    }
+
+                    function ChangeGa() {
+                        var system = document.AMCSDCellParamsForm.csys.options[document.AMCSDCellParamsForm.csys.selectedIndex].value;
+                        if (system == "rhombohedral") {
+                            document.AMCSDCellParamsForm.Lbeta.value = document.AMCSDCellParamsForm.Lgamma.value;
+                            document.AMCSDCellParamsForm.Ubeta.value = document.AMCSDCellParamsForm.Ugamma.value;
+                            document.AMCSDCellParamsForm.Lalpha.value = document.AMCSDCellParamsForm.Lgamma.value;
+                            document.AMCSDCellParamsForm.Ualpha.value = document.AMCSDCellParamsForm.Ugamma.value;
+                        }
+                    }
+
+                    //--></script>
+
+
+                </p></center>
+        </form>
+
+        <div>
+            In this window you have the option to search for crystal structures based on cell parameters and space group
+            symmetry. The cell parameter constraints can be entered in one of two ways, either by establishing a range
+            of values (for instance, a-cell ranges from 10 to 10.2 Ang), or by establishing a value and its tolerance
+            (for instance, a-cell=10.1+/- 0.1). Not all fields need to be chosen. The list box labelled "crystal system"
+            can be used to fill in field constraints if desired. However, crystal system is not a searchable field.
+        </div>
+        <div>
+            In addition space group symmetry can also be defined by choosing a space group from the list box. The list
+            box does not contain all possible space groups, but only those represented in the database.</font></p>
+        </div>
+
+    </div>
+
+</div>

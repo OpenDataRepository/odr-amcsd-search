@@ -13,6 +13,107 @@
     margin-right: auto;
 }
 
+#AMCSDMainTitle {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: Roboto, serif;
+    color: #ADA595;
+    font-weight: 600;
+    font-size: 24px;
+    text-align: center;
+}
+
+#AMCSDMainContent table,
+#AMCSDMainContent tr,
+#AMCSDMainContent th,
+#AMCSDMainContent td {
+    border: none;
+}
+
+#AMCSDMainContent td {
+    vertical-align: baseline;
+    padding-left: 10px !important;
+}
+
+.AMCSDContent {
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
+
+.AMCSDForm {
+    color: white;
+    background-color: #3C6E99;
+    border-radius: 12px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.AMCSDForm table {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.3em;
+}
+
+.AMCSDForm input,
+.AMCSDForm table td,
+.AMCSDForm table th,
+.AMCSDForm table tr {
+    padding: 0 !important;
+}
+
+.AMCSDForm input,
+.AMCSDForm table tr {
+    line-height: 1.6em;
+    margin-bottom: 10px !important;
+    padding-left: 8px;
+}
+
+.AMCSDInterfaceTable {
+    padding-top: 30px;
+}
+
+.AMCSDInterfaceTable input[type=button] {
+    margin-top: 12px;
+    margin-right: 12px;
+    background: #ADA595;
+    border-radius: 4px;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    font-size: 20px;
+}
+
+#AMCSDPeriodicTableTD {
+    display: none;
+}
+
+.AMCSDPeriodicTable {
+    padding-bottom: 36px;
+    color: #222;
+}
+
+.AMCSDLogicTable {
+    padding-bottom: 24px;
+}
+
+.AMCSDHelperLink {
+    cursor: pointer;
+    font-weight: 700;
+    font-family: Roboto, serif;
+    color: white;
+}
+
+.AMCSDInfoDiv,
+.AMCSDLinksDiv {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
 #ODRMainMenu {
     position: absolute;
     top: 100px;
@@ -332,7 +433,7 @@ table.search_form th {
    max-width: 740px;
    margin-left: auto;
    margin-right: auto;
-   display: none;
+   /* display: none; */
 }
 
 #amcsd-periodic-table {
@@ -345,6 +446,12 @@ table.search_form th {
     border: none;
     padding: 0 0 0 0 !important;
 }
+
+
+
+
+
+
 
 .pt_alkali_metals {
     text-align:center; cursor: pointer;  background:#ffbbdd;
@@ -382,10 +489,15 @@ table.search_form th {
     text-align:center; cursor: pointer;  background:#ff99cc;
 }
 
+.pt_hydrogen {
+    text-align:center; cursor: pointer;  background:#a0ffa0;
+}
+
+
 .periodic_table {
     margin: 1px 1px 1px 1px;
     font-weight: normal;
-    border: 2px solid rgba(255,255,255,0.4);
+    border: 2px solid rgba(127,127,127,0.4);
     -webkit-transition : font-weight 500ms ease-out;
     -moz-transition : font-weight 500ms ease-out;
     -o-transition : font-weight 500ms ease-out;
@@ -400,6 +512,25 @@ table.search_form th {
     transition : border 500ms ease-out;
 }
 
+.chem_ele_selected_OR {
+    color: green;
+    border: 2px solid rgba(0,255,0,0.8);
+    font-weight: bold;
+    -webkit-transition : font-weight 500ms ease-out;
+    -moz-transition : font-weight 500ms ease-out;
+    -o-transition : font-weight 500ms ease-out;
+    transition : font-weight 500ms ease-out;
+    -webkit-transition : color 500ms ease-out;
+    -moz-transition : color 500ms ease-out;
+    -o-transition : color 500ms ease-out;
+    transition : color 500ms ease-out;
+    -webkit-transition : border 500ms ease-out;
+    -moz-transition : border 500ms ease-out;
+    -o-transition : border 500ms ease-out;
+    transition : border 500ms ease-out;
+}
+
+.chem_ele_selected_AND,
 .included {
     border: 2px solid rgba(0,0,255,0.8);
     font-weight: bold;
@@ -418,6 +549,7 @@ table.search_form th {
     transition : border 500ms ease-out;
 }
 
+.chem_ele_selected_NOT,
 .excluded {
     border: 2px solid rgba(255,0,0,0.8);
     font-weight: bold;
@@ -436,10 +568,96 @@ table.search_form th {
     transition : border 500ms ease-in;
 }
 
+.pt_disabled {
+    border: 2px solid rgba(187,187,187,0.4) !important;
+    font-weight: bold;
+    background-color: #eeeeee !important;
+    color: #bbbbbb !important;
+    -webkit-transition : font-weight 500ms ease-out;
+    -moz-transition : font-weight 500ms ease-out;
+    -o-transition : font-weight 500ms ease-out;
+    transition : font-weight 500ms ease-out;
+    -webkit-transition : color 500ms ease-out;
+    -moz-transition : color 500ms ease-out;
+    -o-transition : color 500ms ease-out;
+    transition : color 500ms ease-out;
+    -webkit-transition : border 500ms ease-in;
+    -moz-transition : border 500ms ease-in;
+    -o-transition : border 500ms ease-in;
+    transition : border 500ms ease-in;
+}
+
+
+
+
 #periodic_table_instructions,
 #periodic_table_lanthanides_alt,
 #periodic_table_actinides_alt {
     border: none;
     font-weight: bold;
     color: rgba(255,255,255, 0.8) !important;
+}
+
+/*
+    Periodic Table Info
+ */
+#rruff-periodic-table {
+    background-color: rgba(220,220,220, 0.0);
+    border: none;
+    min-height: 200px;
+    height: 200px !important;
+    line-height: 2em;
+}
+
+#rruff-periodic-table td,
+#rruff-periodic-table td {
+    border: none;
+    padding: 0 0 0 0 !important;
+}
+/*
+    END Periodic Table
+ */
+
+.AMCSDMineralNameLetter {
+    cursor: pointer;
+}
+
+.AMCSDMineralName {
+    cursor: pointer;
+    display: none;
+}
+
+.AMCSDMineralNameSelected {
+    font-weight: bold;
+}
+
+#AMCSDCellParametersAndSymmetry select,
+#AMCSDCellParametersAndSymmetry input {
+    padding: 0;
+}
+#AMCSDCellParametersAndSymmetry table {
+    border: none;
+    width: 600px;
+}
+
+#AMCSDCellParametersAndSymmetry tr,
+#AMCSDCellParametersAndSymmetry td {
+    line-height: 1.8em;
+    padding: 0;
+    border: none;
+}
+
+.AMCSDMineralAlpha {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+#AMCSDMineralList table {
+    width: 600px !important;
+    border: none;
+}
+#AMCSDMineralList tr,
+#AMCSDMineralList td {
+    border: none;
+    padding: 0;
 }

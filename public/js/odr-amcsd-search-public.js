@@ -30,17 +30,17 @@
 	 */
 
 	function summarySearchMode() {
-		$("#rsf_chemistry_excl_block").hide();
-		$("#rsf_chemistry_incl_block").hide();
-		$("#rsf_mineral_block").hide();
-		$("#rsf_general_block").hide();
-		$("#rsf_sort_block").hide();
-		$("#rsf_submit_block").addClass('summary-submit-block')
-		$("#odr_amcsd_search_dialog").addClass('summary-search-form')
-		$("#amcsd-search-form").addClass('summary-search-form')
+		jQuery("#rsf_chemistry_excl_block").hide();
+		jQuery("#rsf_chemistry_incl_block").hide();
+		jQuery("#rsf_mineral_block").hide();
+		jQuery("#rsf_general_block").hide();
+		jQuery("#rsf_sort_block").hide();
+		jQuery("#rsf_submit_block").addClass('summary-submit-block')
+		jQuery("#odr_amcsd_search_dialog").addClass('summary-search-form')
+		jQuery("#amcsd-search-form").addClass('summary-search-form')
 	}
 
-	$( window ).load(function() {
+	jQuery( window ).load(function() {
 
 		// Check if there are loaded search values
 		console.log('Hash: ' + location.hash)
@@ -123,7 +123,7 @@
 		// Hide when hash is present except fields that are filled
 		// Maybe make a quick general search version
 
-		$(".periodic_table").click(
+		jQuery(".periodic_table").click(
 			function () {
 				if ($(this).attr('id') === 'periodic_table_clear') {
 					$('.periodic_table').removeClass('included');
@@ -224,7 +224,7 @@
 			}
 		);
 
-		$(".chemistry_lookup_link").click(
+		jQuery(".chemistry_lookup_link").click(
 			function () {
 				$("#div_periodic_table").slideToggle('300',
 					function () {
@@ -237,7 +237,7 @@
 			}
 		);
 
-		$("#reset_sample_search").click(function () {
+		jQuery("#reset_sample_search").click(function () {
 			$("#txt_mineral").val('');
 			$("#txt_general").val('');
 			$("#chemistry_incl_txt").val('');
@@ -252,7 +252,7 @@
 
 
 		/*
-		$("#amcsd-search-form-wrapper").submit(
+		jQuery("#amcsd-search-form-wrapper").submit(
 			function () {
 				submitSearchForm();
 				return false;
@@ -260,14 +260,51 @@
 		);
 		 */
 
-		$("#amcsd-search-form-submit").click(
+		jQuery("#amcsd-search-form-submit").click(
 			// Use BtoA to encode
 			function () {
 				submitSearchForm();
 				return false;
 			}
 		);
+
+		// Prepare Mineral Name Modal
+		jQuery(".AMCSDMineralNameLetter").click(function() {
+			console.log("Letter: " + jQuery(this).html())
+			selectMineralNames(jQuery(this).html())
+		});
+
+		selectMineralNames("A")
+
+		jQuery(".AMCSDMineralName").click(function() {
+			if(jQuery("#txt_mineral").val().length === 0) {
+				jQuery("#txt_mineral").val(
+					jQuery(this).html()
+				)
+			}
+			else {
+				jQuery("#txt_mineral").val(
+					jQuery("#txt_mineral").val() + ', ' +
+					jQuery(this).html()
+				)
+			}
+			jQuery(this).addClass('.AMCSDMineralNameSelected')
+		});
 	});
+
+	function selectMineralNames(letter) {
+		let regex = new RegExp('^' + letter, 'i');
+		jQuery(".AMCSDMineralName").each(function() {
+			if(jQuery(this).html().match(regex)) {
+				console.log('Mineral Name: ', jQuery(this).html())
+				jQuery(this).removeClass('.AMCSDMineralNameSelected')
+				jQuery(this).show()
+			}
+			else {
+				jQuery(this).hide()
+			}
+		})
+	}
 
 	function submitSearchForm() {
 		console.log('Submit Search Form')
@@ -470,6 +507,10 @@
 	}
 
 })( jQuery );
+
+function togglePeriodicTable() {
+	jQuery('#AMCSDPeriodicTableTD').toggle('slow')
+}
 
 function b64EncodeUnicode(str) {
 	return btoa(str);
