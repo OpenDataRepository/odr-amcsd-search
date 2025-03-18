@@ -26,43 +26,36 @@
     ]
 */
 
-// print_r($options); exit();
-
 ?>
 
 <script type="text/javascript">
     // Declare variables for Search JS
     let search_options = [];
-    search_options['datatype_id'] = "<?php echo $odr_search_plugin_options['datatype_id']; ?>";
-    search_options['general_search'] = "<?php echo $odr_search_plugin_options['general_search']; ?>";
-    search_options['chemistry_incl'] = "<?php echo $odr_search_plugin_options['chemistry_incl']; ?>";
-    search_options['mineral_name'] = "<?php echo $odr_search_plugin_options['mineral_name']; ?>";
-    search_options['sample_id'] = "<?php echo $odr_search_plugin_options['sample_id']; ?>";
-    search_options['amcsd_id'] = "<?php echo $odr_search_plugin_options['amcsd_id']; ?>";
-    search_options['redirect_url'] = "<?php echo $odr_search_plugin_options['redirect_url']; ?>";
-    search_options['default_search'] = "<?php echo $odr_search_plugin_options['default_search']; ?>";
-    search_options['search_pictures'] = "<?php echo $odr_search_plugin_options['search_pictures']; ?>";
-    search_options['search_spectra'] = "<?php echo $odr_search_plugin_options['search_spectra']; ?>";
+    search_options['datatype_id'] = "<?php echo $odr_amcsd_search_plugin_options['datatype_id']; ?>";
+    search_options['general_search'] = "<?php echo $odr_amcsd_search_plugin_options['general_search']; ?>";
+    search_options['chemistry_incl'] = "<?php echo $odr_amcsd_search_plugin_options['chemistry_incl']; ?>";
+    search_options['mineral_name'] = "<?php echo $odr_amcsd_search_plugin_options['mineral_name']; ?>";
+    search_options['author_names'] = "<?php echo $odr_amcsd_search_plugin_options['author_names']; ?>";
+    search_options['a'] = "<?php echo $odr_amcsd_search_plugin_options['a']; ?>";
+    search_options['b'] = "<?php echo $odr_amcsd_search_plugin_options['b']; ?>";
+    search_options['c'] = "<?php echo $odr_amcsd_search_plugin_options['c']; ?>";
+    search_options['alpha'] = "<?php echo $odr_amcsd_search_plugin_options['alpha']; ?>";
+    search_options['beta'] = "<?php echo $odr_amcsd_search_plugin_options['beta']; ?>";
+    search_options['gamma'] = "<?php echo $odr_amcsd_search_plugin_options['gamma']; ?>";
+    search_options['crystal_system'] = "<?php echo $odr_amcsd_search_plugin_options['crystal_system']; ?>";
+    search_options['space_group'] = "<?php echo $odr_amcsd_search_plugin_options['space_group']; ?>";
+    search_options['redirect_url'] = "<?php echo $odr_amcsd_search_plugin_options['redirect_url']; ?>";
+    search_options['default_search'] = "<?php echo $odr_amcsd_search_plugin_options['default_search']; ?>";
+    search_options['amc_short_form'] = "<?php echo $odr_amcsd_search_plugin_options['amc_short_form']; ?>";
+    search_options['cif'] = "<?php echo $odr_amcsd_search_plugin_options['cif']; ?>";
+    console.log('SEARCH OPTIONS', search_options)
 </script>
 
 
 <div id="AMCSDMainContent">
     <!-- frame enclosing table -->
-    <div align="center" style="font-weight: bold; color:#eee;margin-left: 50px; margin-right: 50px;">
-        <!--Notice: The RRUFF Database and associated websites will be down for scheduled maintenance on Monday, October 1, 2007 from 12:00 AM to 8:00 AM PST (GMT +8). -->
-    </div>
-    <div id="AMCSDMainTitle">
-        American Mineralogist Crystal Structure Database
-    </div>
-    <div class="AMCSDContent">
-        This site is an interface to a crystal structure database that includes every structure published in the
-        American Mineralogist, The Canadian Mineralogist, European Journal of Mineralogy and Physics and Chemistry of
-        Minerals, as well as selected datasets from other journals. The database is maintained under the care of the
-        Mineralogical Society of America and the Mineralogical Association of Canada, and financed by the National
-        Science Foundation.
-    </div>
     <div class="AMCSDForm">
-        <form name="myForm" action="/AMS/result.php" method="POST">
+        <form name="myForm">
             <table class="AMCSDInterfaceTable">
                 <tr>
                     <td width="50%"><input type="text" id="txt_mineral" name="Mineral" value="" size="50"></td>
@@ -73,11 +66,24 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="text" name="Author" value="" size="50"></td>
-                    <td><a href="javascript:submitForm('index_auth.php');" class="AMCSDHelperLink">Author</a></td>
+                    <td><input type="text" name="Author" id="txt_author" value="" size="50"></td>
+                    <td>
+                        <a href="#AMCSDAuthorList" rel="modal:open" class="AMCSDHelperLink">
+                            Author
+                        </a>
+                    </td>
                 </tr>
                 <tr>
-                    <td><input type="text" id="txt_chemistry_incl" name="Periodic" value="" size="50"></td>
+                    <td colspan="2">
+                        <div class="AMCSDChemistryHeader">Chemistry Includes</div>
+                        <div class="AMCSDChemistryHeader">Chemistry Excludes</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="AMCSDChemistryInput" type="text" id="txt_chemistry_incl" value="" size="25">
+                        <input class="AMCSDChemistryInput" type="text" id="txt_chemistry_excl" value="" size="25">
+                    </td>
                     <td><a onclick="togglePeriodicTable()" class="AMCSDHelperLink">Chemistry Search</a></td>
                 </tr>
                 <tr id="AMCSDPeriodicTableTD">
@@ -94,9 +100,9 @@
                                                 </div>
                                             </td>
                                             <td colspan="16" align="center" id="periodic_table_instructions">
+                                                <!--
                                                 Click an element: once &raquo; required, twice &raquo; possible, thrice
-                                                &raquo;
-                                                exclude
+                                                &raquo; exclude -->
                                             </td>
                                             <td>
                                                 <div class="pt_noble_gases periodic_table chem_ele_unselected"
@@ -666,7 +672,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="text" name="CellParam" value="" size="50"></td>
+                    <td><input type="text" name="CellParam" id="txt_cell_parameters" value="" size="50"></td>
                     <td>
                         <a href="#AMCSDCellParametersAndSymmetry" rel="modal:open" class="AMCSDHelperLink">
                             Cell Parameters and Symmetry
@@ -674,99 +680,44 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="text" name="diff" value="" size="50"></td>
-                    <td><a href="javascript:submitForm('diffpatt.php');" class="AMCSDHelperLink">Diffraction Search</a>
+                    <td><input type="text" name="diff" id="txt_diffraction" value="" size="50"></td>
+                    <td><a href="#AMCSDDiffractionSearch" rel="modal:open" class="AMCSDHelperLink">Diffraction Search</a>
                     </td>
                 </tr>
                 <tr valign="top">
-                    <td><input type="text" name="Key" size="50" value=""></td>
+                    <td><input type="text" name="Key" id="txt_general" size="50" value=""></td>
                     <td><strong>General Search</strong><br>
-                        <b><a href="/AMS/tips.php" class="AMCSDHelperLink" title="Click for more details...">Search
-                                Tips</a></b>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="center" colspan="2">
-                        <input type="button" value="Search">
-                        <input type="button" value="Reset" onclick="resetForm(); return true;">
-                    </td>
-                </tr>
-            </table>
-
-            <table class="AMCSDLogicTable">
-                <tbody>
-                <tr>
-                    <td nowrap=""><b> Logic interface</b></td>
-                    <td width="75%">
-                        <input type="radio" name="logic" value="AND" checked=""> <b>AND</b>
-                        <input type="radio" name="logic" value="OR"> <b>OR</b>
                     </td>
                 </tr>
                 <tr>
-                    <td nowrap=""><b>Viewing</b> (About <a href="/AMS/format.php" class="title">File Formats</a>)</td>
                     <td>
-                        <input type="radio" name="Viewing" value="amclongform" checked="">amc long form
+                        <input type="radio" name="Viewing" value="amclongform" checked=""> amc long form
                         <input type="radio" name="Viewing" value="amcshortform"> amc short form
                         <input type="radio" name="Viewing" value="cif"> cif <br>
                     </td>
+                    <td>Display<!-- (About <a href="/AMS/format.php" class="title">File Formats</a>) --></td>
                 </tr>
                 <tr>
-                    <td nowrap=""><b>Download</b></td>
-                    <td>
-                        <input type="radio" name="Download" value="amc" checked=""> amc
-                        <input type="radio" name="Download" value="cif"> cif
-                        <input type="radio" name="Download" value="dif"> diffraction data
-                        <input type="hidden" name="hid1" value="">
+                    <td align="center" colspan="2">
+                        <input type="button" value="Search" id="amcsd-search-form-submit">
+                        <input type="button" value="Reset" id="amcsd-search-form-reset">
+                        <!-- <div>
+                            <b><a href="/AMS/tips.php" class="AMCSDHelperLink" title="Click for more details...">Search Tips</a></b>
+                        </div> -->
                     </td>
                 </tr>
-                </tbody>
             </table>
         </form>
-    </div>
-
-    <div class="AMCSDLinksDiv">
-        <table>
-            <tbody>
-            <tr>
-                <td>
-                    <a href="/AMS/people.php">
-                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/people.gif"/>
-                    </a>
-                </td>
-                <td>
-                    <a href="http://www.nsf.gov/">
-                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/nsf.gif"/>
-                    </a>
-                </td>
-                <td>
-                    <a href="http://www.minsocam.org">
-                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/MSAws.gif"/>
-                    </a>
-                </td>
-                <td>
-                    <a href="http://www.mineralogicalassociation.ca/">
-                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/canmin.gif"/>
-                    </a>
-                </td>
-                <td>
-                    <a href="http://www.schweizerbart.de/j/ejm/">
-                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/ejm.gif"/>
-                    </a>
-                </td>
-                <td>
-                    <a href="http://www.geo.arizona.edu/xtal/">
-                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/UofA.gif"/>
-                    </a>
-                </td>
-                <td>
-                    <a href="/AMS/extra.php">
-                        <img src="/wp-content/plugins/odr-amcsd-search/public/images/extra.gif"/>
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="AMCSDInfoDiv">
+            <div class="AMCSDContentRight">
+                This page has been accessed 4605651 times.
+                <br />&nbsp;
+            </div>
+            <div class="AMCSDContent">
+                <b>Files downloaded since Apr 1, 2003:</b> 1169958259
+                <br><b>Data Last Updated:</b> January 08, 2024
+            </div>
+        </div>
     </div>
 
     <div id="AMCSDMineralList" class="modal">
@@ -804,15 +755,24 @@
             <?php
             try {
                 include(__DIR__ . '/../../../../data-publisher/web/uploads/IMA/mineral_names.php');
+                include(__DIR__ . '/../../../../data-publisher/web/uploads/IMA/mineral_names_update.php');
                 $count = 0;
                 $column_count = 0;
+                $current_letter = 'a';
+                asort($mineral_names, SORT_LOCALE_STRING);
                 foreach ($mineral_names as $mineral_name) {
+                    // Check if we match current letter
+                    if(mb_strtolower(substr($mineral_name,0, 1)) !== $current_letter) {
+                        // Force count to 4
+                        $current_letter =  mb_strtolower(substr($mineral_name,0, 1));
+                        $count = 4;
+                        $column_count = 0;
+                    }
 
                     if ($count % 4 === 0) {
                         ?><tr><?php
                     }
-                    ?>
-                    <td class="AMCSDMineralName"><?php print $mineral_name ?></td><?php
+                    ?><td class="AMCSDMineralName"><?php print $mineral_name ?></td><?php
                     $column_count++;
                     if ($column_count === 4) {
                         ?></tr><?php
@@ -826,44 +786,88 @@
         </table>
     </div>
 
-    <div class="AMCSDInfoDiv">
-        <div class="AMCSDContent">
-            <b>Number of Files downloaded since Apr 1, 2003:</b> 1169958259
-            <br><b>Data Last Updated:</b> January 08, 2024
-        </div>
-        <div class="AMCSDContent">
-            <b>Web Page Last Updated:</b> July 31, 2018<br> This page has been accessed 4605651 times.
-        </div>
-        <div class="AMCSDContent">
-            Also see our <a href="all_minerals.php">complete list of minerals</a> and <a href="all_authors.php">complete
-                list of authors</a>.
-        </div>
-        <div class="AMCSDContent">
-            This material is based upon work supported by the National Science Foundation under Grant Nos.
-            EAR-0112782. and EAR-0622371.
-            Any opinions, findings, and conclusions or recommendations expressed in this material are those of
-            the authors
-            and do not necessarily reflect the views of the National Science Foundation.
-        </div>
-        <div class="AMCSDContent">
-            Should the use of the database require a citation, then please use: Downs, R.T. and Hall-Wallace, M.
-            (2003) The American Mineralogist Crystal Structure Database. American Mineralogist 88, 247-250. (<a
-                    href="http://geo.arizona.edu/xtal/group/pdf/am88_247.pdf" target="_new">pdf file</a>)
-        </div>
-        <div class="AMCSDContent">
-            Contact <a href="mailto:rdowns@u.arizona.edu" class="title">Robert T Downs</a> for suggestions and
-            corrections.
-        </div>
+
+    <div id="AMCSDAuthorList" class="modal">
+        <table>
+            <tr>
+                <td colspan="4" class="AMCSDAuthorAlpha">
+                    <span class="AMCSDAuthorNameLetter">A</span>
+                    <span class="AMCSDAuthorNameLetter">B</span>
+                    <span class="AMCSDAuthorNameLetter">C</span>
+                    <span class="AMCSDAuthorNameLetter">D</span>
+                    <span class="AMCSDAuthorNameLetter">E</span>
+                    <span class="AMCSDAuthorNameLetter">F</span>
+                    <span class="AMCSDAuthorNameLetter">G</span>
+                    <span class="AMCSDAuthorNameLetter">H</span>
+                    <span class="AMCSDAuthorNameLetter">I</span>
+                    <span class="AMCSDAuthorNameLetter">J</span>
+                    <span class="AMCSDAuthorNameLetter">K</span>
+                    <span class="AMCSDAuthorNameLetter">L</span>
+                    <span class="AMCSDAuthorNameLetter">M</span>
+                    <span class="AMCSDAuthorNameLetter">N</span>
+                    <span class="AMCSDAuthorNameLetter">O</span>
+                    <span class="AMCSDAuthorNameLetter">P</span>
+                    <span class="AMCSDAuthorNameLetter">Q</span>
+                    <span class="AMCSDAuthorNameLetter">R</span>
+                    <span class="AMCSDAuthorNameLetter">S</span>
+                    <span class="AMCSDAuthorNameLetter">T</span>
+                    <span class="AMCSDAuthorNameLetter">U</span>
+                    <span class="AMCSDAuthorNameLetter">V</span>
+                    <span class="AMCSDAuthorNameLetter">W</span>
+                    <span class="AMCSDAuthorNameLetter">X</span>
+                    <span class="AMCSDAuthorNameLetter">Y</span>
+                    <span class="AMCSDAuthorNameLetter">Z</span>
+                </td>
+            </tr>
+            <?php
+            try {
+                $author_names = [];
+                include(__DIR__ . '/../../../../data-publisher/web/uploads/IMA/author_names.php');
+                include(__DIR__ . '/../../../../data-publisher/web/uploads/IMA/author_names_update.php');
+                $count = 0;
+                $column_count = 0;
+                $current_letter = "a";
+                if (!empty($author_names)) {
+                    $author_names = array_unique($author_names);
+                }
+                asort($author_names, SORT_LOCALE_STRING);
+                foreach ($author_names as $author_name) {
+                    if($author_name === '') continue;
+
+                    // Check if we match current letter
+                    if( mb_strtolower(substr($author_name,0, 1)) !== $current_letter) {
+                        // Force count to 4
+                        $current_letter =  mb_strtolower(substr($author_name,0, 1));
+                        $count = 4;
+                        $column_count = 0;
+                    }
+
+                    if ($count % 4 === 0) {
+                        ?><tr><?php
+                    }
+                    ?><td class="AMCSDAuthorName"><?php print $author_name ?></td><?php
+                    $column_count++;
+                    if ($column_count === 4) {
+                        ?></tr><?php
+                        $column_count = 0;
+                    }
+                    $count++;
+                }
+            } catch (Exception $e) {
+            }
+            ?>
+        </table>
+
     </div>
+
 
     <div id="AMCSDCellParametersAndSymmetry" class="modal">
 
-        <form name="AMCSDCellParamsForm">
+        <form name="AMCSDCellParamsForm" id="AMCSDCellParamsForm">
             <input type="hidden" name="page" value="cellparam">
-
             <center><h2><b>Cell Parameters and Symmetry</b></h2></center>
             <center>
-                <table border="0">
+                <table>
                     <tbody>
                     <tr>
                         <td></td>
@@ -911,9 +915,7 @@
                             space group
                         </td>
                         <td><select name="sg">
-                                <option
-                                =="" ""="">
-                                </option>
+                                <option value=""></option>
                                 <option value="A-1"> A-1</option>
                                 <option value="A2"> A2</option>
                                 <option value="A2/a"> A2/a</option>
@@ -1293,14 +1295,12 @@
                             crystal system
                         </td>
                         <td><select name="csys" onchange="Change()">
-                                <option
-                                =""="">
-                                </option>
-                                <option value="cubic"> cubic</option>
+                                <option value=""></option>
+                                <option value="cubic">cubic</option>
                                 <option value="tetragonal">tetragonal</option>
-                                <option value="orthorhombic"> orthorhombic</option>
-                                <option value="hexagonal"> hexagonal</option>
-                                <option value="rhombohedral"> rhombohedral</option>
+                                <option value="orthorhombic">orthorhombic</option>
+                                <option value="hexagonal">hexagonal</option>
+                                <option value="rhombohedral">rhombohedral</option>
                                 <option value="monoclinic1">monoclinic1</option>
                                 <option value="monoclinic2">monoclinic2</option>
                                 <option value="monoclinic3">monoclinic3</option>
@@ -1312,16 +1312,166 @@
                 </table>
 
                 <div id="CellParamLogicInterface">
+                    <!--
                     Logic interface:<br>
                     <input type="radio" name="logic1" value="AND" checked=""> AND
                     <input type="radio" name="logic1" value="OR"> OR
-                    <br>
-                    <input type="submit">
-                    <input type="button" value="Reset" onclick="ResetForm()"><br>
+
+
+                    ?
+                    La
+                    &Ua
+                    &Ranges=Range
+                    &Lb
+                    &Ub
+                    &Lc
+                    &Uc
+                    &Lalpha
+                    &Ualpha
+                    &Lbeta
+                    &Ubeta
+                    &Lgamma
+                    &Ugamma
+                    &sg
+                    &csys
+
+                    ?
+                    La
+                    &Ua
+                    &Lb
+                    &Ub
+                    &Ranges=Tolerance
+                    &Lc
+                    &Uc
+                    &Lalpha
+                    &Ualpha
+                    &Lbeta
+                    &Ubeta
+                    &Lgamma
+                    &Ugamma
+                    &sg
+                    &csys
+
+
+                    <br> -->
+                    <input type="button" value="Submit" onclick="AMCSDSubmitCellParameters()">
+                    <input type="button" value="Reset" onclick="ResetCellParametersForm()"><br>
                 </div>
 
 
                 <script language="JavaScript"><!--
+
+                    function AMCSDSubmitCellParameters() {
+                        let cell_param_string = '';
+
+                        let range = jQuery('input[name="Ranges"]:checked').val();
+                        if(range === "Range") {
+                            if(jQuery('input[name="La"]').val().length > 0) {
+                                cell_param_string += "a='>="
+                                    + jQuery('input[name="La"]').val() + " "
+                                    + "<=" + jQuery('input[name="Ua"]').val() + "', ";
+                            }
+
+                            if(jQuery('input[name="Lb"]').val().length > 0) {
+                                cell_param_string += "b='>="
+                                    + jQuery('input[name="Lb"]').val() + " "
+                                    + "<=" + jQuery('input[name="Ub"]').val() + "', ";
+                            }
+
+                            if(jQuery('input[name="Lc"]').val().length > 0) {
+                                cell_param_string += "c='>="
+                                    + jQuery('input[name="Lc"]').val() + " "
+                                    + "<=" + jQuery('input[name="Uc"]').val() + "', ";
+                            }
+
+                            if(jQuery('input[name="Lalpha"]').val().length > 0) {
+                                cell_param_string += "alpha='>="
+                                    + jQuery('input[name="Lalpha"]').val() + " "
+                                    + "<=" + jQuery('input[name="Ualpha"]').val() + "', ";
+                            }
+
+                            if(jQuery('input[name="Lbeta"]').val().length > 0) {
+                                cell_param_string += "beta='>="
+                                    + jQuery('input[name="Lbeta"]').val() + " "
+                                    + "<=" + jQuery('input[name="Ubeta"]').val() + "', ";
+                            }
+
+                            if(jQuery('input[name="Lgamma"]').val().length > 0) {
+                                cell_param_string += "gamma='>="
+                                    + jQuery('input[name="Lgamma"]').val() + " "
+                                    + "<=" + jQuery('input[name="Ugamma"]').val() + "', ";
+                            }
+
+
+                        }
+                        else {
+                            // Tolerance
+                            if(jQuery('input[name="La"]').val().length > 0) {
+                                let variance = parseFloat(jQuery('input[name="La"]').val());
+                                let value = parseFloat(jQuery('input[name="Ua"]').val());
+                                cell_param_string += "a='>="
+                                    + (val - variance) + " "
+                                    + "<=" + (val + variance) + "', ";
+                            }
+
+                            if(jQuery('input[name="Lb"]').val().length > 0) {
+                                let variance = parseFloat(jQuery('input[name="Lb"]').val());
+                                let value = parseFloat(jQuery('input[name="Ub"]').val())
+                                cell_param_string += "b='>="
+                                    + (val - variance) + " "
+                                    + "<=" + (val + variance) + "', ";
+                            }
+
+                            if(jQuery('input[name="Lc"]').val().length > 0) {
+                                let variance = parseFloat(jQuery('input[name="Lc"]').val());
+                                let value = parseFloat(jQuery('input[name="Uc"]').val())
+                                cell_param_string += "c='>="
+                                    + (val - variance) + " "
+                                    + "<=" + (val + variance) + "', ";
+                            }
+
+                            if(jQuery('input[name="Lalpha"]').val().length > 0) {
+                                let variance = parseFloat(jQuery('input[name="Lalpha"]').val());
+                                let value = parseFloat(jQuery('input[name="Ualpha"]').val())
+                                cell_param_string += "alpha='>="
+                                    + (val - variance) + " "
+                                    + "<=" + (val + variance) + "', ";
+                            }
+
+                            if(jQuery('input[name="Lbeta"]').val().length > 0) {
+                                let variance = parseFloat(jQuery('input[name="Lbeta"]').val());
+                                let value = parseFloat(jQuery('input[name="Ubeta"]').val())
+                                cell_param_string += "beta='>="
+                                    + (val - variance) + " "
+                                    + "<=" + (val + variance) + "', ";
+                            }
+
+                            if(jQuery('input[name="Lgamma"]').val().length > 0) {
+                                let variance = parseFloat(jQuery('input[name="Lgamma"]').val());
+                                let value = parseFloat(jQuery('input[name="Ugamma"]').val())
+                                cell_param_string += "gamma='>="
+                                    + (val - variance) + " "
+                                    + "<=" + (val + variance) + "', ";
+                            }
+
+                        }
+
+                        if(jQuery('input[name="sg"]').find(":selected").val() !== undefined) {
+                            cell_param_string += "SG=" + jQuery('input[name="sg"]').find(":selected").val() + ", ";
+                        }
+                        if(jQuery('input[name="cs"]').find(":selected").val() !== undefined) {
+                            cell_param_string += "CS=" + jQuery('input[name="csys"]').find(":selected").val() + " ";
+                        }
+
+                        cell_param_string = cell_param_string.replace(/, $/,'');
+
+                        jQuery("#txt_cell_parameters").val(cell_param_string);
+
+                        jQuery(".close-modal").click();
+
+                        return true;
+                    }
+
                     function Click1() {
                         if (document.all) {
                             document.all['one1'].innerText = 'Lower Range';
@@ -1658,7 +1808,7 @@
                         }
                     }
 
-                    function ResetForm() {
+                    function ResetCellParametersForm() {
                         document.AMCSDCellParamsForm.elements[1].value = "";
                         document.AMCSDCellParamsForm.elements[2].value = "";
                         document.AMCSDCellParamsForm.elements[3].value = "";
@@ -1795,6 +1945,324 @@
             box does not contain all possible space groups, but only those represented in the database.</font></p>
         </div>
 
+    </div>
+
+    <div id="AMCSDDiffractionSearch" class="modal">
+        <h2>Diffraction Pattern Search/Match Routine</h2>
+
+        <form name="DiffractionSearchForm" method="POST">
+            <input type="hidden" name="page" value="diff">
+            <input type="hidden" name="toleranceHidden" value="">
+            <input type="hidden" name="diffValuesHidden" value="">
+            <input type="hidden" name="sortDirectionHidden" value="null">
+
+            <div id="AMCSDDiffractionSearchFormContents">
+                <b>Choose an option:</b>
+                <table align="center" cellspacing="5" cellpadding="6" class="interface_table" width=350>
+                    <tr>
+                        <td><input type="radio" name="Type" value="d-spacing"  onclick="DSpacingAnalysis();"> d-spacing</td>
+                        <td><input type="radio" name="Type" value="2-Theta" CHECKED onclick="ThetaSelection('Cu');"> 2-theta</td>
+                        <td><input type="radio" name="Type" value="energy"   onclick="EnergySelection();"> Energy</td>
+                    </tr>
+                </table>
+                <div id="myLayer2" class="t3">
+                    <table class="interface_table">
+                        <tr>
+                            <td class="left_side"><input type="text" name="intensity" size="5" value="5"></td>
+                            <td id="three" class="t1">Intensity Cutoff (%)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="myLayer" class="t3">
+                    <table class="interface_table">
+                        <tr>
+                            <td class="left_side"><input type="text" name="optional" size="5" value="Cu"></td>
+                            <td id="two" class="t1">Wavelength ('Cu', 'Mo', or value in angstroms)</td>
+                        </tr>
+                    </table>
+                </div>
+                <table class="interface_table">
+                    <tr>
+                        <td id="one" class="t1">2-theta</td>
+                        <td class="t1">Tolerance</td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="TypeTxt" size="10"></td>
+                        <td><input type="text" name="Tol" size="10" value=""></td>
+                        <td><input type="button" class="formButton" name="Enter" value="Enter" onclick="addThetaValues();"></td>
+                    </tr>
+                </table>
+                <table class="interface_table">
+                    <tr>
+                        <td>
+                            <select name="diffValueSelect" size="10" class="diffSelect">
+                                <option value=""> Enter Values Above...
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <table class="interface_table">
+                    <tr>
+                        <td NOWRAP>
+                            <input type="submit" class="formButton" value="Submit">
+                            <input type="button" class="formButton" value="Clear All" onclick="Clearall()">
+                            <input type="button" class="formButton" value="Delete Selected" onClick="deleteSelected()">
+                            <input type="button" class="formButton" value="Sort" onclick="sortValues()">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+
+        <P>
+            The diffraction search is based on the positions of peaks with intensities
+            greater than 5% using Cu radiation with 2-theta values below 60 deg.
+        </P>
+
+        <script type="text/javascript">
+            var defaultValue = "Enter Values Above...";
+
+            /*
+
+        	if (document.DiffractionSearchForm.Type[1].checked) {
+		        // then this is a 2-Theta search.
+		        if (document.DiffractionSearchForm.optional.value.length == 0 || document.DiffractionSearchForm.optional.value == "0") {
+			        alert("When performing a 2-theta search, you must enter a wavelength value.");
+			        document.DiffractionSearchForm.optional.focus();
+			                return false;
+		        }
+	        }
+	        if (document.DiffractionSearchForm.diffValuesHidden.value.length == 0 || document.DiffractionSearchForm.diffValuesHidden.value == "") {
+		     alert("When performing a search, you must first enter some values to search by.");
+		     document.DiffractionSearchForm.TypeTxt.focus();
+		     return false;
+	        }
+
+             */
+            /*
+            * clear hidden and visible fields
+            */
+            function Clearall()
+            {
+                document.DiffractionSearchForm.diffValueSelect.options.length=1;
+                document.DiffractionSearchForm.diffValueSelect.options[0].text	= defaultValue;
+                document.DiffractionSearchForm.TypeTxt.value='';
+                document.DiffractionSearchForm.Tol.value='';
+                document.DiffractionSearchForm.diffValuesHidden.value='';
+            }
+
+            /*
+            * minor sort subroutine
+            */
+            function sortasc(a,b)
+            {
+                if (a<b) return -1;
+                if (a>b) return 1;
+                return 0;
+            }
+
+            /*
+            * minor sort subroutine
+            */
+            function sortdesc(a,b)
+            {
+                if (a>b) return -1;
+                if (a<b) return 1;
+                return 0;
+            }
+
+            /*
+            * delete only selected lines in field
+            */
+            function deleteSelected() {
+                var numLines = document.DiffractionSearchForm.diffValueSelect.options.length;
+                var resultVisibleArray = new Array();
+                var resultHiddenArray = new Array();
+                var hiddenValuesArray = getArrayFromHiddenField();
+                var x = 0;
+                for (var i = 1; i < numLines; i++) {
+                    if (!document.DiffractionSearchForm.diffValueSelect.options[i].selected) {
+                        resultVisibleArray[x] = document.DiffractionSearchForm.diffValueSelect.options[i].text;
+                        resultHiddenArray[x] = hiddenValuesArray[i-1];
+                        x++;
+                    }
+                }
+                putArrayIntoHiddenField(resultHiddenArray);
+                populateSelectFromArray(resultVisibleArray);
+            }
+
+            /*
+            * sort field values
+            */
+            function sortValues()
+            {
+                var elements = getArrayFromHiddenField();
+                var tolerance = document.DiffractionSearchForm.toleranceHidden.value;
+                var sortDirection = document.DiffractionSearchForm.sortDirectionHidden.value;
+                if ((sortDirection == "null") || sortDirection == "desc") {
+                    document.DiffractionSearchForm.sortDirectionHidden.value = "asc";
+                    elements.sort(sortasc);
+                } else {
+                    document.DiffractionSearchForm.sortDirectionHidden.value = "desc";
+                    elements.sort(sortdesc);
+                }
+                putArrayIntoHiddenField(elements);
+                var resultArray = new Array();
+                for(var i=0;i<elements.length;i++)
+                {
+                    var low = limitPrecision((parseFloat(elements[i])) - parseFloat(tolerance));
+                    var high= limitPrecision((parseFloat(elements[i])) + parseFloat(tolerance));
+                    var thisLine = prepareLineForDisplay(low, high);
+                    resultArray[i] = thisLine;
+                }
+                populateSelectFromArray(resultArray);
+            }
+
+            /*
+            * Take passed value and add to end of select list.
+            */
+            function addValueToSelect(stringToAdd) {
+                var indexNum = document.DiffractionSearchForm.diffValueSelect.options.length;
+                document.DiffractionSearchForm.diffValueSelect.options.length = indexNum + 1;
+                document.DiffractionSearchForm.diffValueSelect.options[indexNum].text = stringToAdd;
+
+            }
+
+            /*
+            * Take a passed array and replace contents of select field with values.
+            */
+            function populateSelectFromArray(resultArray) {
+                document.DiffractionSearchForm.diffValueSelect.options.length = resultArray.length + 1;
+                document.DiffractionSearchForm.diffValueSelect.options[0].text	= defaultValue;
+                for (var i=0; i < resultArray.length; i++) {
+                    document.DiffractionSearchForm.diffValueSelect.options[i+1].text = resultArray[i];
+                }
+            }
+
+            /*
+            * Limit precision as required, return string.
+            */
+            function limitPrecision(thisVal) {
+                var precision = 7;
+                var resultStr = thisVal + "";
+                if (resultStr.length > precision) {
+                    resultStr = resultStr.substr(0,precision)
+                }
+                return parseFloat(resultStr);
+            }
+
+            /*
+            * create simple string of low to high based on passed values
+            */
+            function prepareLineForDisplay(low, high) {
+                return low + " to " + high;
+            }
+
+            /*
+            * get Array from hidden values field
+            */
+            function getArrayFromHiddenField() {
+                var elements=document.DiffractionSearchForm.diffValuesHidden.value.split(",");
+                elements.length = elements.length;
+                return elements;
+            }
+
+            /*
+            * put values from Array into hidden values field
+            */
+            function putArrayIntoHiddenField(thisArray) {
+                var resultString = "";
+                for (var i = 0; i < thisArray.length; i++) {
+                    if (resultString.length > 0) resultString += ",";
+                    resultString += thisArray[i];
+                }
+                document.DiffractionSearchForm.diffValuesHidden.value = resultString;
+            }
+
+            /*
+            *	Iterates through the hidden fileds and populates the visible one.
+            */
+            function populateVisibleFieldFromHiddenArray(newTolerance) {
+                var elements=getArrayFromHiddenField();
+                var resultArray = new Array();
+                for(var i=0;i<elements.length;i++)
+                {
+                    if ( elements[i] != null && elements[i].length > 0 ) {
+                        var low = limitPrecision((parseFloat(elements[i])) - parseFloat(newTolerance));
+                        var high= limitPrecision((parseFloat(elements[i])) + parseFloat(newTolerance));
+                        var thisLine = prepareLineForDisplay(low, high);
+                        resultArray[i] = thisLine;
+                    }
+                }
+                populateSelectFromArray(resultArray);
+            }
+
+            /* This function is the one that actually populates the lines in the select. */
+            function addThetaValues()
+            {
+                var newTolerance = document.DiffractionSearchForm.Tol.value;
+                var newValue = document.DiffractionSearchForm.TypeTxt.value;
+                if (isNaN(newTolerance) || isNaN(newValue) || newTolerance.length == 0) {
+                    alert("Please enter valid numbers.");
+                    return false;
+                }
+                document.DiffractionSearchForm.toleranceHidden.value = newTolerance;
+                // if tolerance is specified, but typetxt is not, then adjust all values for new tolerance
+                if(newTolerance && (newValue=='')) {
+                    populateVisibleFieldFromHiddenArray(newTolerance);
+                } else {
+                    // if typetxt is not null then do this (should we check to ensure that tolerance is specified too?)
+                    if (newValue != '') {
+                        // add the new value to the hidden string
+                        if (document.DiffractionSearchForm.diffValuesHidden.value.length > 0) {
+                            document.DiffractionSearchForm.diffValuesHidden.value += ",";
+                        }
+                        document.DiffractionSearchForm.diffValuesHidden.value += newValue;
+                        var high = limitPrecision(parseFloat(newValue) +  parseFloat(newTolerance));
+                        var low = limitPrecision(parseFloat(newValue) - parseFloat(newTolerance));
+                        var thisLine = prepareLineForDisplay(low, high);
+                        addValueToSelect(thisLine);
+                    }
+                    populateVisibleFieldFromHiddenArray(newTolerance);
+                }
+                // now, focus on the typetxt.
+                document.DiffractionSearchForm.TypeTxt.value='';
+                document.DiffractionSearchForm.TypeTxt.focus();
+            }
+
+            function shuffleLayers(textOne, textTwo, visibility) {
+                if(document.all) {
+                    document.all['one'].innerText = textOne;
+                    document.all['two'].innerText = textTwo;
+                    eval('document.all.myLayer'+'.style.visibility ="'+ visibility+'"');
+                } else {
+                    document.getElementById('one').childNodes[0].nodeValue = textOne;
+                    document.getElementById('two').childNodes[0].nodeValue = textTwo;
+                    var thisDiv = document.getElementById("myLayer");
+                    eval('thisDiv' +'.style.visibility ="'+ visibility +'"');
+                }
+            }
+
+            function ThetaSelection(optionalValue) {
+                shuffleLayers("2-theta","Wavelength ('Cu', 'Mo', or value in angstroms)", "visible");
+                document.DiffractionSearchForm.optional.disabled=false;
+                document.DiffractionSearchForm.optional.focus();
+                document.DiffractionSearchForm.optional.value=optionalValue;
+            }
+
+            function DSpacingAnalysis() {
+                shuffleLayers("d-spacing","", "hidden");
+                document.DiffractionSearchForm.TypeTxt.focus();
+                document.DiffractionSearchForm.optional.disabled=true;
+            }
+
+            function EnergySelection() {
+                shuffleLayers("Energy","theta", "visible");
+                document.DiffractionSearchForm.optional.disabled=false;
+                document.DiffractionSearchForm.optional.focus();
+                document.DiffractionSearchForm.optional.value='6.5';
+            }
+        </script>
     </div>
 
 </div>

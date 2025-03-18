@@ -13,6 +13,49 @@
     margin-right: auto;
 }
 
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type=reset],
+input[type=tel],
+input[type=date],
+select,
+textarea {
+    width: auto;
+}
+
+.left_side {
+    width: 25%;
+}
+
+.t1 {
+    padding: 8px 0 0 16px;
+}
+
+#AMCSDDiffractionSearchFormContents {
+    width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.interface_table tr,
+.interface_table td,
+.interface_table {
+    border: none;
+}
+.interface_table {
+    width: 100%;
+    background: #eeeeee;
+}
+
+.diffSelect {
+    min-height: 100px !important;
+    width: 100%;
+}
+
 #AMCSDMainTitle {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -38,6 +81,16 @@
 .AMCSDContent {
     line-height: 1.3;
     margin-bottom: 10px;
+    padding-bottom: 10px;
+    width: 50%;
+}
+
+.AMCSDContentRight {
+    width: 50%;
+    line-height: 1.3;
+    padding-bottom: 10px;
+    float: right !important;
+    text-align: right;
 }
 
 .AMCSDForm {
@@ -70,9 +123,18 @@
     margin-bottom: 10px !important;
     padding-left: 8px;
 }
+.AMCSDForm input[type=text],
+.AMCSDForm input {
+    padding-left: 8px !important;
+}
 
 .AMCSDInterfaceTable {
     padding-top: 30px;
+    margin-bottom: 10px;
+}
+
+.AlignRight {
+    text-align: right;
 }
 
 .AMCSDInterfaceTable input[type=button] {
@@ -95,7 +157,7 @@
 }
 
 .AMCSDLogicTable {
-    padding-bottom: 24px;
+    /* padding-bottom: 24px; */
 }
 
 .AMCSDHelperLink {
@@ -103,16 +165,29 @@
     font-weight: 700;
     font-family: Roboto, serif;
     color: white;
+    text-decoration: none !important;
 }
 
-.AMCSDInfoDiv,
 .AMCSDLinksDiv {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
 }
+.AMCSDInfoDiv {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
 
+.AMCSDLinksDiv img {
+    width: 70px !important;
+    vertical-align: middle;
+}
 
+.AMCSDLinksDiv img:first-child {
+    margin-left: 20px;
+    width: 80px !important;
+}
 
 #ODRMainMenu {
     position: absolute;
@@ -234,7 +309,6 @@ Search Form Definitions
     color: #ffffff;
     border-radius: 18px;
     width: 600px;
-    margin-bottom: 30px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -269,14 +343,38 @@ Search Form Definitions
     display: block;
 }
 
+.AMCSDForm input:disabled {
+    background: #dfdfdf;
+}
 
+.AMCSDChemistryHeader {
+    display: inline-block;
+    width: 194px;
+}
+
+.AMCSDChemistryInput {
+    width: 194px !important;
+    display: inline-block;
+}
+
+
+.AMCSDForm A,
+.AMCSDForm A:visited,
+.AMCSDForm A:focus,
+.AMCSDForm A:hover,
 label > a:visited,
-label > a:active,
 label > a:focus,
 label > a:hover,
 label > a {
+    color: #ffffff !important;
+}
+
+.AMCSDForm A:active,
+label > a:active {
     color: #a0ffa0 !important;
 }
+
+
 
 .hidden {
     display: none;
@@ -618,26 +716,31 @@ table.search_form th {
     END Periodic Table
  */
 
+.AMCSDAuthorNameLetter,
 .AMCSDMineralNameLetter {
     cursor: pointer;
 }
 
+.AMCSDAuthorName,
 .AMCSDMineralName {
     cursor: pointer;
-    display: none;
 }
 
+.AMCSDAuthorNameSelected,
 .AMCSDMineralNameSelected {
     font-weight: bold;
 }
 
 #AMCSDCellParametersAndSymmetry select,
-#AMCSDCellParametersAndSymmetry input {
+#AMCSDCellParametersAndSymmetry input[type=text],
+#AMCSDCellParametersAndSymmetry select {
     padding: 0;
+    width: 120px !important;
+    height: 32px !important;
 }
 #AMCSDCellParametersAndSymmetry table {
     border: none;
-    width: 600px;
+    width: 640px;
 }
 
 #AMCSDCellParametersAndSymmetry tr,
@@ -646,16 +749,25 @@ table.search_form th {
     padding: 0;
     border: none;
 }
+#AMCSDCellParametersAndSymmetry tr {
+    height: 40px !important;
+}
 
+.AMCSDAuthorAlpha,
 .AMCSDMineralAlpha {
     text-align: center;
-    padding-bottom: 10px;
+    padding-top: 14px !important;
+    padding-bottom: 20px !important;
 }
 
+#AMCSDAuthorList table,
 #AMCSDMineralList table {
-    width: 600px !important;
+    width: 780px !important;
     border: none;
 }
+
+#AMCSDAuthorList tr,
+#AMCSDAuthorList td,
 #AMCSDMineralList tr,
 #AMCSDMineralList td {
     border: none;

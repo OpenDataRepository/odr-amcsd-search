@@ -118,11 +118,8 @@
 
 		}
 
-
-
 		// Hide when hash is present except fields that are filled
 		// Maybe make a quick general search version
-
 		jQuery(".periodic_table").click(
 			function () {
 				if ($(this).attr('id') === 'periodic_table_clear') {
@@ -260,17 +257,24 @@
 		);
 		 */
 
+		jQuery("#amcsd-search-form-reset").click(
+			// Use BtoA to encode
+			function () {
+				ResetForm();
+				return false;
+			}
+		);
+
 		jQuery("#amcsd-search-form-submit").click(
 			// Use BtoA to encode
 			function () {
-				submitSearchForm();
+				submitAmcsdSearchForm();
 				return false;
 			}
 		);
 
 		// Prepare Mineral Name Modal
 		jQuery(".AMCSDMineralNameLetter").click(function() {
-			console.log("Letter: " + jQuery(this).html())
 			selectMineralNames(jQuery(this).html())
 		});
 
@@ -288,16 +292,39 @@
 					jQuery(this).html()
 				)
 			}
-			jQuery(this).addClass('.AMCSDMineralNameSelected')
+			jQuery(this).addClass('AMCSDMineralNameSelected')
 		});
+
+		// Prepare Author Name Modal
+		jQuery(".AMCSDAuthorNameLetter").click(function() {
+			selectAuthorNames(jQuery(this).html())
+		});
+
+		selectAuthorNames("A")
+
+		jQuery(".AMCSDAuthorName").click(function() {
+			if(jQuery("#txt_author").val().length === 0) {
+				jQuery("#txt_author").val(
+					jQuery(this).html()
+				)
+			}
+			else {
+				jQuery("#txt_author").val(
+					jQuery("#txt_author").val() + ', ' +
+					jQuery(this).html()
+				)
+			}
+			jQuery(this).addClass('AMCSDAuthorNameSelected')
+		});
+
+
 	});
 
 	function selectMineralNames(letter) {
 		let regex = new RegExp('^' + letter, 'i');
 		jQuery(".AMCSDMineralName").each(function() {
 			if(jQuery(this).html().match(regex)) {
-				console.log('Mineral Name: ', jQuery(this).html())
-				jQuery(this).removeClass('.AMCSDMineralNameSelected')
+				jQuery(this).removeClass('AMCSDMineralNameSelected')
 				jQuery(this).show()
 			}
 			else {
@@ -306,7 +333,33 @@
 		})
 	}
 
-	function submitSearchForm() {
+	function selectAuthorNames(letter) {
+		let regex = new RegExp('^' + letter, 'i');
+		jQuery(".AMCSDAuthorName").each(function() {
+			if(jQuery(this).html().match(regex)) {
+				jQuery(this).removeClass('AMCSDAuthorNameSelected')
+				jQuery(this).show()
+			}
+			else {
+				jQuery(this).hide()
+			}
+		})
+	}
+
+	function ResetForm() {
+		console.log('RESET FORM')
+		jQuery("#txt_mineral").val('');
+		jQuery("#txt_author").val('');
+		jQuery("#txt_general").val('');
+		jQuery("#txt_diffraction").val('');
+		jQuery("#txt_cell_parameters").val('');
+		jQuery("#chemistry_incl_txt").val('');
+		jQuery("#chemistry_excl_txt").val('');
+		jQuery("#txt_chemistry_incl").val('');
+		jQuery("#txt_chemistry_excl").val('');
+	}
+
+	function submitAmcsdSearchForm() {
 		console.log('Submit Search Form')
 		// UnicodeDecodeB64("JUUyJTlDJTkzJTIwJUMzJUEwJTIwbGElMjBtb2Rl"); // "✓ à la mode"
 		// Get mineral names or AMCSD IDS from txt_mineral
@@ -316,13 +369,13 @@
 		if($("#txt_mineral").val().trim().match(/^R\d+$/i)) {
 			// display specific mineral id
 			// {"dt_id":"3","34":"r040034"}
-			search_json[ search_options['amcsd_id'] ] = $("#txt_mineral").val().trim();
+			search_json[ search_options['general_search'] ] = $("#txt_mineral").val().trim();
 		}
 		else if($("#txt_mineral").val().trim() !== '') {
 			// Check for commas (separated minerals)
 			// search for IMA Mineral Display Name
 			// {"dt_id":"3","18":"actinolite"}
-			search_json[ search_options['mineral_name'] ] = $("#txt_mineral").val().trim();
+			search_json[ search_options['mineral_name'] ] = $("#txt_mineral").val().replaceAll(/,/g, ' ||').trim();
 		}
 
 		// Get General Text search field
@@ -331,8 +384,13 @@
 			search_json[ search_options['general_search'] ] = $("#txt_general").val().trim();
 		}
 
+		if($("#txt_author").val().trim() !== '') {
+			// {"dt_id":"3","gen":"quartz"}
+			search_json[ search_options['author_names'] ] = $("#txt_author").val().replaceAll(/,/g, ' ||').trim();
+		}
+
 		// Get chemistry includes
-		if($("#txt_chemistry_incl").val() !== undefined) {
+		if($("#txt_chemistry_incl").val() !== '') {
 			// {"dt_id":"3","21":"C"}
 			search_json[ search_options['chemistry_incl'] ] = $("#txt_chemistry_incl").val().trim().replaceAll(/,/g,' ');
 		}
@@ -346,14 +404,18 @@
 				search_json[ search_options['chemistry_incl'] ] += ' ';
 				$("#txt_chemistry_excl").val().split(/,/).forEach(
 					function(item) {
-						search_json[ search_options['chemistry_incl'] ] += '!' + item.trim() + ' ';
+						if(item.trim() !== '') {
+							search_json[ search_options['chemistry_incl'] ] += '!' + item.trim() + ' ';
+						}
 					}
 				);
 			}
 			else {
 				$("#txt_chemistry_excl").val().split(/,/).forEach(
 					function(item) {
-						search_json[ search_options['chemistry_incl'] ] += '!' + item.trim() + ' ';
+						if(item.trim() !== '') {
+							search_json[ search_options['chemistry_incl'] ] += '!' + item.trim() + ' ';
+						}
 					}
 				);
 			}
@@ -366,6 +428,28 @@
               	);
 		 */
 
+		// a, b, c, alpha, beta, gamma, sg, cs
+		// Parse the search string
+		// a='>=3 <=4' b='>=3 <=4' c='>=3 <=4' alpha='>=90 <=90' beta='>=90 <=90' gamma='>=90 <=90' SG=undefined CS=undefined
+		// #txt_cell_parameters
+		let txt_cell_parameters = $("#txt_cell_parameters").val();
+		let cell_param_array = [];
+		if(txt_cell_parameters.match(/,/)) {
+			cell_param_array = txt_cell_parameters.split(/,/);
+		}
+		else {
+			cell_param_array.push(txt_cell_parameters)
+		}
+
+		for(let i=0; i<cell_param_array.length; i++) {
+			// split on "=" and set parameter
+			let param_data = cell_param_array[i].split(/='/);
+			param_data[1] = param_data[1].replace(/'/,'');
+			// console.log('CELL PARAM: ' + param_data[0].trim() + ' ' + param_data[1])
+			search_json[ search_options[ param_data[0].trim() ] ] = param_data[1]
+		}
+
+
 		// Get sort
 		if(
 			$('#sel_sort').find(':selected').val()
@@ -375,6 +459,7 @@
 			search_json['sort_by']['sort_df_id'] = $('#sel_sort').find(':selected').val();
 			search_json['sort_by']['sort_dir'] = $('#sel_sort_dir').find(':selected').val();
 		}
+		// console.log('Search JSON: ', search_json)
 
 		// Encode to base 64 - atob()
 	    let search_string = b64EncodeUnicode(JSON.stringify(search_json)); // "JUUyJTlDJTkzJTIwJUMzJUEwJTIwbGElMjBtb2Rl"
@@ -383,6 +468,7 @@
 		// https://beta.amcsd.net/odr/amcsd_samples#/odr/search/display/7/eyJkdF9pZCI6IjMifQ/1
 
 
+		// console.log('Search String: ', search_string)
 		if(search_options['redirect_url'] === '/odr/network') {
 			window.location = search_options['redirect_url'], true
 		}
@@ -513,9 +599,18 @@ function togglePeriodicTable() {
 }
 
 function b64EncodeUnicode(str) {
-	return btoa(str);
+	return btoa(str)
+		.replace(/\+/g, '-')
+		.replace(/\//g, '_')
+		.replace(/=+$/, '');
 }
 
 function UnicodeDecodeB64(str) {
-	return decodeURIComponent(atob(str));
+	return decodeURIComponent(
+		atob(
+			str.replace(/-/g, '+')
+				.replace(/_/g, '/')
+				.padEnd(value.length + (m === 0 ? 0 : 4 - m), '=')
+			)
+	);
 }
