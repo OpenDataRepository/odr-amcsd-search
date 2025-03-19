@@ -48,6 +48,9 @@
     search_options['default_search'] = "<?php echo $odr_amcsd_search_plugin_options['default_search']; ?>";
     search_options['amc_short_form'] = "<?php echo $odr_amcsd_search_plugin_options['amc_short_form']; ?>";
     search_options['cif'] = "<?php echo $odr_amcsd_search_plugin_options['cif']; ?>";
+    search_options['intensity'] = "<?php echo $odr_amcsd_search_plugin_options['cif']; ?>";
+    search_options['wavelength'] = "<?php echo $odr_amcsd_search_plugin_options['cif']; ?>";
+    search_options['x_values'] = "<?php echo $odr_amcsd_search_plugin_options['cif']; ?>";
     console.log('SEARCH OPTIONS', search_options)
 </script>
 
@@ -2004,7 +2007,7 @@
                 <table class="interface_table">
                     <tr>
                         <td NOWRAP>
-                            <input type="submit" class="formButton" value="Submit">
+                            <input type="button" class="formButton" value="Submit" onclick="submitDiffractionSearch()">
                             <input type="button" class="formButton" value="Clear All" onclick="Clearall()">
                             <input type="button" class="formButton" value="Delete Selected" onClick="deleteSelected()">
                             <input type="button" class="formButton" value="Sort" onclick="sortValues()">
@@ -2039,6 +2042,13 @@
 	        }
 
              */
+
+            function submitDiffractionSearch() {
+                // Intensity
+                // Wavelength
+                // 2 theta values
+
+            }
             /*
             * clear hidden and visible fields
             */

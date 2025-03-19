@@ -441,12 +441,15 @@
 			cell_param_array.push(txt_cell_parameters)
 		}
 
-		for(let i=0; i<cell_param_array.length; i++) {
+		// Checking cell param array
+		for(let i= 0; i < cell_param_array.length; i++) {
 			// split on "=" and set parameter
-			let param_data = cell_param_array[i].split(/='/);
-			param_data[1] = param_data[1].replace(/'/,'');
-			// console.log('CELL PARAM: ' + param_data[0].trim() + ' ' + param_data[1])
-			search_json[ search_options[ param_data[0].trim() ] ] = param_data[1]
+			if(cell_param_array[i] !== '' && cell_param_array[i].match(/='/)) {
+				let param_data = cell_param_array[i].split(/='/);
+				param_data[1] = param_data[1].replace(/'/,'');
+				// console.log('CELL PARAM: ' + param_data[0].trim() + ' ' + param_data[1])
+				search_json[ search_options[ param_data[0].trim() ] ] = param_data[1]
+			}
 		}
 
 
@@ -599,11 +602,27 @@ function togglePeriodicTable() {
 }
 
 function b64EncodeUnicode(str) {
+	// first we use encodeURIComponent to get percent-encoded Unicode,
+	// then we convert the percent encodings into raw bytes which
+	// can be fed into btoa.
+	return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+		function toSolidBytes(match, p1) {
+			return String.fromCharCode('0x' + p1);
+		}))
+		.replace(/\+/g, '-')
+		.replace(/\//g, '_')
+		.replace(/=+$/, '');
+}
+
+/*
+function b64EncodeUnicode(str) {
 	return btoa(str)
 		.replace(/\+/g, '-')
 		.replace(/\//g, '_')
 		.replace(/=+$/, '');
 }
+
+ */
 
 function UnicodeDecodeB64(str) {
 	return decodeURIComponent(
