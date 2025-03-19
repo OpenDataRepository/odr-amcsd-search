@@ -125,7 +125,7 @@ textarea {
 }
 .AMCSDForm input[type=text],
 .AMCSDForm input {
-    padding-left: 8px !important;
+    padding: 8px 8px 8px 8px !important
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
