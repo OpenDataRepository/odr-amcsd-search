@@ -58,36 +58,37 @@
 <div id="AMCSDMainContent">
     <!-- frame enclosing table -->
     <div class="AMCSDForm">
-        <form name="myForm">
+        <form name="AMCSDInterfaceForm" id="AMCSDInterfaceForm">
             <table class="AMCSDInterfaceTable">
                 <tr>
-                    <td width="50%"><input type="text" id="txt_mineral" name="Mineral" value="" size="50"></td>
-                    <td>
+                    <td class="AMCSDFormLabel">
                         <a href="#AMCSDMineralList" rel="modal:open" class="AMCSDHelperLink">
                             Mineral
                         </a>
                     </td>
+                    <td><input type="text" id="txt_mineral" name="Mineral" value="" size="50"></td>
                 </tr>
                 <tr>
-                    <td><input type="text" name="Author" id="txt_author" value="" size="50"></td>
-                    <td>
+                    <td class="AMCSDFormLabel">
                         <a href="#AMCSDAuthorList" rel="modal:open" class="AMCSDHelperLink">
                             Author
                         </a>
                     </td>
+                    <td><input type="text" name="Author" id="txt_author" value="" size="50"></td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td></td>
+                    <td>
                         <div class="AMCSDChemistryHeader">Chemistry Includes</div>
-                        <div class="AMCSDChemistryHeader">Chemistry Excludes</div>
+                        <div class="AMCSDChemistryHeader AMCSDChemistryExcludesHeader">Chemistry Excludes</div>
                     </td>
                 </tr>
                 <tr>
+                    <td class="AMCSDFormLabel"><a onclick="togglePeriodicTable()" class="AMCSDHelperLink">Chemistry Search</a></td>
                     <td>
                         <input class="AMCSDChemistryInput" type="text" id="txt_chemistry_incl" value="" size="25">
                         <input class="AMCSDChemistryInput" type="text" id="txt_chemistry_excl" value="" size="25">
                     </td>
-                    <td><a onclick="togglePeriodicTable()" class="AMCSDHelperLink">Chemistry Search</a></td>
                 </tr>
                 <tr id="AMCSDPeriodicTableTD">
                     <td colspan="2">
@@ -675,30 +676,28 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="text" name="CellParam" id="txt_cell_parameters" value="" size="50"></td>
-                    <td>
+                    <td class="AMCSDFormLabel">
                         <a href="#AMCSDCellParametersAndSymmetry" rel="modal:open" class="AMCSDHelperLink">
                             Cell Parameters and Symmetry
                         </a>
                     </td>
+                    <td><input type="text" name="CellParam" id="txt_cell_parameters" value="" size="50"></td>
                 </tr>
                 <tr>
+                    <td class="AMCSDFormLabel"><a href="#AMCSDDiffractionSearch" rel="modal:open" class="AMCSDHelperLink">Diffraction Search</a></td>
                     <td><input type="text" name="diff" id="txt_diffraction" value="" size="50"></td>
-                    <td><a href="#AMCSDDiffractionSearch" rel="modal:open" class="AMCSDHelperLink">Diffraction Search</a>
-                    </td>
                 </tr>
                 <tr valign="top">
+                    <td class="AMCSDFormLabel"><strong>General Search</strong><br></td>
                     <td><input type="text" name="Key" id="txt_general" size="50" value=""></td>
-                    <td><strong>General Search</strong><br>
-                    </td>
                 </tr>
                 <tr>
+                    <td class="AMCSDFormLabel">Display<!-- (About <a href="/AMS/format.php" class="title">File Formats</a>) --></td>
                     <td>
                         <input type="radio" name="Viewing" value="amclongform" checked=""> amc long form
                         <input type="radio" name="Viewing" value="amcshortform"> amc short form
                         <input type="radio" name="Viewing" value="cif"> cif <br>
                     </td>
-                    <td>Display<!-- (About <a href="/AMS/format.php" class="title">File Formats</a>) --></td>
                 </tr>
                 <tr>
                     <td align="center" colspan="2">
@@ -753,6 +752,8 @@
                     <span class="AMCSDMineralNameLetter">X</span>
                     <span class="AMCSDMineralNameLetter">Y</span>
                     <span class="AMCSDMineralNameLetter">Z</span>
+                    <span class="AMCSDCloseModal"><a href="#close-modal" rel="modal:close">[ close ]</a></span>
+                    <span class="AMCSDCloseModal" onclick="clearMineralNameList()">[ clear ]</span>
                 </td>
             </tr>
             <?php
@@ -820,6 +821,8 @@
                     <span class="AMCSDAuthorNameLetter">X</span>
                     <span class="AMCSDAuthorNameLetter">Y</span>
                     <span class="AMCSDAuthorNameLetter">Z</span>
+                    <span class="AMCSDCloseModal"><a href="#close-modal" rel="modal:close">[ close ]</a></span>
+                    <span class="AMCSDCloseModal" onclick="clearAuthorNameList()">[ clear ]</span>
                 </td>
             </tr>
             <?php

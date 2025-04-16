@@ -79,6 +79,8 @@ class Odr_Amcsd_Search_Public {
         wp_register_style( $this->plugin_name . '-style', plugin_dir_url( __FILE__ ) . 'css/odr-amcsd-search-public.css', array(), $this->version, 'all' );
         wp_register_style( $this->plugin_name . '-modal-style', plugin_dir_url( __FILE__ ) . 'css/jquery.modal.0.9.1.css', array(), $this->version, 'all' );
 
+        wp_enqueue_style( $this->plugin_name . '-modal-style');
+        wp_enqueue_style( $this->plugin_name . '-style');
 	}
 
 	/**
@@ -102,7 +104,6 @@ class Odr_Amcsd_Search_Public {
 
         wp_register_script( $this->plugin_name . '-js', plugin_dir_url( __FILE__ ) . 'js/odr-amcsd-search-public.js', array( 'jquery' ), $this->version, false );
         wp_register_script( $this->plugin_name . '-modal-js', plugin_dir_url( __FILE__ ) . 'js/jquery.modal.0.9.1.js', '', $this->version, false );
-        // wp_register_script( $this->plugin_name . '-mineral-data', '/odr/uploads/IMA/mineral_data.js', '', '', false);
 
 	}
 
@@ -143,11 +144,8 @@ class Odr_Amcsd_Search_Public {
             ), $attributes, $tag
         );
 
-        wp_enqueue_style( $this->plugin_name . '-style');
         wp_enqueue_script( $this->plugin_name . '-js');
-        wp_enqueue_style( $this->plugin_name . '-modal-style');
         wp_enqueue_script( $this->plugin_name . '-modal-js');
-        wp_enqueue_script( $this->plugin_name . '-mineral-data');
 
         $odr_amcsd_search_plugin_options = get_option( 'odr_amcsd_search_plugin_options' );
 
