@@ -858,3 +858,7 @@ table.search_form th {
     -ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true)";
     filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true);
 }
+
+.AMCSDInterfaceTable input[type=text] {
+    width: 100%;
+}
