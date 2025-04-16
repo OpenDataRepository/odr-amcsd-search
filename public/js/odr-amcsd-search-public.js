@@ -730,6 +730,7 @@ let amcsd_minerals = [];
 })(jQuery);
 
 function togglePeriodicTable() {
+    jQuery('#div_periodic_table').show()
     jQuery('#AMCSDPeriodicTableTD').toggle('slow')
 }
 
