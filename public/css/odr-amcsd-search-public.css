@@ -13,6 +13,7 @@
     margin-right: auto;
 }
 
+/*
 input[type="text"],
 input[type="number"],
 input[type="email"],
@@ -26,6 +27,7 @@ select,
 textarea {
     width: auto;
 }
+ */
 
 .left_side {
     width: 25%;
