@@ -798,7 +798,7 @@ table.search_form th {
     .blocker {
         position: fixed;
         top: 114px;
-        height: 100%;
+        height: calc(100% - 114px);
         padding: 8px;
     }
 
