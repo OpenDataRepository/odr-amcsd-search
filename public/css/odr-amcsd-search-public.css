@@ -59,8 +59,9 @@ textarea {
 }
 
 #txt_chemistry_excl {
-    margin-left: 6px;
+    /* margin-left: 6px; */
 }
+
 
 .AMCSDFormLabel {
     color: white;
@@ -117,11 +118,12 @@ textarea {
     margin-top: 20px;
 }
 
+.AMCSDForm div {
+    line-height: 32px;
+}
+
 .AMCSDForm table {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.3em;
+    width: 100%;
 }
 
 .AMCSDForm input,
@@ -134,7 +136,6 @@ textarea {
 .AMCSDForm input,
 .AMCSDForm table tr {
     line-height: 1.6em;
-    margin-bottom: 10px !important;
     padding-left: 8px;
 }
 
@@ -146,11 +147,10 @@ textarea {
 #AMCSDInterfaceForm input[type=text],
 .AMCSDForm input[type=text],
 .AMCSDForm input {
-    padding: 8px 8px 8px 8px !important;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    height: 40px !important;
+    height: 32px !important;
     border-radius: 4px;
 }
 
@@ -177,17 +177,12 @@ textarea {
     font-size: 20px;
 }
 
-#AMCSDPeriodicTableTD {
+#AMCSDPeriodicTable {
     display: none;
 }
 
-.AMCSDPeriodicTable {
-    padding-bottom: 36px;
-    color: #222;
-}
-
-.AMCSDLogicTable {
-    /* padding-bottom: 24px; */
+.AMCSDChemistryLink {
+    margin-top: 32px;
 }
 
 .AMCSDHelperLink {
@@ -255,11 +250,11 @@ table.search_form {
 .search_form input[type=button],
 .search_form input[type=submit] {
     display: inline-block;
-    height: 24px;
-    line-height: 24px;
+    height: 32px;
+    line-height: 32px;
     margin-right: 10px;
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: 10px !important;
+    padding-left: 10px;
     padding-top: 0;
     position: relative;
     background-color: rgba(82, 171, 117, 1.0);
@@ -268,6 +263,8 @@ table.search_form {
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 6px;
+
+
 
 
     border-radius: 5px;
@@ -343,18 +340,63 @@ Search Form Definitions
     width: 600px;
     margin-left: auto;
     margin-right: auto;
+
+
+    display: inline-block;
+    height: 32px;
+    line-height: 32px;
+    margin-right: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 0;
+    position: relative;
+    background-color: rgba(82, 171, 117, 1.0);
+    color:rgb(255,255,255);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+
+
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    text-shadow:0px 1px 0px rgba(0,0,0,0.5);
+    -ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ff123852,Positive=true)";zoom:1;
+    filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ff123852,Positive=true);
+
+    -moz-box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+    -webkit-box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+    box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+    -ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true)";
+    filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true);
+
+}
+#AMCSDInterfaceForm label {
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    text-align: right;
 }
 
-@media screen and (min-width: 1024px) {
-    .summary-search-form {
-        width: 900px !important;
-    }
+#AMCSDInterfaceForm > div:first-child {
+    padding-top: 26px !important;
+}
 
-    .summary-submit-block {
-        float: right;
-        margin-top: -34px;
-        margin-right: 18px !important;
-    }
+#AMCSDInterfaceForm .section-labels {
+    text-align: right !important;
+    line-height: 32px;
+    padding-right: 12px;
+}
+
+.amcsd-search-form-section {
+    margin-bottom: 12px;
+}
+
+#amcsd_periodic_table {
+    max-width: 740px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .input_wrapper {
@@ -368,11 +410,6 @@ Search Form Definitions
 .submit_wrapper {
     margin-left: auto;
     margin-right: auto;
-}
-
-.chemistry_lookup_link {
-    line-height: 20px;
-    display: block;
 }
 
 .AMCSDForm input:disabled {
@@ -430,124 +467,7 @@ label > a:active {
     font-weight: bold;
     text-align: right;
 }
-@media screen and (max-width: 460px) {
 
-    /* Deal with Elementor Padding Issues */
-    .elementor-top-section {
-        padding: 20px 0px 0px 0px !important;
-    }
-    .elementor-top-section .elementor-widget-container {
-        margin: 0 0 30px 0 !important;
-    }
-    /* END Deal with Elementor Padding Issues */
-
-
-    #amcsd-periodic-table {
-        transform-origin: left top;
-        transform: scale(0.7);
-        margin-left: calc(16px + (100% - 360px)/2);
-        margin-bottom: -100px;
-        /*
-        margin-left: -10px;
-        padding-left: 0;
-        */
-        /* left: calc(-50px + (100% - 360px)/2); */
-    }
-
-
-    #amcsd-search-form {
-        padding-left: 40px;
-        padding-right: 20px;
-        width: 360px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .input_wrapper {
-        padding: 0 0 4px 0;
-    }
-
-    .submit_wrapper {
-        padding-top: 8px;
-    }
-
-    .chemistry_lookup_link {
-        line-height: 12px;
-        display: inline-block;
-        margin-left: 60px;
-    }
-
-    .search_form label {
-        vertical-align: middle;
-        line-height: 20px;
-        width: 100%;
-        display: inline-block;
-        margin-right: 12px;
-        font-weight: bold;
-        text-align: left;
-    }
-
-}
-
-/* Designing for 380px min width */
-@media screen and (min-width: 461px) and (max-width: 688px) {
-    /* Deal with Elementor Padding Issues */
-    .elementor-top-section {
-        padding: 20px 0px 0px 0px !important;
-    }
-    .elementor-top-section .elementor-widget-container {
-        margin: 0 0 30px 0 !important;
-    }
-    /* END Deal with Elementor Padding Issues */
-
-    /* Ensure Periodic Table is Scaled to 90% of Screen Width */
-    #amcsd-periodic-table {
-        /* transform-origin: left top; */
-        transform: scale(0.8);
-        position: relative;
-        top: 0;
-        /* left: -42px; */
-    }
-    /*
-    #div_periodic_table {
-        transform: scale(0.8);
-    }
-
-     */
-
-    #amcsd-search-form {
-        padding-left: 40px;
-        padding-right: 20px;
-        width: 360px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .input_wrapper {
-        padding: 0 0 4px 0;
-    }
-
-    .submit_wrapper {
-        padding-top: 8px;
-    }
-
-    .chemistry_lookup_link {
-        line-height: 12px;
-        display: inline-block;
-        margin-left: 60px;
-    }
-
-    .search_form label {
-        vertical-align: middle;
-        line-height: 20px;
-        width: 100%;
-        display: inline-block;
-        margin-right: 12px;
-        font-weight: bold;
-        text-align: left;
-    }
-
-}
 
 
 table.search_form {
@@ -566,30 +486,6 @@ table.search_form th {
 #searchResults  {
     color: #a1c2e3;
 }
-
-#div_periodic_table {
-   max-width: 740px;
-   margin-left: auto;
-   margin-right: auto;
-   /* display: none; */
-}
-
-#amcsd-periodic-table {
-    background-color: rgba(220,220,220, 0.0);
-    border: none;
-}
-
-#amcsd-periodic-table td,
-#amcsd-periodic-table td {
-    border: none;
-    padding: 0 0 0 0 !important;
-}
-
-
-
-
-
-
 
 .pt_alkali_metals {
     text-align:center; cursor: pointer;  background:#ffbbdd;
@@ -733,24 +629,34 @@ table.search_form th {
 #periodic_table_actinides_alt {
     border: none;
     font-weight: bold;
-    color: rgba(255,255,255, 0.8) !important;
+    color: rgba(255,255,255, 0.8);
 }
 
+#periodic_table_lanthanides_alt.amcsd_search_pt_alternate,
+#periodic_table_actinides_alt.amcsd_search_pt_alternate {
+    color: rgba(255,255,255, 0.8) !important;
+}
 /*
     Periodic Table Info
  */
-#rruff-periodic-table {
+#amcsd-periodic-table {
     background-color: rgba(220,220,220, 0.0);
+    color: rgb(51, 65, 85);
     border: none;
     min-height: 200px;
     height: 200px !important;
     line-height: 2em;
 }
 
-#rruff-periodic-table td,
-#rruff-periodic-table td {
+#amcsd-periodic-table td,
+#amcsd-periodic-table td {
     border: none;
     padding: 0 0 0 0 !important;
+}
+
+#periodic_table_actinides_alt,
+#periodic_table_lanthanides_alt {
+    color: white;
 }
 /*
     END Periodic Table
@@ -832,11 +738,11 @@ table.search_form th {
 #amcsd-search-form-submit,
 #amcsd-search-form-reset {
     display: inline-block;
-    height: 24px;
-    line-height: 24px;
+    height: 32px;
+    line-height: 32px;
     margin-right: 10px;
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: 10px !important;
+    padding-left: 10px !important;
     padding-top: 0;
     position: relative;
     background-color: rgba(82, 171, 117, 1.0);
@@ -845,6 +751,8 @@ table.search_form th {
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 6px;
+
+
 
 
     border-radius: 5px;
@@ -864,3 +772,211 @@ table.search_form th {
 .AMCSDInterfaceTable input[type=text] {
     width: 100%;
 }
+
+
+
+
+@media screen and (max-width: 460px) {
+
+    #amcsd_periodic_table {
+        max-width: 100%;
+        transform: scale(0.8);
+        transform-origin: top left;
+        margin-left: 10px;
+    }
+
+
+    #AMCSDAuthorList table, #AMCSDMineralList table {
+        width: 100% !important;
+    }
+
+    .modal {
+        max-width: 100%;
+        padding: 6px 8px;
+    }
+
+    .blocker {
+        position: fixed;
+        top: 0;
+        height: 100%;
+        padding: 8px;
+    }
+
+    .modal a.close-modal {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+    }
+
+
+
+    #amcsd-search-form {
+        padding-left: 40px;
+        padding-right: 20px;
+        width: 360px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .AMCSDForm {
+        width: 98%;
+    }
+
+    .AMCSDChemistryLink {
+        margin-top: 10px;
+    }
+
+    .amcsd-search-form-section {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    #AMCSDInterfaceForm .section-labels,
+    #AMCSDInterfaceForm label {
+        text-align: left !important;
+    }
+
+    .input_wrapper {
+        padding: 0 0 4px 0;
+    }
+
+    .submit_wrapper {
+        padding-top: 8px;
+    }
+
+    .search_form label {
+        vertical-align: middle;
+        line-height: 20px;
+        width: 100%;
+        display: inline-block;
+        margin-right: 12px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+}
+
+@media screen and (min-width: 461px) and (max-width: 599px) {
+    /* Ensure Periodic Table is Scaled to 90% of Screen Width */
+    #amcsd_periodic_table {
+        max-width: 100%;
+        transform: scale(0.8);
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    #amcsd-search-form {
+        padding-left: 40px;
+        padding-right: 20px;
+        width: 360px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .AMCSDForm {
+        width: 96%;
+    }
+
+    .AMCSDChemistryLink {
+        margin-top: 10px;
+    }
+
+    .amcsd-search-form-section {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    #AMCSDInterfaceForm .section-labels,
+    #AMCSDInterfaceForm label {
+        text-align: left !important;
+    }
+
+    .input_wrapper {
+        padding: 0 0 4px 0;
+    }
+
+    .submit_wrapper {
+        padding-top: 8px;
+    }
+
+    .search_form label {
+        vertical-align: middle;
+        line-height: 20px;
+        width: 100%;
+        display: inline-block;
+        margin-right: 12px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+
+
+}
+
+/* Designing for 380px min width */
+@media screen and (min-width: 600px) and (max-width: 767px) {
+    /* Ensure Periodic Table is Scaled to 90% of Screen Width */
+    #amcsd_periodic_table {
+        max-width: 100%;
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+    #amcsd-search-form {
+        padding-left: 40px;
+        padding-right: 20px;
+        width: 360px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .AMCSDForm {
+        width: 96%;
+    }
+
+    .AMCSDChemistryLink {
+        margin-top: 10px;
+    }
+
+    .amcsd-search-form-section {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    #AMCSDInterfaceForm .section-labels,
+    #AMCSDInterfaceForm label {
+        text-align: left !important;
+    }
+
+    .input_wrapper {
+        padding: 0 0 4px 0;
+    }
+
+    .submit_wrapper {
+        padding-top: 8px;
+    }
+
+    .search_form label {
+        vertical-align: middle;
+        line-height: 20px;
+        width: 100%;
+        display: inline-block;
+        margin-right: 12px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+}
+
+
+@media screen and (min-width: 1024px) {
+    .summary-search-form {
+        width: 900px !important;
+    }
+
+    .summary-submit-block {
+        float: right;
+        margin-top: -34px;
+        margin-right: 18px !important;
+    }
+}
+

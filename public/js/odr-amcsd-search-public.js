@@ -247,19 +247,6 @@ let amcsd_minerals = [];
                     }
                 );
 
-                jQuery(".chemistry_lookup_link").click(
-                    function () {
-                        $("#div_periodic_table").slideToggle('300',
-                            function () {
-                                if ($("#div_periodic_table:visible") && $(window).width() < 600) {
-                                    $('html, body').animate({
-                                        scrollTop: ($("#div_periodic_table").offset().top - 110)
-                                    }, 2000);
-                                }
-                            })
-                    }
-                );
-
                 jQuery("#reset_sample_search").click(function () {
                     $("#txt_mineral").val('');
                     $("#txt_general").val('');
@@ -730,8 +717,7 @@ let amcsd_minerals = [];
 })(jQuery);
 
 function togglePeriodicTable() {
-    jQuery('#div_periodic_table').show()
-    jQuery('#AMCSDPeriodicTableTD').toggle('slow')
+    jQuery('#AMCSDPeriodicTable').toggle('slow')
 }
 
 function b64EncodeUnicode(str) {
