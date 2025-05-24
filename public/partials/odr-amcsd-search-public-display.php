@@ -69,7 +69,7 @@
                     <input class="pure-u-1" type="text" id="txt_mineral" name="Mineral" value="">
                 </div>
             </div>
-            <div class="amcsd-search-form-section pure-u-1">
+            <div class="pure-u-1">
                 <div class="section-labels pure-u-1 pure-u-md-7-24 pure-u-xl-7-24">
                     <label for="txt_author">
                         <a href="#AMCSDAuthorList" rel="modal:open" class="AMCSDHelperLink">Author</a>
