@@ -261,14 +261,12 @@ let amcsd_minerals = [];
                 });
 
 
-                /*
-                jQuery("#amcsd-search-form-wrapper").submit(
-                    function () {
-                        submitSearchForm();
+                jQuery("#AMCSDInterfaceForm input").keypress(function (e) {
+                    if (e.which === 13) {
+                        submitAmcsdSearchForm();
                         return false;
                     }
-                );
-                 */
+                });
 
                 jQuery("#amcsd-search-form-reset").click(
                     // Use BtoA to encode
