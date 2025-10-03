@@ -286,11 +286,11 @@ let amcsd_minerals = [];
 
                 // Prepare Mineral Name Modal
                 jQuery(".AMCSDMineralNameLetter").click(function () {
-                    filterMineralNameList(jQuery(this).html())
+                    amcsdFilterMineralNameList(jQuery(this).html())
                 });
 
                 // TODO Add filtering for valid AMCSD records
-                filterMineralNameList("A")
+                amcsdFilterMineralNameList("A")
 
                 jQuery(".AMCSDMineralName").click(function () {
                     let mineral_name = jQuery(this).html();
@@ -312,7 +312,8 @@ let amcsd_minerals = [];
                         minerals_selected[mineral_name.substring(0,1).toLowerCase()]--;
 
                         jQuery(this).removeClass('AMCSDMineralNameSelected')
-                    } else {
+                    }
+                    else if (!jQuery(this).hasClass('AMCSDNotFound')) {
                         // else select mineral
                         if (jQuery("#txt_mineral").val().length === 0) {
                             jQuery("#txt_mineral").val(
@@ -367,12 +368,12 @@ let amcsd_minerals = [];
                     } else {
                         if (jQuery("#txt_author").val().length === 0) {
                             jQuery("#txt_author").val(
-                                jQuery(this).html()
+                                '"' + jQuery(this).html() + '"'
                             )
                         } else {
                             jQuery("#txt_author").val(
                                 jQuery("#txt_author").val() + ', ' +
-                                jQuery(this).html()
+                                '"' + jQuery(this).html() + '"'
                             )
                         }
 
@@ -394,7 +395,7 @@ let amcsd_minerals = [];
         // Can this be done reliably?
         // Use amcsd data from IMA Page
 
-        function filterMineralNameList(letter) {
+        function amcsdFilterMineralNameList(letter) {
             jQuery(".AMCSDMineralName").hide()
             jQuery(".AMCSDMineralName").removeClass("AMCSDNotFound")
 
