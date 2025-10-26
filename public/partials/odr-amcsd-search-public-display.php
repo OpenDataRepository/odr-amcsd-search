@@ -701,7 +701,7 @@
                     </label>
                 </div>
                 <div class="pure-u-1 pure-u-md-16-24 pure-u-xl-16-24">
-                    <input class="pure-u-1" type="text" name="diff" id="txt_diffraction" disabled value="">
+                    <input class="pure-u-1" type="text" name="diff" id="txt_diffraction">
                 </div>
             </div>
 

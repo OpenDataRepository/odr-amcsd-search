@@ -486,8 +486,88 @@ let amcsd_minerals = [];
             jQuery("#txt_chemistry_excl").val('');
         }
 
+        function validateSearchForm() {
+            console.log('=== Starting Form Validation ===');
+
+            // Clear all previous error messages
+            jQuery('.validation-error').remove();
+
+            let isValid = true;
+
+            // Validate txt_diffraction field
+            let diffractionValue = jQuery("#txt_diffraction").val().trim();
+            console.log('Diffraction field value:', diffractionValue === '' ? '(empty)' : diffractionValue);
+
+            if (diffractionValue !== '') {
+                console.log('Validating diffraction field...');
+
+                // Build regex pattern for diffraction validation
+                // Format: <type>: <numbers> (<tolerance>) intensity: <number> [wavelength: <number>]
+                // Where type is: 2-theta, d-spacing, or energy (case insensitive)
+
+                // Pattern breakdown:
+                // ^(2-theta|d-spacing|energy):\s  - type with colon and space
+                // (\d+\.?\d*)(,\d+\.?\d*)*\s      - one or more comma-separated numbers with space after
+                // \(\d+\.?\d*\)\s                 - tolerance in parens with space after
+                // intensity:\s\d+\.?\d*           - intensity with value
+                // (\swavelength:\s\d+\.?\d*)?$    - optional wavelength (required for 2-theta)
+
+                let pattern = /^(2-theta|d-spacing|energy):\s(\d+\.?\d*)(,\d+\.?\d*)*\s\(\d+\.?\d*\)\sintensity:\s\d+\.?\d*(\swavelength:\s\d+\.?\d*)?$/i;
+
+                console.log('Expected format: "type: numbers (tolerance) intensity: value [wavelength: value]"');
+                console.log('Where type is one of: 2-theta, d-spacing, or energy');
+                console.log('Checking pattern match...');
+
+                if (!pattern.test(diffractionValue)) {
+                    isValid = false;
+                    let errorMsg = '<div class="validation-error">Invalid format. Expected: "type: numbers (tolerance) intensity: value [wavelength: value]"<br>' +
+                                   'Where type is one of: 2-Theta, d-spacing, or energy</div>';
+                    console.error('VALIDATION FAILED: Pattern does not match');
+                    console.error('Error:', 'Invalid format. Expected: "type: numbers (tolerance) intensity: value [wavelength: value]"');
+                    jQuery("#txt_diffraction").after(errorMsg);
+                } else {
+                    console.log('Pattern match: PASSED');
+
+                    // Check if 2-theta requires wavelength
+                    console.log('Checking if 2-theta requires wavelength...');
+                    if (diffractionValue.toLowerCase().startsWith('2-theta:')) {
+                        console.log('Type is 2-theta, checking for wavelength requirement...');
+                        if (!diffractionValue.toLowerCase().includes('wavelength:')) {
+                            isValid = false;
+                            let errorMsg = '<div class="validation-error">2-Theta searches require a wavelength value</div>';
+                            console.error('VALIDATION FAILED: 2-Theta requires wavelength');
+                            console.error('Error:', '2-Theta searches require a wavelength value');
+                            jQuery("#txt_diffraction").after(errorMsg);
+                        } else {
+                            console.log('Wavelength check: PASSED');
+                        }
+                    } else {
+                        console.log('Type is not 2-theta, wavelength not required');
+                    }
+                }
+            } else {
+                console.log('Diffraction field is empty, skipping validation');
+            }
+
+            if (isValid) {
+                console.log('✓ VALIDATION SUCCESSFUL - Form is valid and ready for submission');
+            } else {
+                console.log('✗ VALIDATION FAILED - Form submission blocked');
+            }
+            console.log('=== End Form Validation ===');
+
+            return isValid;
+        }
+
         function submitAmcsdSearchForm() {
             console.log('Submit Search Form')
+
+            // Validate form before submission
+            if (!validateSearchForm()) {
+                console.log('Form validation failed');
+                return false;
+            }
+
             // UnicodeDecodeB64("JUUyJTlDJTkzJTIwJUMzJUEwJTIwbGElMjBtb2Rl"); // "✓ à la mode"
             // Get mineral names or AMCSD IDS from txt_mineral
             let search_json = {
