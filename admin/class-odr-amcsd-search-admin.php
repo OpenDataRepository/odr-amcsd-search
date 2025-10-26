@@ -281,6 +281,27 @@ class Odr_Amcsd_Search_Admin
             'field_settings'
         );
         add_settings_field(
+            'odr_amcsd_search_d_spacing',
+            'Cell Parameter: d_spacing',
+            array($this, 'odr_amcsd_search_d_spacing'),
+            $this->plugin_name,
+            'field_settings'
+        );
+        add_settings_field(
+            'odr_amcsd_search_intensity',
+            'Cell Parameter: intensity',
+            array($this, 'odr_amcsd_search_intensity'),
+            $this->plugin_name,
+            'field_settings'
+        );
+        add_settings_field(
+            'odr_amcsd_search_2_theta',
+            'Cell Parameter: 2_theta',
+            array($this, 'odr_amcsd_search_2_theta'),
+            $this->plugin_name,
+            'field_settings'
+        );
+        add_settings_field(
             'odr_amcsd_search_crystal_system',
             'Cell Parameter: crystal_system',
             array($this, 'odr_amcsd_search_crystal_system'),
@@ -416,6 +437,21 @@ class Odr_Amcsd_Search_Admin
         echo "<input id='odr_amcsd_search_space_group' name='odr_amcsd_search_plugin_options[space_group]' type='text' value='" . esc_attr($options['space_group']) . "' />";
     }
 
+    function odr_amcsd_search_d_spacing()
+    {
+        $options = get_option('odr_amcsd_search_plugin_options');
+        echo "<input id='odr_amcsd_search_d_spacing' name='odr_amcsd_search_plugin_options[d_spacing]' type='text' value='" . esc_attr($options['d_spacing']) . "' />";
+    }
+    function odr_amcsd_search_intensity()
+    {
+        $options = get_option('odr_amcsd_search_plugin_options');
+        echo "<input id='odr_amcsd_search_intensity' name='odr_amcsd_search_plugin_options[intensity]' type='text' value='" . esc_attr($options['intensity']) . "' />";
+    }
+    function odr_amcsd_search_2_theta()
+    {
+        $options = get_option('odr_amcsd_search_plugin_options');
+        echo "<input id='odr_amcsd_search_2_theta' name='odr_amcsd_search_plugin_options[2_theta]' type='text' value='" . esc_attr($options['2_theta']) . "' />";
+    }
     function odr_amcsd_search_crystal_system()
     {
         $options = get_option('odr_amcsd_search_plugin_options');

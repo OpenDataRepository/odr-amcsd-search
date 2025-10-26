@@ -521,6 +521,33 @@ let amcsd_minerals = [];
                 search_json[search_options['chemistry_incl']] = $("#txt_chemistry_incl").val().trim().replaceAll(/,/g, ' ');
             }
 
+            if ($("#txt_diffraction").val() !== '') {
+                let diffraction_string = $("#txt_diffraction").val();
+                let items = diffraction_string.split(/\s/);
+                let tolerance = items[2].replace(/[()]/g, '');
+                // console.log('Tolerance: ', tolerance)
+                let values = items[1].split(',');
+                // console.log('Values: ', values.join(','))
+                let value_string = '';
+                for (let i = 0; i < values.length; i++) {
+                    value_string += '>=' + (values[i]*1 - tolerance*1)
+                        + ' <=' + (values[i]*1 + tolerance*1) + ', ';
+                }
+                value_string = value_string.replace(/, $/, '');
+
+                // Set the intensity
+                search_json[search_options['intensity']] = '>=' + items[4];
+
+                if(diffraction_string.match(/2-Theta/)) {
+                    search_json[search_options['2_theta']] = value_string;
+                }
+                else if(diffraction_string.match(/d-spacing/)) {
+                    search_json[search_options['d_spacing']] = value_string;
+                }
+                else {
+                    search_json[search_options['energy']] = value_string;
+                }
+            }
 
             // Get chemistry excludes
             if ($("#txt_chemistry_excl").val() !== undefined) {
@@ -576,7 +603,6 @@ let amcsd_minerals = [];
                 }
             }
 
-
             // Get sort
             if (
                 $('#sel_sort').find(':selected').val()
@@ -586,7 +612,7 @@ let amcsd_minerals = [];
                 search_json['sort_by']['sort_df_id'] = $('#sel_sort').find(':selected').val();
                 search_json['sort_by']['sort_dir'] = $('#sel_sort_dir').find(':selected').val();
             }
-            // console.log('Search JSON: ', search_json)
+            console.log('Search JSON: ', search_json)
 
             // Encode to base 64 - atob()
             let search_string = b64EncodeUnicode(JSON.stringify(search_json)); // "JUUyJTlDJTkzJTIwJUMzJUEwJTIwbGElMjBtb2Rl"
@@ -602,6 +628,7 @@ let amcsd_minerals = [];
                 let redirect = search_options['redirect_url'] + "/" + search_options['default_search'] + "/" + search_string + "/1";
                 window.location = redirect, true
             }
+            return false;
         }
 
         function setInclExcl(obj) {

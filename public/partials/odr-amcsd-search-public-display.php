@@ -42,13 +42,15 @@
     search_options['alpha'] = "<?php echo $odr_amcsd_search_plugin_options['alpha']; ?>";
     search_options['beta'] = "<?php echo $odr_amcsd_search_plugin_options['beta']; ?>";
     search_options['gamma'] = "<?php echo $odr_amcsd_search_plugin_options['gamma']; ?>";
+    search_options['intensity'] = "<?php echo $odr_amcsd_search_plugin_options['intensity']; ?>";
+    search_options['d_spacing'] = "<?php echo $odr_amcsd_search_plugin_options['d_spacing']; ?>";
+    search_options['2_theta'] = "<?php echo $odr_amcsd_search_plugin_options['2_theta']; ?>";
     search_options['crystal_system'] = "<?php echo $odr_amcsd_search_plugin_options['crystal_system']; ?>";
     search_options['space_group'] = "<?php echo $odr_amcsd_search_plugin_options['space_group']; ?>";
     search_options['redirect_url'] = "<?php echo $odr_amcsd_search_plugin_options['redirect_url']; ?>";
     search_options['default_search'] = "<?php echo $odr_amcsd_search_plugin_options['default_search']; ?>";
     search_options['amc_short_form'] = "<?php echo $odr_amcsd_search_plugin_options['amc_short_form']; ?>";
     search_options['cif'] = "<?php echo $odr_amcsd_search_plugin_options['cif']; ?>";
-    search_options['intensity'] = "<?php echo $odr_amcsd_search_plugin_options['cif']; ?>";
     search_options['wavelength'] = "<?php echo $odr_amcsd_search_plugin_options['cif']; ?>";
     search_options['x_values'] = "<?php echo $odr_amcsd_search_plugin_options['cif']; ?>";
     console.log('SEARCH OPTIONS', search_options)
@@ -699,7 +701,7 @@
                     </label>
                 </div>
                 <div class="pure-u-1 pure-u-md-16-24 pure-u-xl-16-24">
-                    <input class="pure-u-1" type="text" name="diff" id="txt_diffraction" value="">
+                    <input class="pure-u-1" type="text" name="diff" id="txt_diffraction" disabled value="">
                 </div>
             </div>
 
@@ -2077,8 +2079,33 @@
                 // Intensity
                 // Wavelength
                 // 2 theta values
-
+                console.log('Opt: ' + document.DiffractionSearchForm.diffValueSelect.options[0].text);
+                console.log('Type: ' + document.DiffractionSearchForm.Type.value);
+                console.log('Intensity: ' + document.DiffractionSearchForm.intensity.value);
+                console.log('Optional: ' + document.DiffractionSearchForm.optional.value);
+                console.log('TypTxt: ' + document.DiffractionSearchForm.TypeTxt.value);
+                console.log('Tol: ' + document.DiffractionSearchForm.Tol.value);
+                console.log('diff Values: ' + document.DiffractionSearchForm.diffValuesHidden.value);
+                let output_string = '';
+                if(document.DiffractionSearchForm.Type.value === '2-Theta') {
+                    output_string = '2-Theta: ' + document.DiffractionSearchForm.diffValuesHidden.value
+                        + ' (' + document.DiffractionSearchForm.Tol.value + ')'
+                        + ' intensity: ' + document.DiffractionSearchForm.intensity.value;
+                }
+                else if(document.DiffractionSearchForm.Type.value === 'd-spacing') {
+                    output_string = 'd-spacing: ' + document.DiffractionSearchForm.diffValuesHidden.value
+                        + ' (' + document.DiffractionSearchForm.Tol.value + ')'
+                        + ' intensity: ' + document.DiffractionSearchForm.intensity.value;
+                }
+                else {
+                    output_string = 'energy: ' + document.DiffractionSearchForm.diffValuesHidden.value
+                        + ' (' + document.DiffractionSearchForm.Tol.value + ')'
+                    ;
+                }
+                jQuery("#txt_diffraction").val(output_string);
+                jQuery(".close-modal").click();
             }
+
             /*
             * clear hidden and visible fields
             */
@@ -2242,8 +2269,20 @@
             {
                 var newTolerance = document.DiffractionSearchForm.Tol.value;
                 var newValue = document.DiffractionSearchForm.TypeTxt.value;
-                if (isNaN(newTolerance) || isNaN(newValue) || newTolerance.length == 0) {
-                    alert("Please enter valid numbers.");
+                if (isNaN(newValue)) {
+                    if(document.DiffractionSearchForm.Type.value === '2-Theta') {
+                        alert("Please enter a valid 2-Theta value.");
+                    }
+                    else if(document.DiffractionSearchForm.Type.value === 'd-spacing') {
+                        alert("Please enter a valid d-spacing value.");
+                    }
+                    else {
+                        alert("Please enter a valid energy value.");
+                    }
+                    return false;
+                }
+                if (isNaN(newTolerance) || newTolerance.length == 0) {
+                    alert("Please enter a valid tolerance value.");
                     return false;
                 }
                 document.DiffractionSearchForm.toleranceHidden.value = newTolerance;
