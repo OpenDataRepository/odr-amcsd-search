@@ -46,7 +46,9 @@
     search_options['d_spacing'] = "<?php echo $odr_amcsd_search_plugin_options['d_spacing']; ?>";
     search_options['2_theta'] = "<?php echo $odr_amcsd_search_plugin_options['2_theta']; ?>";
     search_options['crystal_system'] = "<?php echo $odr_amcsd_search_plugin_options['crystal_system']; ?>";
+    search_options['CS'] = "<?php echo $odr_amcsd_search_plugin_options['crystal_system']; ?>";
     search_options['space_group'] = "<?php echo $odr_amcsd_search_plugin_options['space_group']; ?>";
+    search_options['SG'] = "<?php echo $odr_amcsd_search_plugin_options['space_group']; ?>";
     search_options['redirect_url'] = "<?php echo $odr_amcsd_search_plugin_options['redirect_url']; ?>";
     search_options['default_search'] = "<?php echo $odr_amcsd_search_plugin_options['default_search']; ?>";
     search_options['amc_short_form'] = "<?php echo $odr_amcsd_search_plugin_options['amc_short_form']; ?>";
@@ -723,9 +725,12 @@
                     </label>
                 </div>
                 <div class="pure-u-1 pure-u-md-16-24 pure-u-xl-16-24">
-                    <input type="radio" name="Viewing" value="amclongform" checked=""> amc long form
-                    <input type="radio" name="Viewing" value="amcshortform"> amc short form
-                    <input type="radio" name="Viewing" value="cif"> cif
+                    <input type="radio" id="ViewingAMCLongForm" name="Viewing" value="amclongform" checked="">
+                    <label for="ViewingAMCLongForm">amc long form</label>
+                    <input type="radio" id="ViewingAMCShortForm" name="Viewing" value="amcshortform">
+                    <label for="ViewingAMCShortForm">amc short form</label>
+                    <input type="radio" id="ViewingCIF" name="Viewing" value="cif">
+                    <label for="ViewingCIF">cif</label>
                 </div>
             </div>
 
@@ -949,7 +954,7 @@
                         <td>
                             space group
                         </td>
-                        <td><select name="sg">
+                        <td><select id="sg" name="sg">
                                 <option value=""></option>
                                 <option value="A-1"> A-1</option>
                                 <option value="A2"> A2</option>
@@ -1329,7 +1334,7 @@
                         <td>
                             crystal system
                         </td>
-                        <td><select name="csys" onchange="Change()">
+                        <td><select id="csys" name="csys" onchange="Change()">
                                 <option value=""></option>
                                 <option value="cubic">cubic</option>
                                 <option value="tetragonal">tetragonal</option>
@@ -1445,58 +1450,72 @@
                                 let variance = parseFloat(jQuery('input[name="La"]').val());
                                 let value = parseFloat(jQuery('input[name="Ua"]').val());
                                 cell_param_string += "a='>="
-                                    + (val - variance) + " "
-                                    + "<=" + (val + variance) + "', ";
+                                    + (value - variance) + " "
+                                    + "<=" + (value + variance) + "', ";
                             }
 
                             if(jQuery('input[name="Lb"]').val().length > 0) {
                                 let variance = parseFloat(jQuery('input[name="Lb"]').val());
                                 let value = parseFloat(jQuery('input[name="Ub"]').val())
                                 cell_param_string += "b='>="
-                                    + (val - variance) + " "
-                                    + "<=" + (val + variance) + "', ";
+                                    + (value - variance) + " "
+                                    + "<=" + (value + variance) + "', ";
                             }
 
                             if(jQuery('input[name="Lc"]').val().length > 0) {
                                 let variance = parseFloat(jQuery('input[name="Lc"]').val());
                                 let value = parseFloat(jQuery('input[name="Uc"]').val())
                                 cell_param_string += "c='>="
-                                    + (val - variance) + " "
-                                    + "<=" + (val + variance) + "', ";
+                                    + (value - variance) + " "
+                                    + "<=" + (value + variance) + "', ";
                             }
 
                             if(jQuery('input[name="Lalpha"]').val().length > 0) {
                                 let variance = parseFloat(jQuery('input[name="Lalpha"]').val());
                                 let value = parseFloat(jQuery('input[name="Ualpha"]').val())
                                 cell_param_string += "alpha='>="
-                                    + (val - variance) + " "
-                                    + "<=" + (val + variance) + "', ";
+                                    + (value - variance) + " "
+                                    + "<=" + (value + variance) + "', ";
                             }
 
                             if(jQuery('input[name="Lbeta"]').val().length > 0) {
                                 let variance = parseFloat(jQuery('input[name="Lbeta"]').val());
                                 let value = parseFloat(jQuery('input[name="Ubeta"]').val())
                                 cell_param_string += "beta='>="
-                                    + (val - variance) + " "
-                                    + "<=" + (val + variance) + "', ";
+                                    + (value - variance) + " "
+                                    + "<=" + (value + variance) + "', ";
                             }
 
                             if(jQuery('input[name="Lgamma"]').val().length > 0) {
                                 let variance = parseFloat(jQuery('input[name="Lgamma"]').val());
                                 let value = parseFloat(jQuery('input[name="Ugamma"]').val())
                                 cell_param_string += "gamma='>="
-                                    + (val - variance) + " "
-                                    + "<=" + (val + variance) + "', ";
+                                    + (value - variance) + " "
+                                    + "<=" + (value + variance) + "', ";
                             }
 
                         }
 
-                        if(jQuery('input[name="sg"]').find(":selected").val() !== undefined) {
-                            cell_param_string += "SG=" + jQuery('input[name="sg"]').find(":selected").val() + ", ";
+                        let sg_object = jQuery('#sg');
+                        console.log('Checking sg object')
+                        if(sg_object.find(":selected").val() !== undefined) {
+                            console.log('TEST sg_object')
+                            let value = sg_object.find(":selected").val();
+                            if(value !== '') {
+                                cell_param_string += "SG='" + value + "', ";
+                            }
                         }
-                        if(jQuery('input[name="cs"]').find(":selected").val() !== undefined) {
-                            cell_param_string += "CS=" + jQuery('input[name="csys"]').find(":selected").val() + " ";
+                        /*
+                        let cs_object = jQuery('#csys');
+                        if(cs_object.find(":selected").val() !== undefined) {
+                            console.log('TEST cs_object')
+                            let value = cs_object.find(":selected").val();
+                            if(value !== '') {
+                                cell_param_string += "CS='" + value + "', ";
+                            }
                         }
+
+                         */
 
                         cell_param_string = cell_param_string.replace(/, $/,'');
 
@@ -1665,7 +1684,16 @@
                         }
                     }
 
+                    // Crystal System Change
                     function Change() {
+                        // Reset existing crystal system values
+                        document.AMCSDCellParamsForm.Lalpha.value = '';
+                        document.AMCSDCellParamsForm.Lbeta.value = '';
+                        document.AMCSDCellParamsForm.Lgamma.value = '';
+                        document.AMCSDCellParamsForm.Ualpha.value = '';
+                        document.AMCSDCellParamsForm.Ubeta.value = '';
+                        document.AMCSDCellParamsForm.Ugamma.value = '';
+
                         var system = document.AMCSDCellParamsForm.csys.options[document.AMCSDCellParamsForm.csys.selectedIndex].value;
                         if (system == "cubic") {
                             document.AMCSDCellParamsForm.Lalpha.value = 90;
@@ -1964,7 +1992,6 @@
 
                     //--></script>
 
-
                 </p></center>
         </form>
 
@@ -1985,7 +2012,7 @@
     <div id="AMCSDDiffractionSearch" class="modal">
         <h2>Diffraction Pattern Search/Match Routine</h2>
 
-        <form name="DiffractionSearchForm" method="POST">
+        <form name="DiffractionSearchForm">
             <input type="hidden" name="page" value="diff">
             <input type="hidden" name="toleranceHidden" value="">
             <input type="hidden" name="diffValuesHidden" value="">
@@ -2088,18 +2115,24 @@
                 console.log('diff Values: ' + document.DiffractionSearchForm.diffValuesHidden.value);
                 let output_string = '';
                 if(document.DiffractionSearchForm.Type.value === '2-Theta') {
+                    // 2-Theta search
                     output_string = '2-Theta: ' + document.DiffractionSearchForm.diffValuesHidden.value
                         + ' (' + document.DiffractionSearchForm.Tol.value + ')'
-                        + ' intensity: ' + document.DiffractionSearchForm.intensity.value;
+                        + ' intensity: ' + document.DiffractionSearchForm.intensity.value
+                        + ' wavelength: ' + document.DiffractionSearchForm.optional.value;
                 }
                 else if(document.DiffractionSearchForm.Type.value === 'd-spacing') {
+                    // d-spacing
                     output_string = 'd-spacing: ' + document.DiffractionSearchForm.diffValuesHidden.value
                         + ' (' + document.DiffractionSearchForm.Tol.value + ')'
                         + ' intensity: ' + document.DiffractionSearchForm.intensity.value;
                 }
                 else {
+                    // Energy
                     output_string = 'energy: ' + document.DiffractionSearchForm.diffValuesHidden.value
                         + ' (' + document.DiffractionSearchForm.Tol.value + ')'
+                        + ' intensity: ' + document.DiffractionSearchForm.intensity.value
+                        + ' theta: ' + document.DiffractionSearchForm.optional.value;
                     ;
                 }
                 jQuery("#txt_diffraction").val(output_string);

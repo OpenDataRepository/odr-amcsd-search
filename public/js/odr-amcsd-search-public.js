@@ -496,41 +496,89 @@ let amcsd_minerals = [];
 
             // Validate txt_diffraction field
             let diffractionValue = jQuery("#txt_diffraction").val().trim();
-            console.log('Diffraction field value:', diffractionValue === '' ? '(empty)' : diffractionValue);
+            console.log('Diffraction field value (raw):', diffractionValue === '' ? '(empty)' : diffractionValue);
+
+            // Sanitize: replace multiple spaces with single space
+            if (diffractionValue !== '') {
+                diffractionValue = diffractionValue.replace(/\s+/g, ' ');
+                console.log('Diffraction field value (sanitized):', diffractionValue);
+
+                // Update the field with sanitized value
+                jQuery("#txt_diffraction").val(diffractionValue);
+            }
 
             if (diffractionValue !== '') {
                 console.log('Validating diffraction field...');
 
                 // Build regex pattern for diffraction validation
-                // Format: <type>: <numbers> (<tolerance>) intensity: <number> [wavelength: <number>]
-                // Where type is: 2-theta, d-spacing, or energy (case insensitive)
+                // Format:
+                //   2-theta: <numbers> (<tolerance>) intensity: <number> wavelength: <number|Cu|Mo>
+                //   d-spacing: <numbers> (<tolerance>) intensity: <number>
+                //   energy: <numbers> (<tolerance>) intensity: <number> theta: <number>
 
                 // Pattern breakdown:
                 // ^(2-theta|d-spacing|energy):\s  - type with colon and space
                 // (\d+\.?\d*)(,\d+\.?\d*)*\s      - one or more comma-separated numbers with space after
                 // \(\d+\.?\d*\)\s                 - tolerance in parens with space after
                 // intensity:\s\d+\.?\d*           - intensity with value
-                // (\swavelength:\s\d+\.?\d*)?$    - optional wavelength (required for 2-theta)
+                // (?:\swavelength:\s(Cu|Mo|\d+(?:\.\d+)?)|\stheta:\s\d+(?:\.\d+)?)? - optional wavelength (Cu/Mo/number) or theta (number)
 
-                let pattern = /^(2-theta|d-spacing|energy):\s(\d+\.?\d*)(,\d+\.?\d*)*\s\(\d+\.?\d*\)\sintensity:\s\d+\.?\d*(\swavelength:\s\d+\.?\d*)?$/i;
+                // Separate patterns for better debugging
+                let basePattern = /^(2-theta|d-spacing|energy):\s(\d+\.?\d*)(,\d+\.?\d*)*\s\(\d+\.?\d*\)\sintensity:\s\d+\.?\d*$/i;
+                let wavelengthPattern = /\swavelength:\s(Cu|Mo|\d+\.?\d*)$/i;
+                let thetaPattern = /\stheta:\s\d+\.?\d*$/i;
 
-                console.log('Expected format: "type: numbers (tolerance) intensity: value [wavelength: value]"');
-                console.log('Where type is one of: 2-theta, d-spacing, or energy');
+                console.log('Testing patterns with current value...');
+                console.log('Base pattern test:', basePattern.test(diffractionValue));
+                console.log('Has wavelength:', wavelengthPattern.test(diffractionValue));
+                console.log('Has theta:', thetaPattern.test(diffractionValue));
+
+                // Combined pattern
+                let pattern = /^(2-theta|d-spacing|energy):\s(\d+\.?\d*)(,\d+\.?\d*)*\s\(\d+\.?\d*\)\sintensity:\s\d+\.?\d*(?:\swavelength:\s(?:Cu|Mo|\d+\.?\d*)|\stheta:\s\d+\.?\d*)?$/i;
+
+                // Test the pattern and capture the result
+                let testResult = pattern.test(diffractionValue);
+                console.log('Combined pattern match result:', testResult);
+
+                // If it has a wavelength or theta, extract and show it
+                if (diffractionValue.toLowerCase().includes('wavelength:')) {
+                    let wavelengthMatch = diffractionValue.match(/wavelength:\s*(\S+)/i);
+                    if (wavelengthMatch) {
+                        console.log('Extracted wavelength value:', wavelengthMatch[1]);
+                    }
+                } else if (diffractionValue.toLowerCase().includes('theta:')) {
+                    let thetaMatch = diffractionValue.match(/theta:\s*(\S+)/i);
+                    if (thetaMatch) {
+                        console.log('Extracted theta value:', thetaMatch[1]);
+                    }
+                }
+
+                console.log('Expected formats:');
+                console.log('  2-theta: numbers (tolerance) intensity: value wavelength: value');
+                console.log('  d-spacing: numbers (tolerance) intensity: value');
+                console.log('  energy: numbers (tolerance) intensity: value theta: value');
+                console.log('Wavelength value can be: a number, Cu, or Mo');
                 console.log('Checking pattern match...');
 
-                if (!pattern.test(diffractionValue)) {
+                if (!testResult) {
                     isValid = false;
-                    let errorMsg = '<div class="validation-error">Invalid format. Expected: "type: numbers (tolerance) intensity: value [wavelength: value]"<br>' +
-                                   'Where type is one of: 2-Theta, d-spacing, or energy</div>';
+                    let errorMsg = '<div class="validation-error">Invalid format. Expected formats:<br>' +
+                                   '&nbsp;&nbsp;2-Theta: numbers (tolerance) intensity: value wavelength: value<br>' +
+                                   '&nbsp;&nbsp;d-spacing: numbers (tolerance) intensity: value<br>' +
+                                   '&nbsp;&nbsp;energy: numbers (tolerance) intensity: value theta: value<br>' +
+                                   'Wavelength can be: a number, Cu, or Mo</div>';
                     console.error('VALIDATION FAILED: Pattern does not match');
-                    console.error('Error:', 'Invalid format. Expected: "type: numbers (tolerance) intensity: value [wavelength: value]"');
+                    console.error('Error: Invalid format - see expected formats in console');
                     jQuery("#txt_diffraction").after(errorMsg);
                 } else {
                     console.log('Pattern match: PASSED');
 
                     // Check if 2-theta requires wavelength
-                    console.log('Checking if 2-theta requires wavelength...');
-                    if (diffractionValue.toLowerCase().startsWith('2-theta:')) {
+                    console.log('Checking type-specific requirements...');
+                    let typePrefix = diffractionValue.toLowerCase().split(':')[0];
+                    console.log('Detected type prefix:', typePrefix);
+
+                    if (typePrefix === '2-theta') {
                         console.log('Type is 2-theta, checking for wavelength requirement...');
                         if (!diffractionValue.toLowerCase().includes('wavelength:')) {
                             isValid = false;
@@ -541,8 +589,21 @@ let amcsd_minerals = [];
                         } else {
                             console.log('Wavelength check: PASSED');
                         }
+                    } else if (typePrefix === 'energy') {
+                        console.log('Type is energy, checking for theta requirement...');
+                        if (!diffractionValue.toLowerCase().includes('theta:')) {
+                            isValid = false;
+                            let errorMsg = '<div class="validation-error">Energy searches require a theta value</div>';
+                            console.error('VALIDATION FAILED: Energy requires theta');
+                            console.error('Error:', 'Energy searches require a theta value');
+                            jQuery("#txt_diffraction").after(errorMsg);
+                        } else {
+                            console.log('Theta check: PASSED');
+                        }
+                    } else if (typePrefix === 'd-spacing') {
+                        console.log('Type is d-spacing, no additional parameters required');
                     } else {
-                        console.log('Type is not 2-theta, wavelength not required');
+                        console.log('Type is unknown:', typePrefix);
                     }
                 }
             } else {
@@ -605,27 +666,83 @@ let amcsd_minerals = [];
                 let diffraction_string = $("#txt_diffraction").val();
                 let items = diffraction_string.split(/\s/);
                 let tolerance = items[2].replace(/[()]/g, '');
-                // console.log('Tolerance: ', tolerance)
+                console.log('Tolerance: ', tolerance)
                 let values = items[1].split(',');
-                // console.log('Values: ', values.join(','))
-                let value_string = '';
-                for (let i = 0; i < values.length; i++) {
-                    value_string += '>=' + (values[i]*1 - tolerance*1)
-                        + ' <=' + (values[i]*1 + tolerance*1) + ', ';
-                }
-                value_string = value_string.replace(/, $/, '');
-
                 // Set the intensity
                 search_json[search_options['intensity']] = '>=' + items[4];
 
+                search_json[search_options['d_spacing']] = '';
                 if(diffraction_string.match(/2-Theta/)) {
-                    search_json[search_options['2_theta']] = value_string;
+                    // Need to convert 2-Theta for d-spacing
+                    // d = nLam/2sinTheta
+                    for(let i= 0; i < values.length; i++) {
+                        let d_low = 0
+                        let d_high = 0
+                        let wavelength = items[6];
+                        let thetaLow = 2 * (Math.sin((values[0] * 1 + tolerance * 1) / 2 * Math.PI / 180));
+                        let thetaHigh = 2 * (Math.sin((values[0] * 1 - tolerance * 1) / 2 * Math.PI / 180));
+                        if (thetaLow === 0 || thetaHigh === 0) {
+                            // error state
+                            console.log('Error: 2-Theta search requires a wavelength value');
+                            return false;
+                        }
+                        if (wavelength.match(/([0-9\.]+)/)) {
+                            console.log('Wavelength: ', wavelength);
+                            d_low = wavelength / thetaLow;
+                            d_high = wavelength / thetaHigh;
+                        } else if (wavelength.match(/[CU]+/i)) {
+                            console.log('Wavelength: Cu');
+                            d_low = 1.541838 / thetaLow;
+                            d_high = 1.541838 / thetaHigh;
+                        } else {
+                            console.log('Wavelength: Mo');
+                            d_low = 0.710730 / thetaLow;
+                            d_high = 0.710730 / thetaHigh;
+                        }
+                        if (d_low > d_high) {
+                            let tmp = d_low;
+                            d_low = d_high;
+                            d_high = tmp;
+                        }
+
+                        search_json[search_options['d_spacing']] += '>=' + Math.round((d_low) * 10000) / 10000
+                            + ' <=' + Math.round((d_high) * 10000) / 10000;
+                    }
                 }
                 else if(diffraction_string.match(/d-spacing/)) {
+                    let value_string = '';
+                    for (let i = 0; i < values.length; i++) {
+                        value_string += '>=' + (values[i] - tolerance)
+                            + ' <=' + (values[i] + tolerance) + ', ';
+                    }
+                    value_string = value_string.replace(/, $/, '');
                     search_json[search_options['d_spacing']] = value_string;
                 }
                 else {
-                    search_json[search_options['energy']] = value_string;
+                    // Energy search...
+                    let theta = items[6];
+                    console.log('Theta: ', items[6]);
+                    for(let i= 0; i < values.length; i++) {
+                        let energy_low = values[0]*1 + tolerance*1;
+                        console.log('Energy low: ', energy_low);
+                        let energy_high = values[0]*1 - tolerance*1;
+                        console.log('Energy high: ', energy_high);
+                        let theta_radians = Math.PI * theta / 180;
+                        console.log('Theta radians: ', theta_radians);
+
+                        let d_low = 6.1993 / (Math.sin(theta_radians) * energy_low);
+                        console.log('d_low: ', d_low);
+                        let d_high = 6.1993 / (Math.sin(theta_radians) * energy_high);
+                        console.log('d_high: ', d_high);
+
+                        if(d_low > d_high) {
+                            let tmp = d_low;
+                            d_low = d_high;
+                            d_high = tmp;
+                        }
+                        search_json[search_options['d_spacing']] += '>=' + Math.round((d_low) * 10000)/10000
+                            + ' <=' + Math.round((d_high) * 10000)/10000;
+                    }
                 }
             }
 
@@ -671,6 +788,7 @@ let amcsd_minerals = [];
             } else {
                 cell_param_array.push(txt_cell_parameters)
             }
+            console.log('Cell parameters: ', cell_param_array);
 
             // Checking cell param array
             for (let i = 0; i < cell_param_array.length; i++) {
@@ -678,7 +796,7 @@ let amcsd_minerals = [];
                 if (cell_param_array[i] !== '' && cell_param_array[i].match(/='/)) {
                     let param_data = cell_param_array[i].split(/='/);
                     param_data[1] = param_data[1].replace(/'/, '');
-                    // console.log('CELL PARAM: ' + param_data[0].trim() + ' ' + param_data[1])
+                    console.log('CELL PARAM: ' + param_data[0].trim() + ' ' + param_data[1])
                     search_json[search_options[param_data[0].trim()]] = param_data[1]
                 }
             }
@@ -700,14 +818,24 @@ let amcsd_minerals = [];
             search_string = search_string.replace(/=$/, '');
             // https://beta.amcsd.net/odr/amcsd_samples#/odr/search/display/7/eyJkdF9pZCI6IjMifQ/1
 
+            let search_template = search_options['default_search'];
+            console.log("VAC: " + jQuery("#ViewingAMCLongForm").val());
 
-            // console.log('Search String: ', search_string)
-            if (search_options['redirect_url'] === '/odr/network') {
-                window.location = search_options['redirect_url'], true
-            } else {
-                let redirect = search_options['redirect_url'] + "/" + search_options['default_search'] + "/" + search_string + "/1";
-                window.location = redirect, true
+            if(jQuery("#ViewingAMCShortForm").is(':checked')){
+                console.log('Short form');
+                search_template = search_options['amc_short_form'];
             }
+            if(jQuery("#ViewingCIF").is(':checked')){
+                console.log('CIF');
+                search_template = search_options['cif'];
+            }
+
+            console.log('Search Template: ', search_template)
+            // console.log('Search String: ', search_string)
+            // if(confirm('Search it')) {
+                let redirect = search_options['redirect_url'] + "/" + search_template + "/" + search_string + "/1";
+                window.location = redirect, true
+            // }
             return false;
         }
 
