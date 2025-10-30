@@ -114,9 +114,10 @@
                             </div>
                         </td>
                         <td colspan="16" align="center" id="periodic_table_instructions">
-                            <!--
-                            Click an element: once &raquo; required, twice &raquo; possible, thrice
-                            &raquo; exclude -->
+                            <span class="pt-instructions">
+                                Click an element: once &raquo;
+                                include, twice &raquo; exclude
+                            </span>
                         </td>
                         <td>
                             <div class="pt_noble_gases periodic_table chem_ele_unselected"
