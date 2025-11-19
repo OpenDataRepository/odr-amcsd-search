@@ -679,8 +679,8 @@ let amcsd_minerals = [];
                         let d_low = 0
                         let d_high = 0
                         let wavelength = items[6];
-                        let thetaLow = 2 * (Math.sin((values[0] * 1 + tolerance * 1) / 2 * Math.PI / 180));
-                        let thetaHigh = 2 * (Math.sin((values[0] * 1 - tolerance * 1) / 2 * Math.PI / 180));
+                        let thetaLow = 2 * (Math.sin((parseFloat(values[0]) + parseFloat(tolerance)) / 2 * Math.PI / 180));
+                        let thetaHigh = 2 * (Math.sin((parseFloat(values[0]) - parseFloat(tolerance)) / 2 * Math.PI / 180));
                         if (thetaLow === 0 || thetaHigh === 0) {
                             // error state
                             console.log('Error: 2-Theta search requires a wavelength value');
@@ -712,8 +712,8 @@ let amcsd_minerals = [];
                 else if(diffraction_string.match(/d-spacing/)) {
                     let value_string = '';
                     for (let i = 0; i < values.length; i++) {
-                        value_string += '>=' + (values[i] - tolerance)
-                            + ' <=' + (values[i] + tolerance) + ', ';
+                        value_string += '>=' + (parseFloat(values[i]) - parseFloat(tolerance))
+                            + ' <=' + (parseFloat(values[i]) + parseFloat(tolerance)) + ', ';
                     }
                     value_string = value_string.replace(/, $/, '');
                     search_json[search_options['d_spacing']] = value_string;
@@ -723,9 +723,9 @@ let amcsd_minerals = [];
                     let theta = items[6];
                     console.log('Theta: ', items[6]);
                     for(let i= 0; i < values.length; i++) {
-                        let energy_low = values[0]*1 + tolerance*1;
+                        let energy_low = parseFloat(values[0]) + parseFloat(tolerance);
                         console.log('Energy low: ', energy_low);
-                        let energy_high = values[0]*1 - tolerance*1;
+                        let energy_high = parseFloat(values[0]) - parseFloat(tolerance);
                         console.log('Energy high: ', energy_high);
                         let theta_radians = Math.PI * theta / 180;
                         console.log('Theta radians: ', theta_radians);
