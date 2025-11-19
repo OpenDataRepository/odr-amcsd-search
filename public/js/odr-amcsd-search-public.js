@@ -524,17 +524,17 @@ let amcsd_minerals = [];
                 // (?:\swavelength:\s(Cu|Mo|\d+(?:\.\d+)?)|\stheta:\s\d+(?:\.\d+)?)? - optional wavelength (Cu/Mo/number) or theta (number)
 
                 // Separate patterns for better debugging
-                let basePattern = /^(2-theta|d-spacing|energy):\s(\d+\.?\d*)(,\d+\.?\d*)*\s\(\d+\.?\d*\)\sintensity:\s\d+\.?\d*$/i;
-                let wavelengthPattern = /\swavelength:\s(Cu|Mo|\d+\.?\d*)$/i;
-                let thetaPattern = /\stheta:\s\d+\.?\d*$/i;
+                let basePattern = /^(2-theta|d-spacing|energy):\s(\d*?\.+?\d+|\d+?\.*?\d*)(,(\d*?\.+?\d+|\d+?\.*?\d*))*\s\((\d*?\.+?\d+|\d+?\.*?\d*)\)\sintensity:\s(\d*?\.+?\d+|\d+?\.*?\d*)/i;
+                let wavelengthPattern = /\swavelength:\s(Cu|Mo|(\d*?\.+?\d+)|(\d+?\.*?\d*))$/i;
+                let thetaPattern = /\stheta:\s(\d*?\.+?\d+|\d+?\.*?\d*)$/i;
 
-                console.log('Testing patterns with current value...');
+                console.log('Testing patterns with current value [2]: "' + diffractionValue + '"');
                 console.log('Base pattern test:', basePattern.test(diffractionValue));
                 console.log('Has wavelength:', wavelengthPattern.test(diffractionValue));
                 console.log('Has theta:', thetaPattern.test(diffractionValue));
 
                 // Combined pattern
-                let pattern = /^(2-theta|d-spacing|energy):\s(\d+\.?\d*)(,\d+\.?\d*)*\s\(\d+\.?\d*\)\sintensity:\s\d+\.?\d*(?:\swavelength:\s(?:Cu|Mo|\d+\.?\d*)|\stheta:\s\d+\.?\d*)?$/i;
+                let pattern = /^(2-theta|d-spacing|energy):\s(\d*?\.+?\d+|\d+?\.*?\d*)(,(\d*?\.+?\d+|\d+?\.*?\d*))*\s\((\d*?\.+?\d+|\d+?\.*?\d*)\)\sintensity:\s(\d*?\.+?\d+|\d+?\.*?\d*)(?:\swavelength:\s(?:Cu|Mo|(\d*?\.+?\d+)|(\d+?\.*?\d*))|\stheta:\s(\d*?\.+?\d+|\d+?\.*?\d*))?$/i;
 
                 // Test the pattern and capture the result
                 let testResult = pattern.test(diffractionValue);
