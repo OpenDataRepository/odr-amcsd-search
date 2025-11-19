@@ -705,15 +705,15 @@ let amcsd_minerals = [];
                             d_high = tmp;
                         }
 
-                        search_json[search_options['d_spacing']] += '>=' + Math.round((d_low) * 10000) / 10000
-                            + ' <=' + Math.round((d_high) * 10000) / 10000;
+                        search_json[search_options['d_spacing']] += '>=' + Math.round((d_low) * 1000) / 1000
+                            + ' <=' + Math.round((d_high) * 1000) / 1000;
                     }
                 }
                 else if(diffraction_string.match(/d-spacing/)) {
                     let value_string = '';
                     for (let i = 0; i < values.length; i++) {
-                        value_string += '>=' + (parseFloat(values[i]) - parseFloat(tolerance))
-                            + ' <=' + (parseFloat(values[i]) + parseFloat(tolerance)) + ', ';
+                        value_string += '>=' + Math.round((parseFloat(values[i]) - parseFloat(tolerance))*1000)/1000
+                            + ' <=' + Math.round((parseFloat(values[i]) + parseFloat(tolerance)) * 1000)/1000 + ', ';
                     }
                     value_string = value_string.replace(/, $/, '');
                     search_json[search_options['d_spacing']] = value_string;
@@ -740,8 +740,8 @@ let amcsd_minerals = [];
                             d_low = d_high;
                             d_high = tmp;
                         }
-                        search_json[search_options['d_spacing']] += '>=' + Math.round((d_low) * 10000)/10000
-                            + ' <=' + Math.round((d_high) * 10000)/10000;
+                        search_json[search_options['d_spacing']] += '>=' + Math.round((d_low) * 1000)/1000
+                            + ' <=' + Math.round((d_high) * 1000)/1000;
                     }
                 }
             }
