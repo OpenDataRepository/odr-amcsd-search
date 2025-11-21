@@ -713,9 +713,9 @@ let amcsd_minerals = [];
                     let value_string = '';
                     for (let i = 0; i < values.length; i++) {
                         value_string += '>=' + Math.round((parseFloat(values[i]) - parseFloat(tolerance))*1000)/1000
-                            + ' <=' + Math.round((parseFloat(values[i]) + parseFloat(tolerance)) * 1000)/1000 + ', ';
+                            + ' <=' + Math.round((parseFloat(values[i]) + parseFloat(tolerance)) * 1000)/1000 + ' && ';
                     }
-                    value_string = value_string.replace(/, $/, '');
+                    value_string = value_string.replace(/&& $/, '');
                     search_json[search_options['d_spacing']] = value_string;
                 }
                 else {
