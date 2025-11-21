@@ -675,6 +675,7 @@ let amcsd_minerals = [];
                 if(diffraction_string.match(/2-Theta/)) {
                     // Need to convert 2-Theta for d-spacing
                     // d = nLam/2sinTheta
+                    let value_string = '';
                     for(let i= 0; i < values.length; i++) {
                         let d_low = 0
                         let d_high = 0
@@ -705,9 +706,11 @@ let amcsd_minerals = [];
                             d_high = tmp;
                         }
 
-                        search_json[search_options['d_spacing']] += '>=' + Math.round((d_low) * 1000) / 1000
-                            + ' <=' + Math.round((d_high) * 1000) / 1000;
+                        value_string += '>=' + Math.round((d_low) * 1000) / 1000
+                            + ' <=' + Math.round((d_high) * 1000) / 1000 + ' && ';
                     }
+                    value_string = value_string.replace(/&& $/, '');
+                    search_json[search_options['d_spacing']] = value_string;
                 }
                 else if(diffraction_string.match(/d-spacing/)) {
                     let value_string = '';
@@ -722,6 +725,7 @@ let amcsd_minerals = [];
                     // Energy search...
                     let theta = items[6];
                     console.log('Theta: ', items[6]);
+                    let value_string = '';
                     for(let i= 0; i < values.length; i++) {
                         let energy_low = parseFloat(values[0]) + parseFloat(tolerance);
                         console.log('Energy low: ', energy_low);
@@ -740,9 +744,11 @@ let amcsd_minerals = [];
                             d_low = d_high;
                             d_high = tmp;
                         }
-                        search_json[search_options['d_spacing']] += '>=' + Math.round((d_low) * 1000)/1000
-                            + ' <=' + Math.round((d_high) * 1000)/1000;
+                        value_string += '>=' + Math.round((d_low) * 1000)/1000
+                            + ' <=' + Math.round((d_high) * 1000)/1000 + ' && ';
                     }
+                    value_string = value_string.replace(/&& $/, '');
+                    search_json[search_options['d_spacing']] = value_string;
                 }
             }
 
