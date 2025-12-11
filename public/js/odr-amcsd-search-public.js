@@ -293,36 +293,40 @@ let amcsd_minerals = [];
                 amcsdFilterMineralNameList("A")
 
                 jQuery(".AMCSDMineralName").click(function () {
-                    let mineral_name = jQuery(this).html();
+                    let mineral_entry = jQuery(this)
+                    let mineral_name = mineral_entry.html();
+                    let quoted_mineral_name = '"' + mineral_entry.html() + '"';
+                    let txt_mineral = jQuery('#txt_mineral')
+
                     // If already selected, deselect and remove from list
-                    if (jQuery(this).hasClass('AMCSDMineralNameSelected')) {
-                        let txt_mineral = jQuery("#txt_mineral").val();
-                        let mineral_name_comma = mineral_name + ', ';
-                        if (txt_mineral.match(mineral_name_comma)) {
-                            jQuery('#txt_mineral').val(
-                                txt_mineral.replace(mineral_name_comma, '')
+                    if (mineral_entry.hasClass('AMCSDMineralNameSelected')) {
+                        let txt_mineral_val = txt_mineral.val();
+                        let mineral_name_comma = quoted_mineral_name + ', ';
+                        if (txt_mineral_val.match(mineral_name_comma)) {
+                            txt_mineral.val(
+                                txt_mineral_val.replace(mineral_name_comma, '')
                             )
-                        } else if (txt_mineral.match(mineral_name)) {
-                            jQuery('#txt_mineral').val(
-                                txt_mineral.replace(mineral_name, '')
+                        } else if (txt_mineral_val.match(quoted_mineral_name)) {
+                            txt_mineral.val(
+                                txt_mineral_val.replace(quoted_mineral_name, '')
                             )
                         }
 
                         // Log entry in minerals_selected
                         minerals_selected[mineral_name.substring(0,1).toLowerCase()]--;
 
-                        jQuery(this).removeClass('AMCSDMineralNameSelected')
+                        mineral_entry.removeClass('AMCSDMineralNameSelected')
                     }
-                    else if (!jQuery(this).hasClass('AMCSDNotFound')) {
+                    else if (!mineral_entry.hasClass('AMCSDNotFound')) {
                         // else select mineral
-                        if (jQuery("#txt_mineral").val().length === 0) {
-                            jQuery("#txt_mineral").val(
-                                jQuery(this).html()
+                        if (txt_mineral.val().length === 0) {
+                            txt_mineral.val(
+                                quoted_mineral_name
                             )
                         } else {
-                            jQuery("#txt_mineral").val(
-                                jQuery("#txt_mineral").val() + ', ' +
-                                jQuery(this).html()
+                            txt_mineral.val(
+                                txt_mineral.val() + ', ' +
+                                quoted_mineral_name
                             )
                         }
 
