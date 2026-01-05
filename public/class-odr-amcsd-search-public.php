@@ -133,14 +133,14 @@ class Odr_Amcsd_Search_Public {
         $odr_amcsd_search_vars = shortcode_atts(
             array(
                 'redirect_url' => '/odr/amcsd_sample#/odr/search/display/7',
-                datatype_id => "77",
-                general_search => "gen",
-                chemistry_incl => "199",
-                mineral_name => "18",
-                sample_id => "34",
-                default_search => "2010",
-                search_pictures => "2143",
-                search_spectra => "3147"
+                'datatype_id' => "77",
+                'general_search' => "gen",
+                'chemistry_incl' => "199",
+                'mineral_name' => "18",
+                'sample_id' => "34",
+                'default_search' => "2010",
+                'search_pictures' => "2143",
+                'search_spectra' => "3147"
             ), $attributes, $tag
         );
 
