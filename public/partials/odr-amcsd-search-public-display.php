@@ -793,12 +793,17 @@
             </tr>
             <?php
             try {
+                $mineral_names = [];
                 include(__DIR__ . '/../../../../data-publisher/web/uploads/IMA/mineral_names.php');
                 include(__DIR__ . '/../../../../data-publisher/web/uploads/IMA/mineral_names_update.php');
                 $count = 0;
                 $column_count = 0;
                 $current_letter = 'a';
+
+                $mineral_names = array_unique($mineral_names);
+                // Locale sort?
                 asort($mineral_names, SORT_LOCALE_STRING);
+
                 foreach ($mineral_names as $mineral_name) {
                     // Check if we match current letter
                     if(mb_strtolower(substr($mineral_name,0, 1)) !== $current_letter) {
@@ -811,6 +816,7 @@
                     if ($count % 4 === 0) {
                         ?><tr><?php
                     }
+
                     ?><td class="AMCSDMineralName"><?php print $mineral_name ?></td><?php
                     $column_count++;
                     if ($column_count === 4) {
