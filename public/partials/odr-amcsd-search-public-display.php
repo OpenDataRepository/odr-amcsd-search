@@ -11,7 +11,6 @@
  * @package    Odr_Amcsd_Search
  * @subpackage Odr_Amcsd_Search/public/partials
  */
-
 /*
     [
         odr-amcsd-search-display datatype_id = "738"

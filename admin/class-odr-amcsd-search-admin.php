@@ -523,5 +523,7 @@ class Odr_Amcsd_Search_Admin
         $options = get_option('odr_amcsd_search_plugin_options');
         echo "<input id='odr_amcsd_search_sort_locality_field' name='odr_amcsd_search_plugin_options[sort_locality_field]' type='text' value='" . esc_attr($options['sort_locality_field']) . "' />";
     }
+
+    // Updated
 }
 

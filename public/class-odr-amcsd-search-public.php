@@ -74,7 +74,6 @@ class Odr_Amcsd_Search_Public {
 		 */
 
         add_shortcode('odr-amcsd-search-display', array($this, 'odr_render_html'));
-
         // TODO Need to read configuration variables for other pages
         wp_register_style( $this->plugin_name . '-style', plugin_dir_url( __FILE__ ) . 'css/odr-amcsd-search-public.css', array(), $this->version, 'all' );
         wp_register_style( $this->plugin_name . '-modal-style', plugin_dir_url( __FILE__ ) . 'css/jquery.modal.0.9.1.css', array(), $this->version, 'all' );
