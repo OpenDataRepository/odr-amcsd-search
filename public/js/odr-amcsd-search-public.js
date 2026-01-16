@@ -1,4 +1,5 @@
 let amcsd_minerals = [];
+let cellparams = [];
 (function ($) {
     'use strict';
 
@@ -43,13 +44,8 @@ let amcsd_minerals = [];
 
     jQuery(window).load(function () {
         jQuery.when(
-            // jQuery.getScript( '/odr_rruff/uploads/IMA/master_tag_data.js'),
-            // jQuery.getScript( '/odr_rruff/uploads/IMA/pm_tag_data.js'),
-            // jQuery.getScript( script_path + 'first_occurrences.js' ),
-            // jQuery.getScript( script_path + 'cellparams_range.js' ),  //
-            // jQuery.getScript( script_path + 'cellparams_synonyms.js' ),
-            jQuery.getScript('/odr_rruff/uploads/IMA/cellparams_data.js'),
-            jQuery.getScript('/odr_rruff/uploads/IMA/cellparams_data_update.js'),
+            // jQuery.getScript('/odr_rruff/uploads/IMA/cellparams_data.js'),
+            // jQuery.getScript('/odr_rruff/uploads/IMA/cellparams_data_update.js'),
             jQuery.Deferred(function (deferred) {
                 jQuery(deferred.resolve);
             })
@@ -416,7 +412,7 @@ let amcsd_minerals = [];
                     jQuery(item).show()
                     if(!hiLoSearch(mineral_name, amcsd_minerals)) {
                         // fade minerals with no AMCSD record
-                        jQuery(item).addClass('AMCSDNotFound')
+                        // jQuery(item).addClass('AMCSDNotFound')
                     }
                 }
             }
