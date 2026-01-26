@@ -272,6 +272,11 @@ let cellparams = [];
                     }
                 );
 
+                // Help toggle button
+                jQuery("#amcsd-search-help-toggle").click(function () {
+                    jQuery("#amcsd-search-help").slideToggle('fast');
+                });
+
                 jQuery("#amcsd-search-form-submit").click(
                     // Use BtoA to encode
                     function () {

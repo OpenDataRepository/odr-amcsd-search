@@ -24,8 +24,6 @@
  *
  */
 
-// Need to load AMCSD CSS
-
 ?>
 <h2>ODR Search Plugin Settings</h2>
 <form action="options.php" method="post">

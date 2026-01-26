@@ -122,12 +122,13 @@ class Odr_Amcsd_Search_Admin
             'AMCSD Search',
             'administrator',
             $this->plugin_name,
-            array($this, 'displayPluginAdminDashboard'),
+            // array($this, 'displayPluginAdminDashboard'),
+            array($this, 'displayPluginAdminSettings'),
             'dashicons-chart-area',
             26
         );
-
         //add_submenu_page( '$parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
+        /*
         add_submenu_page(
             $this->plugin_name,
             'AMCSD Search Settings',
@@ -136,6 +137,7 @@ class Odr_Amcsd_Search_Admin
             $this->plugin_name . '-settings',
             array($this, 'displayPluginAdminSettings')
         );
+        */
     }
 
     public function displayPluginAdminDashboard()
@@ -358,6 +360,13 @@ class Odr_Amcsd_Search_Admin
             $this->plugin_name,
             'field_settings'
         );
+        add_settings_field(
+            'odr_amcsd_search_help_text',
+            'Search Help Text',
+            array($this, 'odr_amcsd_search_help_text'),
+            $this->plugin_name,
+            'field_settings'
+        );
     }
 
     function odr_amcsd_search_plugin_section_text()
@@ -524,6 +533,19 @@ class Odr_Amcsd_Search_Admin
         echo "<input id='odr_amcsd_search_sort_locality_field' name='odr_amcsd_search_plugin_options[sort_locality_field]' type='text' value='" . esc_attr($options['sort_locality_field']) . "' />";
     }
 
-    // Updated
+    function odr_amcsd_search_help_text()
+    {
+        $options = get_option('odr_amcsd_search_plugin_options');
+        $content = isset($options['help_text']) ? $options['help_text'] : '';
+        $editor_id = 'odr_amcsd_search_help_text';
+        $settings = array(
+            'textarea_name' => 'odr_amcsd_search_plugin_options[help_text]',
+            'textarea_rows' => 10,
+            'media_buttons' => true,
+            'teeny' => false,
+            'quicktags' => true,
+        );
+        wp_editor($content, $editor_id, $settings);
+    }
 }
 

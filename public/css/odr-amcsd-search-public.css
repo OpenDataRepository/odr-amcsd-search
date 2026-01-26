@@ -281,20 +281,6 @@ table.search_form {
     filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true);
 }
 
-/*
-.search_form input[type=button]:active,
-.search_form input[type=submit]:active {
-    margin-top: 2px;
-    margin-bottom: 13px;
-
-    -moz-box-shadow:0px 1px 0px rgba(255,255,255,0.5);
-    -webkit-box-shadow:0px 1px 0px rgba(255,255,255,0.5);
-    box-shadow:0px 1px 0px rgba(255,255,255,0.5);
-    -ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ccffffff,Positive=true)";
-    filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ccffffff,Positive=true);
-}
- */
-
 .search_form input[type=button]:disabled,
 .search_form input[type=submit]:disabled {
     background-color: rgba(82, 171, 117, 0.4);

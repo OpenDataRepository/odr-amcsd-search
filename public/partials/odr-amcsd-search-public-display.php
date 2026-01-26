@@ -27,6 +27,8 @@
 
 ?>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <script type="text/javascript">
     // Declare variables for Search JS
     let search_options = [];
@@ -739,7 +741,17 @@
                 </div>
                 <div class="pure-u-1 pure-u-md-16-24 pure-u-xl-16-24">
                     <input type="button" value="Search" id="amcsd-search-form-submit">
-                    <input type="button" value="Reset" id="amcsd-search-form-reset">
+                    <input type="button" value="Reset" id="amcsd-search-form-reset">&nbsp;
+                    <i id="amcsd-search-help-toggle" class="fa-regular fa-circle-question" style="cursor: pointer; font-size: 1.2em;" title="Search Help"></i>
+                </div>
+            </div>
+
+            <div id="amcsd-search-help" class="amcsd-search-form-section pure-u-1" style="display: none;">
+                <div class="section-labels pure-u-1 pure-u-md-7-24 pure-u-xl-7-24"></div>
+                <div class="pure-u-1 pure-u-md-16-24 pure-u-xl-16-24">
+                    <div style="padding: 10px;">
+                        <?php echo wp_kses_post(isset($odr_amcsd_search_plugin_options['help_text']) ? $odr_amcsd_search_plugin_options['help_text'] : ''); ?>
+                    </div>
                 </div>
             </div>
         </form>

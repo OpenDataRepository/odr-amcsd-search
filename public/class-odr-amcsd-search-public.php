@@ -128,7 +128,6 @@ class Odr_Amcsd_Search_Public {
         ]
         */
 
-
         $odr_amcsd_search_vars = shortcode_atts(
             array(
                 'redirect_url' => '/odr/amcsd_sample#/odr/search/display/7',
