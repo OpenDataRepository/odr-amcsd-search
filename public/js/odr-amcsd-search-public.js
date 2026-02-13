@@ -402,7 +402,6 @@ let cellparams = [];
 
         function amcsdFilterMineralNameList(letter) {
             jQuery(".AMCSDMineralName").hide()
-            jQuery(".AMCSDMineralName").removeClass("AMCSDNotFound")
 
             let regex = new RegExp('^' + letter, 'i');
             let mineral_list_objects = jQuery(".AMCSDMineralName");
@@ -415,10 +414,6 @@ let cellparams = [];
                 if (mineral_name.match(regex)) {
                     // HiLoSearch to find mineral....??
                     jQuery(item).show()
-                    if(!hiLoSearch(mineral_name, amcsd_minerals)) {
-                        // fade minerals with no AMCSD record
-                        // jQuery(item).addClass('AMCSDNotFound')
-                    }
                 }
             }
         }
