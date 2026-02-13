@@ -13,22 +13,6 @@
     margin-right: auto;
 }
 
-/*
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="url"],
-input[type="password"],
-input[type="search"],
-input[type=reset],
-input[type=tel],
-input[type=date],
-select,
-textarea {
-    width: auto;
-}
- */
-
 .left_side {
     width: 25%;
 }
@@ -144,7 +128,6 @@ textarea {
     margin-bottom: 0 !important;
 }
 
-#AMCSDInterfaceForm input[type=text],
 .AMCSDForm input[type=text],
 .AMCSDForm input {
     font-size: 16px;
@@ -263,8 +246,6 @@ table.search_form {
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 6px;
-
-
 
 
     border-radius: 5px;
@@ -763,6 +744,25 @@ table.search_form th {
 }
 
 
+#AMCSDInterfaceForm input[type=email],
+#AMCSDInterfaceForm input[type=number],
+#AMCSDInterfaceForm input[type=password],
+#AMCSDInterfaceForm input[type=reset],
+#AMCSDInterfaceForm input[type=search],
+#AMCSDInterfaceForm input[type=tel],
+#AMCSDInterfaceForm input[type=text],
+#AMCSDInterfaceForm input[type=url],
+#AMCSDInterfaceForm input,
+#AMCSDInterfaceForm select,
+#AMCSDInterfaceForm textarea {
+    padding: 4px !important;
+    font-size: 16px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    height: 32px !important;
+    line-height: 36px !important;
+    border-radius: 4px !important;
+}
 
 
 @media screen and (max-width: 460px) {
@@ -824,6 +824,7 @@ table.search_form th {
     #AMCSDInterfaceForm label {
         text-align: left !important;
     }
+
 
     .input_wrapper {
         padding: 0 0 4px 0;
