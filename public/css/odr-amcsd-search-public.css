@@ -752,7 +752,6 @@ table.search_form th {
 #AMCSDInterfaceForm input[type=tel],
 #AMCSDInterfaceForm input[type=text],
 #AMCSDInterfaceForm input[type=url],
-#AMCSDInterfaceForm input,
 #AMCSDInterfaceForm select,
 #AMCSDInterfaceForm textarea {
     padding: 4px !important;
