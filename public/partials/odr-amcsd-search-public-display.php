@@ -756,6 +756,7 @@
             </div>
         </form>
 
+        <!--
         <div class="AMCSDInfoDiv">
             <div class="AMCSDContentRight">
                 This page has been accessed 4605651 times.
@@ -766,6 +767,7 @@
                 <br><b>Data Last Updated:</b> January 08, 2024
             </div>
         </div>
+        -->
     </div>
 
     <div id="AMCSDMineralList" class="modal">

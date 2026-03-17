@@ -620,6 +620,99 @@ let cellparams = [];
             return isValid;
         }
 
+        const element_radiation_wavelengths = {
+            "Li": {"Ka1": 228, "Ka2": 228, "Kavg": 228},
+            "Be": {"Ka1": 114, "Ka2": 114, "Kavg": 114},
+            "B": {"Ka1": 67.6, "Ka2": 67.6, "Kavg": 67.6},
+            "C": {"Ka1": 44.7, "Ka2": 44.7, "Kavg": 44.7},
+            "N": {"Ka1": 31.6, "Ka2": 31.6, "Kavg": 31.6},
+            "O": {"Ka1": 23.62, "Ka2": 23.62, "Kavg": 23.62},
+            "F": {"Ka1": 18.32, "Ka2": 18.32, "Kavg": 18.32},
+            "Ne": {"Ka1": 14.61, "Ka2": 14.61, "Kavg": 14.61},
+            "Na": {"Ka1": 11.9101, "Ka2": 11.9101, "Kavg": 11.9101},
+            "Mg": {"Ka1": 9.89, "Ka2": 9.89, "Kavg": 9.89},
+            "Al": {"Ka1": 8.33934, "Ka2": 8.34173, "Kavg": 8.340136},
+            "Si": {"Ka1": 7.12542, "Ka2": 7.12791, "Kavg": 7.12625},
+            "P": {"Ka1": 6.157, "Ka2": 6.16, "Kavg": 6.158},
+            "S": {"Ka1": 5.37216, "Ka2": 5.37496, "Kavg": 5.373093},
+            "Cl": {"Ka1": 4.7278, "Ka2": 4.7307, "Kavg": 4.728766},
+            "Ar": {"Ka1": 4.1918, "Ka2": 4.19474, "Kavg": 4.19278},
+            "K": {"Ka1": 3.7414, "Ka2": 3.7445, "Kavg": 3.742433},
+            "Ca": {"Ka1": 3.35839, "Ka2": 3.36166, "Kavg": 3.35948},
+            "Sc": {"Ka1": 3.0309, "Ka2": 3.0342, "Kavg": 3.032},
+            "Ti": {"Ka1": 2.74851, "Ka2": 2.75216, "Kavg": 2.749726},
+            "V": {"Ka1": 2.50356, "Ka2": 2.50738, "Kavg": 2.504833},
+            "Cr": {"Ka1": 2.2897, "Ka2": 2.293606, "Kavg": 2.291002},
+            "Mn": {"Ka1": 2.10182, "Ka2": 2.10578, "Kavg": 2.10314},
+            "Fe": {"Ka1": 1.936042, "Ka2": 1.93998, "Kavg": 1.937354},
+            "Co": {"Ka1": 1.788965, "Ka2": 1.79285, "Kavg": 1.79026},
+            "Ni": {"Ka1": 1.65791, "Ka2": 1.661747, "Kavg": 1.659189},
+            "Cu": {"Ka1": 1.540562, "Ka2": 1.54439, "Kavg": 1.541838},
+            "Zn": {"Ka1": 1.435155, "Ka2": 1.439, "Kavg": 1.436436},
+            "Ga": {"Ka1": 1.340083, "Ka2": 1.34399, "Kavg": 1.341385},
+            "Ge": {"Ka1": 1.254054, "Ka2": 1.258011, "Kavg": 1.255373},
+            "As": {"Ka1": 1.17588, "Ka2": 1.17987, "Kavg": 1.17721},
+            "Se": {"Ka1": 1.10477, "Ka2": 1.10882, "Kavg": 1.10612},
+            "Br": {"Ka1": 1.03974, "Ka2": 1.04382, "Kavg": 1.0411},
+            "Kr": {"Ka1": 0.9801, "Ka2": 0.9841, "Kavg": 0.981433},
+            "Rb": {"Ka1": 0.925553, "Ka2": 0.92969, "Kavg": 0.926932},
+            "Sr": {"Ka1": 0.87526, "Ka2": 0.87943, "Kavg": 0.87665},
+            "Y": {"Ka1": 0.82884, "Ka2": 0.83305, "Kavg": 0.830243},
+            "Zr": {"Ka1": 0.78593, "Ka2": 0.79015, "Kavg": 0.787336},
+            "Nb": {"Ka1": 0.7462, "Ka2": 0.75044, "Kavg": 0.747613},
+            "Mo": {"Ka1": 0.7093, "Ka2": 0.71359, "Kavg": 0.71073},
+            "Tc": {"Ka1": 0.67502, "Ka2": 0.67932, "Kavg": 0.676453},
+            "Ru": {"Ka1": 0.643083, "Ka2": 0.647408, "Kavg": 0.644524},
+            "Rh": {"Ka1": 0.613279, "Ka2": 0.61763, "Kavg": 0.614729},
+            "Pd": {"Ka1": 0.585448, "Ka2": 0.589821, "Kavg": 0.586905},
+            "Ag": {"Ka1": 0.5594075, "Ka2": 0.563798, "Kavg": 0.560871},
+            "Cd": {"Ka1": 0.53501, "Ka2": 0.539422, "Kavg": 0.53648},
+            "In": {"Ka1": 0.512113, "Ka2": 0.516544, "Kavg": 0.51359},
+            "Sn": {"Ka1": 0.490599, "Ka2": 0.495053, "Kavg": 0.492083},
+            "Sb": {"Ka1": 0.470354, "Ka2": 0.474827, "Kavg": 0.471845},
+            "Te": {"Ka1": 0.451295, "Ka2": 0.455784, "Kavg": 0.452791},
+            "I": {"Ka1": 0.433318, "Ka2": 0.437829, "Kavg": 0.434821},
+            "Xe": {"Ka1": 0.41634, "Ka2": 0.42087, "Kavg": 0.41785},
+            "Cs": {"Ka1": 0.40029, "Ka2": 0.404835, "Kavg": 0.401805},
+            "Ba": {"Ka1": 0.385111, "Ka2": 0.389668, "Kavg": 0.38663},
+            "La": {"Ka1": 0.370737, "Ka2": 0.375313, "Kavg": 0.372262},
+            "Ce": {"Ka1": 0.357092, "Ka2": 0.361683, "Kavg": 0.358622},
+            "Pr": {"Ka1": 0.34414, "Ka2": 0.348749, "Kavg": 0.345676},
+            "Nd": {"Ka1": 0.331846, "Ka2": 0.336472, "Kavg": 0.333388},
+            "Pm": {"Ka1": 0.32016, "Ka2": 0.324803, "Kavg": 0.321707},
+            "Sm": {"Ka1": 0.30904, "Ka2": 0.313698, "Kavg": 0.310592},
+            "Eu": {"Ka1": 0.298446, "Ka2": 0.303118, "Kavg": 0.300003},
+            "Gd": {"Ka1": 0.288353, "Ka2": 0.293038, "Kavg": 0.289914},
+            "Tb": {"Ka1": 0.278724, "Ka2": 0.283423, "Kavg": 0.28029},
+            "Dy": {"Ka1": 0.269533, "Ka2": 0.274247, "Kavg": 0.271104},
+            "Ho": {"Ka1": 0.260756, "Ka2": 0.265486, "Kavg": 0.262332},
+            "Er": {"Ka1": 0.252365, "Ka2": 0.25711, "Kavg": 0.253946},
+            "Tm": {"Ka1": 0.244338, "Ka2": 0.249095, "Kavg": 0.245923},
+            "Yb": {"Ka1": 0.236655, "Ka2": 0.241424, "Kavg": 0.238244},
+            "Lu": {"Ka1": 0.229298, "Ka2": 0.234081, "Kavg": 0.230892},
+            "Hf": {"Ka1": 0.222227, "Ka2": 0.227024, "Kavg": 0.223826},
+            "Ta": {"Ka1": 0.215497, "Ka2": 0.220305, "Kavg": 0.217099},
+            "W": {"Ka1": 0.20901, "Ka2": 0.213828, "Kavg": 0.210616},
+            "Re": {"Ka1": 0.202781, "Ka2": 0.207611, "Kavg": 0.204391},
+            "Os": {"Ka1": 0.196794, "Ka2": 0.201639, "Kavg": 0.198409},
+            "Ir": {"Ka1": 0.191047, "Ka2": 0.195904, "Kavg": 0.192666},
+            "Pt": {"Ka1": 0.185511, "Ka2": 0.190381, "Kavg": 0.187134},
+            "Au": {"Ka1": 0.180195, "Ka2": 0.185075, "Kavg": 0.181821},
+            "Hg": {"Ka1": 0.175068, "Ka2": 0.179958, "Kavg": 0.176698},
+            "Tl": {"Ka1": 0.170136, "Ka2": 0.175036, "Kavg": 0.171769},
+            "Pb": {"Ka1": 0.165376, "Ka2": 0.170294, "Kavg": 0.167015},
+            "Bi": {"Ka1": 0.160789, "Ka2": 0.165717, "Kavg": 0.162431},
+            "Po": {"Ka1": 0.15636, "Ka2": 0.1613, "Kavg": 0.158006},
+            "At": {"Ka1": 0.1521, "Ka2": 0.15705, "Kavg": 0.15375},
+            "Rn": {"Ka1": 0.14798, "Ka2": 0.15294, "Kavg": 0.149633},
+            "Fr": {"Ka1": 0.14399, "Ka2": 0.14896, "Kavg": 0.145646},
+            "Ra": {"Ka1": 0.14014, "Ka2": 0.14512, "Kavg": 0.1418},
+            "Ac": {"Ka1": 0.136417, "Ka2": 0.14141, "Kavg": 0.138081},
+            "Th": {"Ka1": 0.132813, "Ka2": 0.137829, "Kavg": 0.134485},
+            "Pa": {"Ka1": 0.129352, "Ka2": 0.134343, "Kavg": 0.131015},
+            "U": {"Ka1": 0.125947, "Ka2": 0.130968, "Kavg": 0.12762}
+        };
+
         function submitAmcsdSearchForm() {
             console.log('Submit Search Form')
 
@@ -659,6 +752,7 @@ let cellparams = [];
             // Get chemistry includes
             if ($("#txt_chemistry_incl").val() !== '') {
                 // {"dt_id":"3","21":"C"}
+                console.log('TXT Chemistry INCL: ' + $("#txt_chemistry_incl").val());
                 search_json[search_options['chemistry_incl']] = $("#txt_chemistry_incl").val().trim().replaceAll(/,/g, ' ');
             }
 
@@ -680,8 +774,20 @@ let cellparams = [];
                         let d_low = 0
                         let d_high = 0
                         let wavelength = items[6];
-                        let thetaLow = 2 * (Math.sin((parseFloat(values[0]) + parseFloat(tolerance)) / 2 * Math.PI / 180));
-                        let thetaHigh = 2 * (Math.sin((parseFloat(values[0]) - parseFloat(tolerance)) / 2 * Math.PI / 180));
+                        let thetaLow = 2 * (
+                            Math.sin(
+                                // (parseFloat(values[i]) + parseFloat(tolerance)) * Math.PI / 180
+                                (parseFloat(values[i]) + parseFloat(tolerance)) / 2 * Math.PI / 180
+                            )
+                        );
+                        let thetaHigh = 2 * (
+                            Math.sin(
+                                // (parseFloat(values[i]) - parseFloat(tolerance))  * Math.PI / 180
+                                (parseFloat(values[i]) - parseFloat(tolerance)) / 2 * Math.PI / 180
+                            )
+                        );
+                        console.log('Theta Low x2: ', thetaLow)
+                        console.log('Theta High x2: ', thetaHigh)
                         if (thetaLow === 0 || thetaHigh === 0) {
                             // error state
                             console.log('Error: 2-Theta search requires a wavelength value');
@@ -705,11 +811,14 @@ let cellparams = [];
                             d_low = d_high;
                             d_high = tmp;
                         }
+                        console.log('D Low: ', d_low);
+                        console.log('D High: ', d_high);
 
                         value_string += '>=' + Math.round((d_low) * 1000) / 1000
                             + ' <=' + Math.round((d_high) * 1000) / 1000 + ' && ';
                     }
                     value_string = value_string.replace(/&& $/, '');
+                    console.log('D-Spacing: ', value_string);
                     search_json[search_options['d_spacing']] = value_string;
                 }
                 else if(diffraction_string.match(/d-spacing/)) {
@@ -766,6 +875,8 @@ let cellparams = [];
                         }
                     );
                 } else {
+                    // This is unset if we have no INCL value
+                    search_json[search_options['chemistry_incl']] = '';
                     $("#txt_chemistry_excl").val().split(/,/).forEach(
                         function (item) {
                             if (item.trim() !== '') {
