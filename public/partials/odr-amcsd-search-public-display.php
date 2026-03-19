@@ -2057,19 +2057,35 @@
                         <td><input type="radio" name="Type" value="energy"   onclick="EnergySelection();"> Energy</td>
                     </tr>
                 </table>
+                <div id="optional_param_container" class="t3">
+                    <div id="wavelength_layer">
+                        <table class="interface_table">
+                            <tr>
+                                <td class="left_side">
+                                    <select name="wavelength" id="wavelength_select">
+                                    </select>
+                                </td>
+                                <td class="left_side">
+                                    <input type="text" name="wavelength_value" id="wavelength_value" size="10">
+                                </td>
+                                <td class="t1">Wavelength (Å)</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="theta_value_layer">
+                        <table class="interface_table">
+                            <tr>
+                                <td class="left_side"><input type="text" name="theta_value" id="theta_value" size="5" value="6.5"></td>
+                                <td class="t1">Theta</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
                 <div id="myLayer2" class="t3">
                     <table class="interface_table">
                         <tr>
                             <td class="left_side"><input type="text" name="intensity" size="5" value="5"></td>
                             <td id="three" class="t1">Intensity Cutoff (%)</td>
-                        </tr>
-                    </table>
-                </div>
-                <div id="myLayer" class="t3">
-                    <table class="interface_table">
-                        <tr>
-                            <td class="left_side"><input type="text" name="optional" size="5" value="Cu"></td>
-                            <td id="two" class="t1">Wavelength ('Cu', 'Mo', or value in angstroms)</td>
                         </tr>
                     </table>
                 </div>
@@ -2106,64 +2122,40 @@
             </div>
         </form>
 
-        <P>
+        <!-- <P>
             The diffraction search is based on the positions of peaks with intensities
             greater than 5% using Cu radiation with 2-theta values below 60 deg.
-        </P>
+        </P> -->
 
         <script type="text/javascript">
             var defaultValue = "Enter Values Above...";
 
-            /*
-
-        	if (document.DiffractionSearchForm.Type[1].checked) {
-		        // then this is a 2-Theta search.
-		        if (document.DiffractionSearchForm.optional.value.length == 0 || document.DiffractionSearchForm.optional.value == "0") {
-			        alert("When performing a 2-theta search, you must enter a wavelength value.");
-			        document.DiffractionSearchForm.optional.focus();
-			                return false;
-		        }
-	        }
-	        if (document.DiffractionSearchForm.diffValuesHidden.value.length == 0 || document.DiffractionSearchForm.diffValuesHidden.value == "") {
-		     alert("When performing a search, you must first enter some values to search by.");
-		     document.DiffractionSearchForm.TypeTxt.focus();
-		     return false;
-	        }
-
-             */
-
             function submitDiffractionSearch() {
-                // Intensity
-                // Wavelength
-                // 2 theta values
-                console.log('Opt: ' + document.DiffractionSearchForm.diffValueSelect.options[0].text);
-                console.log('Type: ' + document.DiffractionSearchForm.Type.value);
-                console.log('Intensity: ' + document.DiffractionSearchForm.intensity.value);
-                console.log('Optional: ' + document.DiffractionSearchForm.optional.value);
-                console.log('TypTxt: ' + document.DiffractionSearchForm.TypeTxt.value);
-                console.log('Tol: ' + document.DiffractionSearchForm.Tol.value);
-                console.log('diff Values: ' + document.DiffractionSearchForm.diffValuesHidden.value);
+                var form = document.DiffractionSearchForm;
+                console.log('Type: ' + form.Type.value);
+                console.log('Intensity: ' + form.intensity.value);
+                console.log('Tol: ' + form.Tol.value);
+                console.log('diff Values: ' + form.diffValuesHidden.value);
+
                 let output_string = '';
-                if(document.DiffractionSearchForm.Type.value === '2-Theta') {
-                    // 2-Theta search
-                    output_string = '2-Theta: ' + document.DiffractionSearchForm.diffValuesHidden.value
-                        + ' (' + document.DiffractionSearchForm.Tol.value + ')'
-                        + ' intensity: ' + document.DiffractionSearchForm.intensity.value
-                        + ' wavelength: ' + document.DiffractionSearchForm.optional.value;
+                if (form.Type.value === '2-Theta') {
+                    console.log('Wavelength: ' + form.wavelength_value.value);
+                    output_string = '2-Theta: ' + form.diffValuesHidden.value
+                        + ' (' + form.Tol.value + ')'
+                        + ' intensity: ' + form.intensity.value
+                        + ' wavelength: ' + form.wavelength_value.value;
                 }
-                else if(document.DiffractionSearchForm.Type.value === 'd-spacing') {
-                    // d-spacing
-                    output_string = 'd-spacing: ' + document.DiffractionSearchForm.diffValuesHidden.value
-                        + ' (' + document.DiffractionSearchForm.Tol.value + ')'
-                        + ' intensity: ' + document.DiffractionSearchForm.intensity.value;
+                else if (form.Type.value === 'd-spacing') {
+                    output_string = 'd-spacing: ' + form.diffValuesHidden.value
+                        + ' (' + form.Tol.value + ')'
+                        + ' intensity: ' + form.intensity.value;
                 }
                 else {
-                    // Energy
-                    output_string = 'energy: ' + document.DiffractionSearchForm.diffValuesHidden.value
-                        + ' (' + document.DiffractionSearchForm.Tol.value + ')'
-                        + ' intensity: ' + document.DiffractionSearchForm.intensity.value
-                        + ' theta: ' + document.DiffractionSearchForm.optional.value;
-                    ;
+                    console.log('Theta: ' + form.theta_value.value);
+                    output_string = 'energy: ' + form.diffValuesHidden.value
+                        + ' (' + form.Tol.value + ')'
+                        + ' intensity: ' + form.intensity.value
+                        + ' theta: ' + form.theta_value.value;
                 }
                 jQuery("#txt_diffraction").val(output_string);
                 jQuery(".close-modal").click();
@@ -2372,37 +2364,27 @@
                 document.DiffractionSearchForm.TypeTxt.focus();
             }
 
-            function shuffleLayers(textOne, textTwo, visibility) {
-                if(document.all) {
-                    document.all['one'].innerText = textOne;
-                    document.all['two'].innerText = textTwo;
-                    eval('document.all.myLayer'+'.style.visibility ="'+ visibility+'"');
-                } else {
-                    document.getElementById('one').childNodes[0].nodeValue = textOne;
-                    document.getElementById('two').childNodes[0].nodeValue = textTwo;
-                    var thisDiv = document.getElementById("myLayer");
-                    eval('thisDiv' +'.style.visibility ="'+ visibility +'"');
-                }
-            }
-
-            function ThetaSelection(optionalValue) {
-                shuffleLayers("2-theta","Wavelength ('Cu', 'Mo', or value in angstroms)", "visible");
-                document.DiffractionSearchForm.optional.disabled=false;
-                document.DiffractionSearchForm.optional.focus();
-                document.DiffractionSearchForm.optional.value=optionalValue;
+            function ThetaSelection(wavelengthValue) {
+                document.getElementById('one').textContent = '2-theta';
+                document.getElementById('wavelength_layer').style.visibility = 'visible';
+                document.getElementById('theta_value_layer').style.visibility = 'hidden';
+                document.DiffractionSearchForm.wavelength.value = wavelengthValue;
+                document.DiffractionSearchForm.wavelength.focus();
             }
 
             function DSpacingAnalysis() {
-                shuffleLayers("d-spacing","", "hidden");
+                document.getElementById('one').textContent = 'd-spacing';
+                document.getElementById('wavelength_layer').style.visibility = 'hidden';
+                document.getElementById('theta_value_layer').style.visibility = 'hidden';
                 document.DiffractionSearchForm.TypeTxt.focus();
-                document.DiffractionSearchForm.optional.disabled=true;
             }
 
             function EnergySelection() {
-                shuffleLayers("Energy","theta", "visible");
-                document.DiffractionSearchForm.optional.disabled=false;
-                document.DiffractionSearchForm.optional.focus();
-                document.DiffractionSearchForm.optional.value='6.5';
+                document.getElementById('one').textContent = 'Energy';
+                document.getElementById('wavelength_layer').style.visibility = 'hidden';
+                document.getElementById('theta_value_layer').style.visibility = 'visible';
+                document.DiffractionSearchForm.theta_value.value = '6.5';
+                document.DiffractionSearchForm.theta_value.focus();
             }
         </script>
     </div>

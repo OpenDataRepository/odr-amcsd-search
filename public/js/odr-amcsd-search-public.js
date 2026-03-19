@@ -507,6 +507,7 @@ let cellparams = [];
                 jQuery("#txt_diffraction").val(diffractionValue);
             }
 
+
             if (diffractionValue !== '') {
                 console.log('Validating diffraction field...');
 
@@ -525,7 +526,7 @@ let cellparams = [];
 
                 // Separate patterns for better debugging
                 let basePattern = /^(2-theta|d-spacing|energy):\s(\d*?\.+?\d+|\d+?\.*?\d*)(,(\d*?\.+?\d+|\d+?\.*?\d*))*\s\((\d*?\.+?\d+|\d+?\.*?\d*)\)\sintensity:\s(\d*?\.+?\d+|\d+?\.*?\d*)/i;
-                let wavelengthPattern = /\swavelength:\s(Cu|Mo|(\d*?\.+?\d+)|(\d+?\.*?\d*))$/i;
+                let wavelengthPattern = /\swavelength:\s(\d*?\.+?\d+|\d+?\.*?\d*)$/i;
                 let thetaPattern = /\stheta:\s(\d*?\.+?\d+|\d+?\.*?\d*)$/i;
 
                 console.log('Testing patterns with current value [2]: "' + diffractionValue + '"');
@@ -534,7 +535,7 @@ let cellparams = [];
                 console.log('Has theta:', thetaPattern.test(diffractionValue));
 
                 // Combined pattern
-                let pattern = /^(2-theta|d-spacing|energy):\s(\d*?\.+?\d+|\d+?\.*?\d*)(,(\d*?\.+?\d+|\d+?\.*?\d*))*\s\((\d*?\.+?\d+|\d+?\.*?\d*)\)\sintensity:\s(\d*?\.+?\d+|\d+?\.*?\d*)(?:\swavelength:\s(?:Cu|Mo|(\d*?\.+?\d+)|(\d+?\.*?\d*))|\stheta:\s(\d*?\.+?\d+|\d+?\.*?\d*))?$/i;
+                let pattern = /^(2-theta|d-spacing|energy):\s(\d*?\.+?\d+|\d+?\.*?\d*)(,(\d*?\.+?\d+|\d+?\.*?\d*))*\s\((\d*?\.+?\d+|\d+?\.*?\d*)\)\sintensity:\s(\d*?\.+?\d+|\d+?\.*?\d*)(?:\swavelength:\s(\d*?\.+?\d+|\d+?\.*?\d*)|\stheta:\s(\d*?\.+?\d+|\d+?\.*?\d*))?$/i;
 
                 // Test the pattern and capture the result
                 let testResult = pattern.test(diffractionValue);
@@ -557,7 +558,7 @@ let cellparams = [];
                 console.log('  2-theta: numbers (tolerance) intensity: value wavelength: value');
                 console.log('  d-spacing: numbers (tolerance) intensity: value');
                 console.log('  energy: numbers (tolerance) intensity: value theta: value');
-                console.log('Wavelength value can be: a number, Cu, or Mo');
+                console.log('Wavelength value can be: an element symbol or a number in angstroms');
                 console.log('Checking pattern match...');
 
                 if (!testResult) {
@@ -566,7 +567,7 @@ let cellparams = [];
                                    '&nbsp;&nbsp;2-Theta: numbers (tolerance) intensity: value wavelength: value<br>' +
                                    '&nbsp;&nbsp;d-spacing: numbers (tolerance) intensity: value<br>' +
                                    '&nbsp;&nbsp;energy: numbers (tolerance) intensity: value theta: value<br>' +
-                                   'Wavelength can be: a number, Cu, or Mo</div>';
+                                   'Wavelength can be: an element symbol or a number in angstroms</div>';
                     console.error('VALIDATION FAILED: Pattern does not match');
                     console.error('Error: Invalid format - see expected formats in console');
                     jQuery("#txt_diffraction").after(errorMsg);
@@ -713,6 +714,55 @@ let cellparams = [];
             "U": {"Ka1": 0.125947, "Ka2": 0.130968, "Kavg": 0.12762}
         };
 
+        // Populate wavelength select with available elements
+        let $wavelengthSelect = jQuery('#wavelength_select');
+        let $wavelengthValue = jQuery('#wavelength_value');
+        if ($wavelengthSelect.length) {
+            Object.keys(element_radiation_wavelengths).forEach(function(element) {
+                let selected = (element === 'Cu') ? ' selected' : '';
+                $wavelengthSelect.append('<option value="' + element + '"' + selected + '>' + element + '</option>');
+            });
+            $wavelengthSelect.append('<option value="custom">Custom</option>');
+
+            // Set initial value from Cu
+            $wavelengthValue.val(element_radiation_wavelengths['Cu'].Kavg);
+
+            // When selector changes, populate the text input
+            $wavelengthSelect.on('change', function() {
+                let selected = jQuery(this).val();
+                if (selected === 'custom') {
+                    $wavelengthValue.val('');
+                    $wavelengthValue.focus();
+                } else {
+                    $wavelengthValue.val(element_radiation_wavelengths[selected].Kavg);
+                }
+            });
+
+            // When user types in wavelength_value, match to element or set custom
+            let wavelengthInputTimer = null;
+            $wavelengthValue.on('input', function() {
+                clearTimeout(wavelengthInputTimer);
+                wavelengthInputTimer = setTimeout(function() {
+                    let typedVal = $wavelengthValue.val().trim();
+                    if (typedVal === '') {
+                        $wavelengthSelect.val('custom');
+                        return;
+                    }
+                    let typedNum = parseFloat(typedVal);
+                    let matched = false;
+                    Object.keys(element_radiation_wavelengths).forEach(function(element) {
+                        if (element_radiation_wavelengths[element].Kavg === typedNum) {
+                            $wavelengthSelect.val(element);
+                            matched = true;
+                        }
+                    });
+                    if (!matched) {
+                        $wavelengthSelect.val('custom');
+                    }
+                }, 200);
+            });
+        }
+
         function submitAmcsdSearchForm() {
             console.log('Submit Search Form')
 
@@ -793,19 +843,14 @@ let cellparams = [];
                             console.log('Error: 2-Theta search requires a wavelength value');
                             return false;
                         }
-                        if (wavelength.match(/([0-9\.]+)/)) {
-                            console.log('Wavelength: ', wavelength);
-                            d_low = wavelength / thetaLow;
-                            d_high = wavelength / thetaHigh;
-                        } else if (wavelength.match(/[CU]+/i)) {
-                            console.log('Wavelength: Cu');
-                            d_low = 1.541838 / thetaLow;
-                            d_high = 1.541838 / thetaHigh;
-                        } else {
-                            console.log('Wavelength: Mo');
-                            d_low = 0.710730 / thetaLow;
-                            d_high = 0.710730 / thetaHigh;
+                        let wl = parseFloat(wavelength);
+                        if (isNaN(wl) || wl <= 0) {
+                            console.log('Error: Invalid wavelength value: ', wavelength);
+                            return false;
                         }
+                        console.log('Wavelength: ', wl);
+                        d_low = wl / thetaLow;
+                        d_high = wl / thetaHigh;
                         if (d_low > d_high) {
                             let tmp = d_low;
                             d_low = d_high;
@@ -814,8 +859,8 @@ let cellparams = [];
                         console.log('D Low: ', d_low);
                         console.log('D High: ', d_high);
 
-                        value_string += '>=' + Math.round((d_low) * 1000) / 1000
-                            + ' <=' + Math.round((d_high) * 1000) / 1000 + ' && ';
+                        value_string += '>=' + Math.round((d_low) * 10000) / 10000
+                            + ' <=' + Math.round((d_high) * 10000) / 10000 + ' && ';
                     }
                     value_string = value_string.replace(/&& $/, '');
                     console.log('D-Spacing: ', value_string);
@@ -824,8 +869,8 @@ let cellparams = [];
                 else if(diffraction_string.match(/d-spacing/)) {
                     let value_string = '';
                     for (let i = 0; i < values.length; i++) {
-                        value_string += '>=' + Math.round((parseFloat(values[i]) - parseFloat(tolerance))*1000)/1000
-                            + ' <=' + Math.round((parseFloat(values[i]) + parseFloat(tolerance)) * 1000)/1000 + ' && ';
+                        value_string += '>=' + Math.round((parseFloat(values[i]) - parseFloat(tolerance))*10000)/10000
+                            + ' <=' + Math.round((parseFloat(values[i]) + parseFloat(tolerance)) * 10000)/10000 + ' && ';
                     }
                     value_string = value_string.replace(/&& $/, '');
                     search_json[search_options['d_spacing']] = value_string;
@@ -853,8 +898,8 @@ let cellparams = [];
                             d_low = d_high;
                             d_high = tmp;
                         }
-                        value_string += '>=' + Math.round((d_low) * 1000)/1000
-                            + ' <=' + Math.round((d_high) * 1000)/1000 + ' && ';
+                        value_string += '>=' + Math.round((d_low) * 10000)/10000
+                            + ' <=' + Math.round((d_high) * 10000)/10000 + ' && ';
                     }
                     value_string = value_string.replace(/&& $/, '');
                     search_json[search_options['d_spacing']] = value_string;

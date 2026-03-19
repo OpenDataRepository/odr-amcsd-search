@@ -205,6 +205,33 @@
 }
  */
 
+#wavelength_select {
+    width: 150px;
+}
+
+#optional_param_container {
+    position: relative;
+    height: 3.75em !important;
+    min-height: 3.75em !important;
+    margin-bottom: 1.5em !important;
+}
+
+#wavelength_layer,
+#theta_value_layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+#theta_value_layer {
+    visibility: hidden;
+}
+
+#myLayer2 {
+    margin-bottom: 1.5em;
+}
+
 .display-options-list {
     list-style-type: none;
     margin-left: 18px;
