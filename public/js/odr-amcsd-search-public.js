@@ -724,8 +724,15 @@ let cellparams = [];
             });
             $wavelengthSelect.append('<option value="custom">Custom</option>');
 
-            // Set initial value from Cu
+            // Set initial value from Cu, then apply any saved cookie preferences
             $wavelengthValue.val(element_radiation_wavelengths['Cu'].Kavg);
+
+            // Apply saved diffraction cookie defaults if form is empty
+            if (typeof isDiffractionFormEmpty === 'function' && isDiffractionFormEmpty()) {
+                if (typeof applyDiffractionCookieDefaults === 'function') {
+                    applyDiffractionCookieDefaults();
+                }
+            }
 
             // When selector changes, populate the text input
             $wavelengthSelect.on('change', function() {
@@ -735,6 +742,9 @@ let cellparams = [];
                     $wavelengthValue.focus();
                 } else {
                     $wavelengthValue.val(element_radiation_wavelengths[selected].Kavg);
+                }
+                if (typeof saveDiffractionPrefs === 'function') {
+                    saveDiffractionPrefs();
                 }
             });
 
@@ -758,6 +768,9 @@ let cellparams = [];
                     });
                     if (!matched) {
                         $wavelengthSelect.val('custom');
+                    }
+                    if (typeof saveDiffractionPrefs === 'function') {
+                        saveDiffractionPrefs();
                     }
                 }, 200);
             });

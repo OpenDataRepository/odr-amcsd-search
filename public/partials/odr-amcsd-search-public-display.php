@@ -1477,48 +1477,48 @@
                         else {
                             // Tolerance
                             if(jQuery('input[name="La"]').val().length > 0) {
-                                let variance = parseFloat(jQuery('input[name="La"]').val());
-                                let value = parseFloat(jQuery('input[name="Ua"]').val());
+                                let value = parseFloat(jQuery('input[name="La"]').val());
+                                let variance = parseFloat(jQuery('input[name="Ua"]').val());
                                 cell_param_string += "a='>="
                                     + (value - variance) + " "
                                     + "<=" + (value + variance) + "', ";
                             }
 
                             if(jQuery('input[name="Lb"]').val().length > 0) {
-                                let variance = parseFloat(jQuery('input[name="Lb"]').val());
-                                let value = parseFloat(jQuery('input[name="Ub"]').val())
+                                let value = parseFloat(jQuery('input[name="Lb"]').val());
+                                let variance = parseFloat(jQuery('input[name="Ub"]').val())
                                 cell_param_string += "b='>="
                                     + (value - variance) + " "
                                     + "<=" + (value + variance) + "', ";
                             }
 
                             if(jQuery('input[name="Lc"]').val().length > 0) {
-                                let variance = parseFloat(jQuery('input[name="Lc"]').val());
-                                let value = parseFloat(jQuery('input[name="Uc"]').val())
+                                let value = parseFloat(jQuery('input[name="Lc"]').val());
+                                let variance = parseFloat(jQuery('input[name="Uc"]').val())
                                 cell_param_string += "c='>="
                                     + (value - variance) + " "
                                     + "<=" + (value + variance) + "', ";
                             }
 
                             if(jQuery('input[name="Lalpha"]').val().length > 0) {
-                                let variance = parseFloat(jQuery('input[name="Lalpha"]').val());
-                                let value = parseFloat(jQuery('input[name="Ualpha"]').val())
+                                let value = parseFloat(jQuery('input[name="Lalpha"]').val());
+                                let variance = parseFloat(jQuery('input[name="Ualpha"]').val())
                                 cell_param_string += "alpha='>="
                                     + (value - variance) + " "
                                     + "<=" + (value + variance) + "', ";
                             }
 
                             if(jQuery('input[name="Lbeta"]').val().length > 0) {
-                                let variance = parseFloat(jQuery('input[name="Lbeta"]').val());
-                                let value = parseFloat(jQuery('input[name="Ubeta"]').val())
+                                let value = parseFloat(jQuery('input[name="Lbeta"]').val());
+                                let variance = parseFloat(jQuery('input[name="Ubeta"]').val())
                                 cell_param_string += "beta='>="
                                     + (value - variance) + " "
                                     + "<=" + (value + variance) + "', ";
                             }
 
                             if(jQuery('input[name="Lgamma"]').val().length > 0) {
-                                let variance = parseFloat(jQuery('input[name="Lgamma"]').val());
-                                let value = parseFloat(jQuery('input[name="Ugamma"]').val())
+                                let value = parseFloat(jQuery('input[name="Lgamma"]').val());
+                                let variance = parseFloat(jQuery('input[name="Ugamma"]').val())
                                 cell_param_string += "gamma='>="
                                     + (value - variance) + " "
                                     + "<=" + (value + variance) + "', ";
@@ -2130,6 +2130,72 @@
         <script type="text/javascript">
             var defaultValue = "Enter Values Above...";
 
+            // Cookie helpers for diffraction search preferences
+            function setDiffractionCookie(name, value) {
+                var expires = new Date();
+                expires.setFullYear(expires.getFullYear() + 1);
+                document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Lax';
+            }
+
+            function getDiffractionCookie(name) {
+                var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+                return match ? decodeURIComponent(match[1]) : null;
+            }
+
+            function saveDiffractionPrefs() {
+                var form = document.DiffractionSearchForm;
+                var wavelengthSelect = jQuery('#wavelength_select').val() || 'Cu';
+                var wavelengthValue = jQuery('#wavelength_value').val() || '';
+                var thetaValue = form.theta_value.value || '6.5';
+                var searchType = form.Type.value || '2-Theta';
+                setDiffractionCookie('amcsd_wavelength_select', wavelengthSelect);
+                setDiffractionCookie('amcsd_wavelength_value', wavelengthValue);
+                setDiffractionCookie('amcsd_theta_value', thetaValue);
+                setDiffractionCookie('amcsd_search_type', searchType);
+            }
+
+            function isDiffractionFormEmpty() {
+                var form = document.DiffractionSearchForm;
+                return form.diffValuesHidden.value === '' &&
+                       form.TypeTxt.value === '' &&
+                       form.Tol.value === '';
+            }
+
+            function applyDiffractionCookieDefaults() {
+                var savedWavelengthSelect = getDiffractionCookie('amcsd_wavelength_select');
+                var savedWavelengthValue = getDiffractionCookie('amcsd_wavelength_value');
+                var savedTheta = getDiffractionCookie('amcsd_theta_value');
+                var savedType = getDiffractionCookie('amcsd_search_type');
+
+                if (savedWavelengthSelect) {
+                    jQuery('#wavelength_select').val(savedWavelengthSelect);
+                }
+                if (savedWavelengthValue) {
+                    jQuery('#wavelength_value').val(savedWavelengthValue);
+                }
+                if (savedTheta) {
+                    document.DiffractionSearchForm.theta_value.value = savedTheta;
+                }
+
+                // Restore saved search type and update UI accordingly
+                if (savedType) {
+                    document.DiffractionSearchForm.Type.value = savedType;
+                    if (savedType === '2-Theta') {
+                        document.getElementById('one').textContent = '2-theta';
+                        document.getElementById('wavelength_layer').style.visibility = 'visible';
+                        document.getElementById('theta_value_layer').style.visibility = 'hidden';
+                    } else if (savedType === 'd-spacing') {
+                        document.getElementById('one').textContent = 'd-spacing';
+                        document.getElementById('wavelength_layer').style.visibility = 'hidden';
+                        document.getElementById('theta_value_layer').style.visibility = 'hidden';
+                    } else if (savedType === 'energy') {
+                        document.getElementById('one').textContent = 'Energy';
+                        document.getElementById('wavelength_layer').style.visibility = 'hidden';
+                        document.getElementById('theta_value_layer').style.visibility = 'visible';
+                    }
+                }
+            }
+
             function submitDiffractionSearch() {
                 var form = document.DiffractionSearchForm;
                 console.log('Type: ' + form.Type.value);
@@ -2171,6 +2237,9 @@
                 document.DiffractionSearchForm.TypeTxt.value='';
                 document.DiffractionSearchForm.Tol.value='';
                 document.DiffractionSearchForm.diffValuesHidden.value='';
+
+                // Apply saved cookie defaults after clearing
+                applyDiffractionCookieDefaults();
             }
 
             /*
@@ -2368,8 +2437,23 @@
                 document.getElementById('one').textContent = '2-theta';
                 document.getElementById('wavelength_layer').style.visibility = 'visible';
                 document.getElementById('theta_value_layer').style.visibility = 'hidden';
-                document.DiffractionSearchForm.wavelength.value = wavelengthValue;
+
+                // Apply cookie defaults if form is empty, otherwise use passed value
+                if (isDiffractionFormEmpty()) {
+                    var savedSelect = getDiffractionCookie('amcsd_wavelength_select');
+                    var savedValue = getDiffractionCookie('amcsd_wavelength_value');
+                    if (savedSelect && savedValue) {
+                        jQuery('#wavelength_select').val(savedSelect);
+                        jQuery('#wavelength_value').val(savedValue);
+                        document.DiffractionSearchForm.wavelength.value = savedSelect;
+                    } else {
+                        document.DiffractionSearchForm.wavelength.value = wavelengthValue;
+                    }
+                } else {
+                    document.DiffractionSearchForm.wavelength.value = wavelengthValue;
+                }
                 document.DiffractionSearchForm.wavelength.focus();
+                saveDiffractionPrefs();
             }
 
             function DSpacingAnalysis() {
@@ -2377,15 +2461,29 @@
                 document.getElementById('wavelength_layer').style.visibility = 'hidden';
                 document.getElementById('theta_value_layer').style.visibility = 'hidden';
                 document.DiffractionSearchForm.TypeTxt.focus();
+                saveDiffractionPrefs();
             }
 
             function EnergySelection() {
                 document.getElementById('one').textContent = 'Energy';
                 document.getElementById('wavelength_layer').style.visibility = 'hidden';
                 document.getElementById('theta_value_layer').style.visibility = 'visible';
-                document.DiffractionSearchForm.theta_value.value = '6.5';
+
+                // Apply cookie default if form is empty, otherwise use default
+                if (isDiffractionFormEmpty()) {
+                    var savedTheta = getDiffractionCookie('amcsd_theta_value');
+                    document.DiffractionSearchForm.theta_value.value = savedTheta || '6.5';
+                } else {
+                    document.DiffractionSearchForm.theta_value.value = '6.5';
+                }
                 document.DiffractionSearchForm.theta_value.focus();
+                saveDiffractionPrefs();
             }
+
+            // Save cookie when theta value changes
+            jQuery('#theta_value').on('input', function() {
+                saveDiffractionPrefs();
+            });
         </script>
     </div>
 

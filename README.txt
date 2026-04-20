@@ -112,3 +112,23 @@ Markdown uses email style notation for blockquotes and I've been told:
 > Asterisks for *emphasis*. Double it up  for **strong**.
 
 `<?php code(); // goes in backticks ?>`
+
+
+Other Notes:
+Multirange diffraction search for AMCSD:
+Simple search key:
+```
+{"dt_id":"771","8001_x":"**d-spacing criteria**","8001_y":"**intensity criteria**"}
+```
+
+Multirange search key:
+```
+{
+  "dt_id":"771",
+  "8001":"(**d-spacing #1 criteria**,**intensity #1 criteria**,)|(**d-spacing #2 criteria**,**intensity #2 criteria**,)"
+}
+```
+ * the comma after the intensity criteria is needed for AMCSD
+ * that's where you would put the criteria to search the z-value stored in the ODR field, but we don't search on the z-values for AMCSD's purposes
+each range is enclosed by parenthesis.
+ * if there's more than one range (not required for this syntax), then the ranges are separated by the pipe character.
