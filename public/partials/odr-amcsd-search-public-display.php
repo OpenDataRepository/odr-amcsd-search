@@ -808,10 +808,14 @@
             try {
                 $mineral_names = [];
                 $amcsd_mineral_names = [];
-                include(__DIR__ . '/../../../../data-publisher/web/uploads/IMA/mineral_names.php');
-                include(__DIR__ . '/../../../../data-publisher/web/uploads/IMA/mineral_names_update.php');
-                include(__DIR__ . '/../../../../data-publisher/web/uploads/IMA/amcsd_mineral_names.php');
-                include(__DIR__ . '/../../../../data-publisher/web/uploads/IMA/amcsd_mineral_names_update.php');
+                $data_include_path = isset($odr_amcsd_search_plugin_options['data_include_path']) ? trim($odr_amcsd_search_plugin_options['data_include_path']) : '';
+                if ($data_include_path !== '') {
+                    $data_include_path = rtrim($data_include_path, '/');
+                    include($data_include_path . '/web/uploads/IMA/mineral_names.php');
+                    include($data_include_path . '/web/uploads/IMA/mineral_names_update.php');
+                    include($data_include_path . '/web/uploads/IMA/amcsd_mineral_names.php');
+                    include($data_include_path . '/web/uploads/IMA/amcsd_mineral_names_update.php');
+                }
                 $count = 0;
                 $column_count = 0;
                 $current_letter = 'a';
@@ -892,8 +896,12 @@
             <?php
             try {
                 $author_names = [];
-                include(__DIR__ . '/../../../../data-publisher/web/uploads/IMA/author_names.php');
-                include(__DIR__ . '/../../../../data-publisher/web/uploads/IMA/author_names_update.php');
+                $data_include_path = isset($odr_amcsd_search_plugin_options['data_include_path']) ? trim($odr_amcsd_search_plugin_options['data_include_path']) : '';
+                if ($data_include_path !== '') {
+                    $data_include_path = rtrim($data_include_path, '/');
+                    include($data_include_path . '/web/uploads/IMA/author_names.php');
+                    include($data_include_path . '/web/uploads/IMA/author_names_update.php');
+                }
                 $count = 0;
                 $column_count = 0;
                 $current_letter = "a";
@@ -1435,6 +1443,38 @@
                         let cell_param_string = '';
 
                         let range = jQuery('input[name="Ranges"]:checked').val();
+
+                        // Validate paired inputs before building the search string.
+                        // Range mode: if a Lower is entered, an Upper must be too (and vice-versa).
+                        // Tolerance mode: if a Value is entered, a Tolerance must be too (and vice-versa).
+                        let paramLabels = {
+                            a: 'a', b: 'b', c: 'c',
+                            alpha: 'alpha', beta: 'beta', gamma: 'gamma'
+                        };
+                        let missing = [];
+                        for (let key in paramLabels) {
+                            let lower = jQuery('input[name="L' + key + '"]').val().trim();
+                            let upper = jQuery('input[name="U' + key + '"]').val().trim();
+                            if (range === "Range") {
+                                if (lower.length > 0 && upper.length === 0) {
+                                    missing.push(paramLabels[key] + ': Upper Range is required when Lower Range is entered');
+                                } else if (upper.length > 0 && lower.length === 0) {
+                                    missing.push(paramLabels[key] + ': Lower Range is required when Upper Range is entered');
+                                }
+                            } else {
+                                // Tolerance mode
+                                if (lower.length > 0 && upper.length === 0) {
+                                    missing.push(paramLabels[key] + ': Tolerance is required when Value is entered');
+                                } else if (upper.length > 0 && lower.length === 0) {
+                                    missing.push(paramLabels[key] + ': Value is required when Tolerance is entered');
+                                }
+                            }
+                        }
+                        if (missing.length > 0) {
+                            alert('Please correct the following:\n\n' + missing.join('\n'));
+                            return false;
+                        }
+
                         if(range === "Range") {
                             if(jQuery('input[name="La"]').val().length > 0) {
                                 cell_param_string += "a='>="

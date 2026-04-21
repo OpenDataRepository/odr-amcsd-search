@@ -367,6 +367,13 @@ class Odr_Amcsd_Search_Admin
             $this->plugin_name,
             'field_settings'
         );
+        add_settings_field(
+            'odr_amcsd_search_data_include_path',
+            'Data Include Path',
+            array($this, 'odr_amcsd_search_data_include_path'),
+            $this->plugin_name,
+            'field_settings'
+        );
     }
 
     function odr_amcsd_search_plugin_section_text()
@@ -546,6 +553,14 @@ class Odr_Amcsd_Search_Admin
             'quicktags' => true,
         );
         wp_editor($content, $editor_id, $settings);
+    }
+
+    function odr_amcsd_search_data_include_path()
+    {
+        $options = get_option('odr_amcsd_search_plugin_options');
+        $value = isset($options['data_include_path']) ? $options['data_include_path'] : '';
+        echo "<input id='odr_amcsd_search_data_include_path' name='odr_amcsd_search_plugin_options[data_include_path]' type='text' size='60' value='" . esc_attr($value) . "' />";
+        echo "<p class='description'>Absolute path to a data-publisher instance root (e.g. <code>/home/rruff/data-publisher</code>). When set, include paths below the data-publisher root will be resolved against this path. Leave blank to disable data includes.</p>";
     }
 }
 
