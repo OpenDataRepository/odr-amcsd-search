@@ -57,6 +57,14 @@
     search_options['wavelength'] = "<?php echo $odr_amcsd_search_plugin_options['cif']; ?>";
     search_options['x_values'] = "<?php echo $odr_amcsd_search_plugin_options['cif']; ?>";
     console.log('SEARCH OPTIONS', search_options)
+
+    // On page load, place focus in the Mineral Name field.
+    jQuery(function($) {
+        var $mineral = $('#txt_mineral');
+        if ($mineral.length) {
+            $mineral.focus();
+        }
+    });
 </script>
 
 
@@ -1593,6 +1601,12 @@
 
                         jQuery(".close-modal").click();
 
+                        // Give the modal a moment to tear down before moving focus
+                        // back to the input that received the data.
+                        setTimeout(function() {
+                            jQuery("#txt_cell_parameters").focus();
+                        }, 100);
+
                         return true;
                     }
 
@@ -2086,6 +2100,7 @@
             <input type="hidden" name="page" value="diff">
             <input type="hidden" name="toleranceHidden" value="">
             <input type="hidden" name="diffValuesHidden" value="">
+            <input type="hidden" name="diffLinesHidden" value="">
             <input type="hidden" name="sortDirectionHidden" value="null">
 
             <div id="AMCSDDiffractionSearchFormContents">
@@ -2093,8 +2108,15 @@
                 <table align="center" cellspacing="5" cellpadding="6" class="interface_table" width=350>
                     <tr>
                         <td><input type="radio" name="Type" value="d-spacing"  onclick="DSpacingAnalysis();"> d-spacing</td>
-                        <td><input type="radio" name="Type" value="2-Theta" CHECKED onclick="ThetaSelection('Cu');"> 2-theta</td>
+                        <td><input type="radio" name="Type" value="2-theta" CHECKED onclick="ThetaSelection('Cu');"> 2-theta</td>
                         <td><input type="radio" name="Type" value="energy"   onclick="EnergySelection();"> Energy</td>
+                    </tr>
+                </table>
+                <table align="center" class="interface_table" id="separateModeRow" style="display:none;margin-bottom:4px;">
+                    <tr>
+                        <td>
+                            <label><input type="checkbox" name="separateMode" id="separateMode" checked onchange="toggleSeparateMode()"> Separate mode (per-line tolerance &amp; intensity)</label>
+                        </td>
                     </tr>
                 </table>
                 <div id="optional_param_container" class="t3">
@@ -2116,7 +2138,7 @@
                         <table class="interface_table">
                             <tr>
                                 <td class="left_side"><input type="text" name="theta_value" id="theta_value" size="5" value="6.5"></td>
-                                <td class="t1">Theta</td>
+                                <td class="t1">Detector Angle (degrees)</td>
                             </tr>
                         </table>
                     </div>
@@ -2133,11 +2155,17 @@
                     <tr>
                         <td id="one" class="t1">2-theta</td>
                         <td class="t1">Tolerance</td>
+                        <td class="t1 separate-only" style="display:none;">Intensity</td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td><input type="text" name="TypeTxt" size="10"></td>
-                        <td><input type="text" name="Tol" size="10" value=""></td>
-                        <td><input type="button" class="formButton" name="Enter" value="Enter" onclick="addThetaValues();"></td>
+                        <td><input type="text" name="TypeTxt" size="6"></td>
+                        <td><input type="text" name="Tol" size="6" value=""></td>
+                        <td class="separate-only" style="display:none;"><input type="text" name="lineIntensity" size="4" value=""></td>
+                        <td>
+                            <input type="button" class="formButton" id="enterButton" name="Enter" value="Enter" onclick="addThetaValues();">
+                            <button type="button" class="formButton separate-only" id="enterButtonCheck" style="display:none;" onclick="addThetaValues();" title="Add line"><i class="fa-solid fa-check"></i></button>
+                        </td>
                     </tr>
                 </table>
                 <table class="interface_table">
@@ -2187,7 +2215,7 @@
                 var wavelengthSelect = jQuery('#wavelength_select').val() || 'Cu';
                 var wavelengthValue = jQuery('#wavelength_value').val() || '';
                 var thetaValue = form.theta_value.value || '6.5';
-                var searchType = form.Type.value || '2-Theta';
+                var searchType = form.Type.value || '2-theta';
                 setDiffractionCookie('amcsd_wavelength_select', wavelengthSelect);
                 setDiffractionCookie('amcsd_wavelength_value', wavelengthValue);
                 setDiffractionCookie('amcsd_theta_value', thetaValue);
@@ -2220,7 +2248,7 @@
                 // Restore saved search type and update UI accordingly
                 if (savedType) {
                     document.DiffractionSearchForm.Type.value = savedType;
-                    if (savedType === '2-Theta') {
+                    if (savedType === '2-theta') {
                         document.getElementById('one').textContent = '2-theta';
                         document.getElementById('wavelength_layer').style.visibility = 'visible';
                         document.getElementById('theta_value_layer').style.visibility = 'hidden';
@@ -2234,37 +2262,79 @@
                         document.getElementById('theta_value_layer').style.visibility = 'visible';
                     }
                 }
+
+                // Separate mode is the default. The toggle is hidden for now but kept in
+                // the markup so it can be restored later if needed.
+                if (typeof toggleSeparateMode === 'function') {
+                    toggleSeparateMode();
+                }
             }
 
             function submitDiffractionSearch() {
                 var form = document.DiffractionSearchForm;
                 console.log('Type: ' + form.Type.value);
-                console.log('Intensity: ' + form.intensity.value);
                 console.log('Tol: ' + form.Tol.value);
                 console.log('diff Values: ' + form.diffValuesHidden.value);
 
                 let output_string = '';
-                if (form.Type.value === '2-Theta') {
-                    console.log('Wavelength: ' + form.wavelength_value.value);
-                    output_string = '2-Theta: ' + form.diffValuesHidden.value
-                        + ' (' + form.Tol.value + ')'
-                        + ' intensity: ' + form.intensity.value
-                        + ' wavelength: ' + form.wavelength_value.value;
+
+                if (isSeparateMode()) {
+                    // Per-line format: [value, tolerance, intensity],[value, tolerance, intensity]...
+                    var lines = getLinesArray();
+                    if (lines.length === 0) {
+                        alert('Please enter at least one value before submitting.');
+                        return;
+                    }
+                    var triples = [];
+                    for (var i = 0; i < lines.length; i++) {
+                        var ln = lines[i];
+                        triples.push('[' + ln.value + ', ' + ln.tolerance + ', ' + ln.intensity + ']');
+                    }
+                    var values_part = triples.join(',');
+
+                    if (form.Type.value === '2-theta') {
+                        output_string = '2-theta: ' + values_part
+                            + ' wavelength: ' + form.wavelength_value.value;
+                    }
+                    else if (form.Type.value === 'd-spacing') {
+                        output_string = 'd-spacing: ' + values_part;
+                    }
+                    else {
+                        output_string = 'energy: ' + values_part
+                            + ' theta: ' + form.theta_value.value;
+                    }
+                } else {
+                    // Legacy (shared) mode — kept so the separate-mode toggle can be restored later.
+                    console.log('Intensity: ' + form.intensity.value);
+                    if (form.Type.value === '2-theta') {
+                        console.log('Wavelength: ' + form.wavelength_value.value);
+                        output_string = '2-theta: ' + form.diffValuesHidden.value
+                            + ' (' + form.Tol.value + ')'
+                            + ' intensity: ' + form.intensity.value
+                            + ' wavelength: ' + form.wavelength_value.value;
+                    }
+                    else if (form.Type.value === 'd-spacing') {
+                        output_string = 'd-spacing: ' + form.diffValuesHidden.value
+                            + ' (' + form.Tol.value + ')'
+                            + ' intensity: ' + form.intensity.value;
+                    }
+                    else {
+                        console.log('Theta: ' + form.theta_value.value);
+                        output_string = 'energy: ' + form.diffValuesHidden.value
+                            + ' (' + form.Tol.value + ')'
+                            + ' intensity: ' + form.intensity.value
+                            + ' theta: ' + form.theta_value.value;
+                    }
                 }
-                else if (form.Type.value === 'd-spacing') {
-                    output_string = 'd-spacing: ' + form.diffValuesHidden.value
-                        + ' (' + form.Tol.value + ')'
-                        + ' intensity: ' + form.intensity.value;
-                }
-                else {
-                    console.log('Theta: ' + form.theta_value.value);
-                    output_string = 'energy: ' + form.diffValuesHidden.value
-                        + ' (' + form.Tol.value + ')'
-                        + ' intensity: ' + form.intensity.value
-                        + ' theta: ' + form.theta_value.value;
-                }
+
                 jQuery("#txt_diffraction").val(output_string);
                 jQuery(".close-modal").click();
+
+                // Give the modal a moment to tear down before moving focus
+                // back to the input that received the data.
+                setTimeout(function() {
+                    jQuery("#txt_diffraction").focus();
+                }, 100);
             }
 
             /*
@@ -2277,6 +2347,12 @@
                 document.DiffractionSearchForm.TypeTxt.value='';
                 document.DiffractionSearchForm.Tol.value='';
                 document.DiffractionSearchForm.diffValuesHidden.value='';
+                document.DiffractionSearchForm.diffLinesHidden.value='';
+                if (document.DiffractionSearchForm.lineIntensity) {
+                    document.DiffractionSearchForm.lineIntensity.value = '';
+                }
+                separateModeLastTolerance = '';
+                separateModeLastIntensity = '';
 
                 // Apply saved cookie defaults after clearing
                 applyDiffractionCookieDefaults();
@@ -2310,15 +2386,21 @@
                 var resultVisibleArray = new Array();
                 var resultHiddenArray = new Array();
                 var hiddenValuesArray = getArrayFromHiddenField();
+                var linesArray = getLinesArray();
+                var resultLinesArray = new Array();
                 var x = 0;
                 for (var i = 1; i < numLines; i++) {
                     if (!document.DiffractionSearchForm.diffValueSelect.options[i].selected) {
                         resultVisibleArray[x] = document.DiffractionSearchForm.diffValueSelect.options[i].text;
                         resultHiddenArray[x] = hiddenValuesArray[i-1];
+                        if (linesArray[i-1]) {
+                            resultLinesArray[x] = linesArray[i-1];
+                        }
                         x++;
                     }
                 }
                 putArrayIntoHiddenField(resultHiddenArray);
+                putLinesArray(resultLinesArray);
                 populateSelectFromArray(resultVisibleArray);
             }
 
@@ -2428,16 +2510,76 @@
                 populateSelectFromArray(resultArray);
             }
 
+            /*
+            * Separate mode: each entry line carries its own tolerance and intensity.
+            * When a blank is left on a subsequent entry, the previous value is reused.
+            */
+            var separateModeLastTolerance = '';
+            var separateModeLastIntensity = '';
+
+            function isSeparateMode() {
+                var cb = document.getElementById('separateMode');
+                return cb && cb.checked;
+            }
+
+            function toggleSeparateMode() {
+                var on = isSeparateMode();
+                // Show/hide the separate-only table cells and the check-fab
+                var separateCells = document.querySelectorAll('.separate-only');
+                for (var i = 0; i < separateCells.length; i++) {
+                    separateCells[i].style.display = on ? '' : 'none';
+                }
+                // Hide the global intensity cutoff when in separate mode; it's per-line instead.
+                var globalIntensityLayer = document.getElementById('myLayer2');
+                if (globalIntensityLayer) {
+                    globalIntensityLayer.style.display = on ? 'none' : '';
+                }
+                // Swap Enter button for the check-fab
+                var enterBtn = document.getElementById('enterButton');
+                var enterFab = document.getElementById('enterButtonCheck');
+                if (enterBtn) enterBtn.style.display = on ? 'none' : '';
+                if (enterFab) enterFab.style.display = on ? '' : 'none';
+            }
+
+            function getLinesArray() {
+                var raw = document.DiffractionSearchForm.diffLinesHidden.value;
+                if (!raw) return [];
+                try {
+                    var parsed = JSON.parse(raw);
+                    return Array.isArray(parsed) ? parsed : [];
+                } catch (e) {
+                    return [];
+                }
+            }
+
+            function putLinesArray(lines) {
+                document.DiffractionSearchForm.diffLinesHidden.value = JSON.stringify(lines);
+            }
+
             /* This function is the one that actually populates the lines in the select. */
             function addThetaValues()
             {
-                var newTolerance = document.DiffractionSearchForm.Tol.value;
-                var newValue = document.DiffractionSearchForm.TypeTxt.value;
-                if (isNaN(newValue)) {
-                    if(document.DiffractionSearchForm.Type.value === '2-Theta') {
-                        alert("Please enter a valid 2-Theta value.");
+                var form = document.DiffractionSearchForm;
+                var newValue = form.TypeTxt.value;
+                var newTolerance = form.Tol.value;
+                var separate = isSeparateMode();
+                var newIntensity = separate ? form.lineIntensity.value : '';
+
+                // In separate mode, leaving a field blank reuses the previous value
+                if (separate) {
+                    if (newTolerance === '' && separateModeLastTolerance !== '') {
+                        newTolerance = separateModeLastTolerance;
                     }
-                    else if(document.DiffractionSearchForm.Type.value === 'd-spacing') {
+                    if (newIntensity === '' && separateModeLastIntensity !== '') {
+                        newIntensity = separateModeLastIntensity;
+                    }
+                }
+
+                if (isNaN(newValue)) {
+                    if(form.Type.value === '2-theta') {
+                        alert("Please enter a valid 2-theta value.");
+                    }
+                    else if(form.Type.value === 'd-spacing') {
                         alert("Please enter a valid d-spacing value.");
                     }
                     else {
@@ -2449,28 +2591,59 @@
                     alert("Please enter a valid tolerance value.");
                     return false;
                 }
-                document.DiffractionSearchForm.toleranceHidden.value = newTolerance;
-                // if tolerance is specified, but typetxt is not, then adjust all values for new tolerance
-                if(newTolerance && (newValue=='')) {
-                    populateVisibleFieldFromHiddenArray(newTolerance);
-                } else {
-                    // if typetxt is not null then do this (should we check to ensure that tolerance is specified too?)
-                    if (newValue != '') {
-                        // add the new value to the hidden string
-                        if (document.DiffractionSearchForm.diffValuesHidden.value.length > 0) {
-                            document.DiffractionSearchForm.diffValuesHidden.value += ",";
-                        }
-                        document.DiffractionSearchForm.diffValuesHidden.value += newValue;
-                        var high = limitPrecision(parseFloat(newValue) +  parseFloat(newTolerance));
-                        var low = limitPrecision(parseFloat(newValue) - parseFloat(newTolerance));
-                        var thisLine = prepareLineForDisplay(low, high);
-                        addValueToSelect(thisLine);
-                    }
-                    populateVisibleFieldFromHiddenArray(newTolerance);
+                if (separate && (isNaN(newIntensity) || newIntensity === '')) {
+                    alert("Please enter a valid intensity value.");
+                    return false;
                 }
-                // now, focus on the typetxt.
-                document.DiffractionSearchForm.TypeTxt.value='';
-                document.DiffractionSearchForm.TypeTxt.focus();
+
+                form.toleranceHidden.value = newTolerance;
+                if (separate) {
+                    separateModeLastTolerance = newTolerance;
+                    separateModeLastIntensity = newIntensity;
+                }
+
+                if (separate) {
+                    // Separate mode: each line stores value/tolerance/intensity independently.
+                    // Tolerance-only re-tune (blank value) doesn't apply here because each
+                    // line has its own tolerance.
+                    if (newValue === '') {
+                        // nothing to add; just reuse remembered defaults for next entry
+                        form.TypeTxt.focus();
+                        return;
+                    }
+                    if (form.diffValuesHidden.value.length > 0) {
+                        form.diffValuesHidden.value += ",";
+                    }
+                    form.diffValuesHidden.value += newValue;
+
+                    var lines = getLinesArray();
+                    lines.push({ value: newValue, tolerance: newTolerance, intensity: newIntensity });
+                    putLinesArray(lines);
+
+                    var high = limitPrecision(parseFloat(newValue) + parseFloat(newTolerance));
+                    var low  = limitPrecision(parseFloat(newValue) - parseFloat(newTolerance));
+                    addValueToSelect(prepareLineForDisplay(low, high) + '  (I=' + newIntensity + ')');
+                } else {
+                    // Legacy (shared) mode — unchanged behavior.
+                    if(newTolerance && (newValue=='')) {
+                        populateVisibleFieldFromHiddenArray(newTolerance);
+                    } else {
+                        if (newValue != '') {
+                            if (form.diffValuesHidden.value.length > 0) {
+                                form.diffValuesHidden.value += ",";
+                            }
+                            form.diffValuesHidden.value += newValue;
+                            var high2 = limitPrecision(parseFloat(newValue) + parseFloat(newTolerance));
+                            var low2  = limitPrecision(parseFloat(newValue) - parseFloat(newTolerance));
+                            addValueToSelect(prepareLineForDisplay(low2, high2));
+                        }
+                        populateVisibleFieldFromHiddenArray(newTolerance);
+                    }
+                }
+
+                // Reset value; keep tolerance/intensity so previous values are pre-filled visibly too.
+                form.TypeTxt.value = '';
+                form.TypeTxt.focus();
             }
 
             function ThetaSelection(wavelengthValue) {

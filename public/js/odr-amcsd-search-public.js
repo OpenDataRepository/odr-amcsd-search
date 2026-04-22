@@ -512,30 +512,23 @@ let cellparams = [];
                 console.log('Validating diffraction field...');
 
                 // Build regex pattern for diffraction validation
-                // Format:
-                //   2-theta: <numbers> (<tolerance>) intensity: <number> wavelength: <number|Cu|Mo>
-                //   d-spacing: <numbers> (<tolerance>) intensity: <number>
-                //   energy: <numbers> (<tolerance>) intensity: <number> theta: <number>
+                // New per-line format:
+                //   2-theta: [value, tolerance, intensity],[value, tolerance, intensity]... wavelength: <number|Cu|Mo>
+                //   d-spacing: [value, tolerance, intensity],[value, tolerance, intensity]...
+                //   energy: [value, tolerance, intensity],[value, tolerance, intensity]... theta: <number>
 
                 // Pattern breakdown:
-                // ^(2-theta|d-spacing|energy):\s  - type with colon and space
-                // (\d+\.?\d*)(,\d+\.?\d*)*\s      - one or more comma-separated numbers with space after
-                // \(\d+\.?\d*\)\s                 - tolerance in parens with space after
-                // intensity:\s\d+\.?\d*           - intensity with value
-                // (?:\swavelength:\s(Cu|Mo|\d+(?:\.\d+)?)|\stheta:\s\d+(?:\.\d+)?)? - optional wavelength (Cu/Mo/number) or theta (number)
+                // ^(2-theta|d-spacing|energy):\s        - type with colon and space
+                // \[num,\s*num,\s*num\](,\s*\[...\])*   - one or more bracketed triples
+                // (?:\swavelength:\s...|\stheta:\s...)? - optional wavelength or theta suffix
 
-                // Separate patterns for better debugging
-                let basePattern = /^(2-theta|d-spacing|energy):\s(\d*?\.+?\d+|\d+?\.*?\d*)(,(\d*?\.+?\d+|\d+?\.*?\d*))*\s\((\d*?\.+?\d+|\d+?\.*?\d*)\)\sintensity:\s(\d*?\.+?\d+|\d+?\.*?\d*)/i;
-                let wavelengthPattern = /\swavelength:\s(\d*?\.+?\d+|\d+?\.*?\d*)$/i;
-                let thetaPattern = /\stheta:\s(\d*?\.+?\d+|\d+?\.*?\d*)$/i;
+                let numPart = "(?:\\d+(?:\\.\\d+)?|\\.\\d+)";
+                let triplePart = "\\[\\s*" + numPart + "\\s*,\\s*" + numPart + "\\s*,\\s*" + numPart + "\\s*\\]";
+                let listPart = triplePart + "(?:\\s*,\\s*" + triplePart + ")*";
+                let tailPart = "(?:\\s+wavelength:\\s*(?:" + numPart + "|Cu|Mo)|\\s+theta:\\s*" + numPart + ")?";
+                let pattern = new RegExp("^(2-theta|d-spacing|energy):\\s+" + listPart + tailPart + "$", "i");
 
-                console.log('Testing patterns with current value [2]: "' + diffractionValue + '"');
-                console.log('Base pattern test:', basePattern.test(diffractionValue));
-                console.log('Has wavelength:', wavelengthPattern.test(diffractionValue));
-                console.log('Has theta:', thetaPattern.test(diffractionValue));
-
-                // Combined pattern
-                let pattern = /^(2-theta|d-spacing|energy):\s(\d*?\.+?\d+|\d+?\.*?\d*)(,(\d*?\.+?\d+|\d+?\.*?\d*))*\s\((\d*?\.+?\d+|\d+?\.*?\d*)\)\sintensity:\s(\d*?\.+?\d+|\d+?\.*?\d*)(?:\swavelength:\s(\d*?\.+?\d+|\d+?\.*?\d*)|\stheta:\s(\d*?\.+?\d+|\d+?\.*?\d*))?$/i;
+                console.log('Testing pattern with current value: "' + diffractionValue + '"');
 
                 // Test the pattern and capture the result
                 let testResult = pattern.test(diffractionValue);
@@ -555,19 +548,19 @@ let cellparams = [];
                 }
 
                 console.log('Expected formats:');
-                console.log('  2-theta: numbers (tolerance) intensity: value wavelength: value');
-                console.log('  d-spacing: numbers (tolerance) intensity: value');
-                console.log('  energy: numbers (tolerance) intensity: value theta: value');
-                console.log('Wavelength value can be: an element symbol or a number in angstroms');
+                console.log('  2-theta: [value, tolerance, intensity],... wavelength: value');
+                console.log('  d-spacing: [value, tolerance, intensity],...');
+                console.log('  energy: [value, tolerance, intensity],... theta: value');
+                console.log('Wavelength value can be: an element symbol (Cu/Mo) or a number in angstroms');
                 console.log('Checking pattern match...');
 
                 if (!testResult) {
                     isValid = false;
                     let errorMsg = '<div class="validation-error">Invalid format. Expected formats:<br>' +
-                                   '&nbsp;&nbsp;2-Theta: numbers (tolerance) intensity: value wavelength: value<br>' +
-                                   '&nbsp;&nbsp;d-spacing: numbers (tolerance) intensity: value<br>' +
-                                   '&nbsp;&nbsp;energy: numbers (tolerance) intensity: value theta: value<br>' +
-                                   'Wavelength can be: an element symbol or a number in angstroms</div>';
+                                   '&nbsp;&nbsp;2-theta: [value, tolerance, intensity],... wavelength: value<br>' +
+                                   '&nbsp;&nbsp;d-spacing: [value, tolerance, intensity],...<br>' +
+                                   '&nbsp;&nbsp;energy: [value, tolerance, intensity],... theta: value<br>' +
+                                   'Wavelength can be: an element symbol (Cu/Mo) or a number in angstroms</div>';
                     console.error('VALIDATION FAILED: Pattern does not match');
                     console.error('Error: Invalid format - see expected formats in console');
                     jQuery("#txt_diffraction").after(errorMsg);
@@ -583,9 +576,9 @@ let cellparams = [];
                         console.log('Type is 2-theta, checking for wavelength requirement...');
                         if (!diffractionValue.toLowerCase().includes('wavelength:')) {
                             isValid = false;
-                            let errorMsg = '<div class="validation-error">2-Theta searches require a wavelength value</div>';
-                            console.error('VALIDATION FAILED: 2-Theta requires wavelength');
-                            console.error('Error:', '2-Theta searches require a wavelength value');
+                            let errorMsg = '<div class="validation-error">2-theta searches require a wavelength value</div>';
+                            console.error('VALIDATION FAILED: 2-theta requires wavelength');
+                            console.error('Error:', '2-theta searches require a wavelength value');
                             jQuery("#txt_diffraction").after(errorMsg);
                         } else {
                             console.log('Wavelength check: PASSED');
@@ -820,103 +813,147 @@ let cellparams = [];
             }
 
             if ($("#txt_diffraction").val() !== '') {
-                let diffraction_string = $("#txt_diffraction").val();
-                let items = diffraction_string.split(/\s/);
-                let tolerance = items[2].replace(/[()]/g, '');
-                console.log('Tolerance: ', tolerance)
-                let values = items[1].split(',');
-                // Set the intensity
-                search_json[search_options['intensity']] = '>=' + items[4];
+                let diffraction_string = $("#txt_diffraction").val().trim();
 
-                search_json[search_options['d_spacing']] = '';
-                if(diffraction_string.match(/2-Theta/)) {
-                    // Need to convert 2-Theta for d-spacing
-                    // d = nLam/2sinTheta
-                    let value_string = '';
-                    for(let i= 0; i < values.length; i++) {
-                        let d_low = 0
-                        let d_high = 0
-                        let wavelength = items[6];
-                        let thetaLow = 2 * (
-                            Math.sin(
-                                // (parseFloat(values[i]) + parseFloat(tolerance)) * Math.PI / 180
-                                (parseFloat(values[i]) + parseFloat(tolerance)) / 2 * Math.PI / 180
-                            )
-                        );
-                        let thetaHigh = 2 * (
-                            Math.sin(
-                                // (parseFloat(values[i]) - parseFloat(tolerance))  * Math.PI / 180
-                                (parseFloat(values[i]) - parseFloat(tolerance)) / 2 * Math.PI / 180
-                            )
-                        );
-                        console.log('Theta Low x2: ', thetaLow)
-                        console.log('Theta High x2: ', thetaHigh)
-                        if (thetaLow === 0 || thetaHigh === 0) {
-                            // error state
-                            console.log('Error: 2-Theta search requires a wavelength value');
+                // Parse the new per-line format:
+                //   2-theta: [value, tolerance, intensity],[...] wavelength: X
+                //   d-spacing: [value, tolerance, intensity],[...]
+                //   energy:   [value, tolerance, intensity],[...] theta: X
+                let typeMatch = diffraction_string.match(/^(2-theta|d-spacing|energy):\s*/i);
+                if (!typeMatch) {
+                    alert('Invalid diffraction format. Expected the Diffraction Search modal output.');
+                    return false;
+                }
+                let diffractionType = typeMatch[1].toLowerCase();
+                let body = diffraction_string.substring(typeMatch[0].length);
+
+                // Peel off trailing "wavelength: X" or "theta: X" if present.
+                let wavelengthRaw = null;
+                let thetaRaw = null;
+                let wlMatch = body.match(/\s+wavelength:\s*(\S+)\s*$/i);
+                if (wlMatch) {
+                    wavelengthRaw = wlMatch[1];
+                    body = body.substring(0, wlMatch.index);
+                }
+                let thetaMatch = body.match(/\s+theta:\s*(\S+)\s*$/i);
+                if (thetaMatch) {
+                    thetaRaw = thetaMatch[1];
+                    body = body.substring(0, thetaMatch.index);
+                }
+
+                // Type-specific required suffixes.
+                if (diffractionType === '2-theta' && !wavelengthRaw) {
+                    alert('2-theta searches require a wavelength value.');
+                    return false;
+                }
+                if (diffractionType === 'energy' && !thetaRaw) {
+                    alert('Energy searches require a theta value.');
+                    return false;
+                }
+
+                // Resolve Cu/Mo shorthand to numeric wavelength in angstroms.
+                let wavelengthNum = null;
+                if (wavelengthRaw !== null) {
+                    if (/^Cu$/i.test(wavelengthRaw)) {
+                        wavelengthNum = 1.541838;
+                    } else if (/^Mo$/i.test(wavelengthRaw)) {
+                        wavelengthNum = 0.71073;
+                    } else {
+                        wavelengthNum = parseFloat(wavelengthRaw);
+                    }
+                    if (isNaN(wavelengthNum) || wavelengthNum <= 0) {
+                        alert('Invalid wavelength value: ' + wavelengthRaw);
+                        return false;
+                    }
+                }
+
+                let thetaNum = null;
+                if (thetaRaw !== null) {
+                    thetaNum = parseFloat(thetaRaw);
+                    if (isNaN(thetaNum) || thetaNum <= 0) {
+                        alert('Invalid theta value: ' + thetaRaw);
+                        return false;
+                    }
+                }
+
+                // Extract [value, tolerance, intensity] triples.
+                let triples = [];
+                let tripleRegex = /\[\s*(\d+(?:\.\d+)?|\.\d+)\s*,\s*(\d+(?:\.\d+)?|\.\d+)\s*,\s*(\d+(?:\.\d+)?|\.\d+)\s*\]/g;
+                let tm;
+                while ((tm = tripleRegex.exec(body)) !== null) {
+                    let value = parseFloat(tm[1]);
+                    let tol = parseFloat(tm[2]);
+                    let intensity = parseFloat(tm[3]);
+                    if (isNaN(value) || isNaN(tol) || isNaN(intensity)) {
+                        alert('Invalid triple in diffraction input: ' + tm[0]);
+                        return false;
+                    }
+                    if (tol < 0) {
+                        alert('Tolerance must be non-negative: ' + tm[0]);
+                        return false;
+                    }
+                    if (intensity < 0) {
+                        alert('Intensity must be non-negative: ' + tm[0]);
+                        return false;
+                    }
+                    triples.push({ value: value, tolerance: tol, intensity: intensity });
+                }
+                if (triples.length === 0) {
+                    alert('No valid diffraction entries found. Expected [value, tolerance, intensity] triples.');
+                    return false;
+                }
+
+                // Build a per-line criteria part: "(>=d_low <=d_high,>=intensity,)"
+                // Multiple parts are joined by "|". The trailing comma is required by AMCSD
+                // (reserved slot for z-value criteria, unused here).
+                let criteriaParts = [];
+                for (let i = 0; i < triples.length; i++) {
+                    let t = triples[i];
+                    let d_low = 0;
+                    let d_high = 0;
+
+                    if (diffractionType === '2-theta') {
+                        // d = lambda / (2 sin(theta/2))   — theta here is the full 2-theta value.
+                        let sinLow  = 2 * Math.sin((t.value + t.tolerance) / 2 * Math.PI / 180);
+                        let sinHigh = 2 * Math.sin((t.value - t.tolerance) / 2 * Math.PI / 180);
+                        if (sinLow === 0 || sinHigh === 0) {
+                            alert('Invalid 2-theta value (cannot be 0): ' + t.value);
                             return false;
                         }
-                        let wl = parseFloat(wavelength);
-                        if (isNaN(wl) || wl <= 0) {
-                            console.log('Error: Invalid wavelength value: ', wavelength);
+                        d_low  = wavelengthNum / sinLow;
+                        d_high = wavelengthNum / sinHigh;
+                    } else if (diffractionType === 'd-spacing') {
+                        d_low  = t.value - t.tolerance;
+                        d_high = t.value + t.tolerance;
+                    } else {
+                        // energy → d-spacing conversion.
+                        let theta_radians = Math.PI * thetaNum / 180;
+                        let energy_low  = t.value + t.tolerance;
+                        let energy_high = t.value - t.tolerance;
+                        if (energy_high <= 0) {
+                            alert('Energy - tolerance must be > 0 for value: ' + t.value);
                             return false;
                         }
-                        console.log('Wavelength: ', wl);
-                        d_low = wl / thetaLow;
-                        d_high = wl / thetaHigh;
-                        if (d_low > d_high) {
-                            let tmp = d_low;
-                            d_low = d_high;
-                            d_high = tmp;
-                        }
-                        console.log('D Low: ', d_low);
-                        console.log('D High: ', d_high);
-
-                        value_string += '>=' + Math.round((d_low) * 10000) / 10000
-                            + ' <=' + Math.round((d_high) * 10000) / 10000 + ' && ';
+                        d_low  = 6.1993 / (Math.sin(theta_radians) * energy_low);
+                        d_high = 6.1993 / (Math.sin(theta_radians) * energy_high);
                     }
-                    value_string = value_string.replace(/&& $/, '');
-                    console.log('D-Spacing: ', value_string);
-                    search_json[search_options['d_spacing']] = value_string;
-                }
-                else if(diffraction_string.match(/d-spacing/)) {
-                    let value_string = '';
-                    for (let i = 0; i < values.length; i++) {
-                        value_string += '>=' + Math.round((parseFloat(values[i]) - parseFloat(tolerance))*10000)/10000
-                            + ' <=' + Math.round((parseFloat(values[i]) + parseFloat(tolerance)) * 10000)/10000 + ' && ';
-                    }
-                    value_string = value_string.replace(/&& $/, '');
-                    search_json[search_options['d_spacing']] = value_string;
-                }
-                else {
-                    // Energy search...
-                    let theta = items[6];
-                    console.log('Theta: ', items[6]);
-                    let value_string = '';
-                    for(let i= 0; i < values.length; i++) {
-                        let energy_low = parseFloat(values[0]) + parseFloat(tolerance);
-                        console.log('Energy low: ', energy_low);
-                        let energy_high = parseFloat(values[0]) - parseFloat(tolerance);
-                        console.log('Energy high: ', energy_high);
-                        let theta_radians = Math.PI * theta / 180;
-                        console.log('Theta radians: ', theta_radians);
 
-                        let d_low = 6.1993 / (Math.sin(theta_radians) * energy_low);
-                        console.log('d_low: ', d_low);
-                        let d_high = 6.1993 / (Math.sin(theta_radians) * energy_high);
-                        console.log('d_high: ', d_high);
-
-                        if(d_low > d_high) {
-                            let tmp = d_low;
-                            d_low = d_high;
-                            d_high = tmp;
-                        }
-                        value_string += '>=' + Math.round((d_low) * 10000)/10000
-                            + ' <=' + Math.round((d_high) * 10000)/10000 + ' && ';
+                    if (d_low > d_high) {
+                        let tmp = d_low; d_low = d_high; d_high = tmp;
                     }
-                    value_string = value_string.replace(/&& $/, '');
-                    search_json[search_options['d_spacing']] = value_string;
+                    d_low  = Math.round(d_low  * 10000) / 10000;
+                    d_high = Math.round(d_high * 10000) / 10000;
+
+                    let d_criteria = '>=' + d_low + ' <=' + d_high;
+                    let intensity_criteria = '>=' + t.intensity;
+                    criteriaParts.push('(' + d_criteria + ',' + intensity_criteria + ',)');
                 }
+
+                // Intensity is now encoded per-line in the combined field; clear the
+                // legacy separate intensity criterion.
+                delete search_json[search_options['intensity']];
+                search_json[search_options['d_spacing']] = criteriaParts.join('|');
+                console.log('Diffraction criteria:', search_json[search_options['d_spacing']]);
             }
 
             // Get chemistry excludes
