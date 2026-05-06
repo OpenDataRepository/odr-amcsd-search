@@ -43,6 +43,7 @@ let cellparams = [];
     }
 
     jQuery(window).load(function () {
+        console.log('AMCSD SEARCH PLUGIN LOAD')
         jQuery.when(
             // jQuery.getScript('/odr_rruff/uploads/IMA/cellparams_data.js'),
             // jQuery.getScript('/odr_rruff/uploads/IMA/cellparams_data_update.js'),

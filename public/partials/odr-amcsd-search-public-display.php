@@ -1597,7 +1597,7 @@
 
                         cell_param_string = cell_param_string.replace(/, $/,'');
 
-                        jQuery("#txt_cell_parameters").val(cell_param_string);
+                        jQuery("#txt_cell_parameters").val(cell_param_string).trigger('change');
 
                         jQuery(".close-modal").click();
 
@@ -2327,7 +2327,7 @@
                     }
                 }
 
-                jQuery("#txt_diffraction").val(output_string);
+                jQuery("#txt_diffraction").val(output_string).trigger('change');
                 jQuery(".close-modal").click();
 
                 // Give the modal a moment to tear down before moving focus
@@ -2701,3 +2701,323 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    // ============================================================
+    // AMCSD Search — sessionStorage persistence for form state
+    // ------------------------------------------------------------
+    // Tracks every input/select/checkbox in the search form and the
+    // two modal forms (cell parameters, diffraction). Reloads the
+    // saved state on page load if it is less than one day old.
+    // sessionStorage is tab-scoped, so multiple tabs maintain
+    // independent state without any extra coordination.
+    // ============================================================
+    (function ($) {
+        var STORAGE_KEY = 'odr_amcsd_search_state_v1';
+        var TTL_MS = 30 * 24 * 60 * 60 * 1000; // one month
+
+        var MAIN_INPUTS = [
+            '#txt_mineral',
+            '#txt_author',
+            '#txt_chemistry_incl',
+            '#txt_chemistry_excl',
+            '#txt_cell_parameters',
+            '#txt_diffraction',
+            '#txt_general'
+        ];
+
+        var CELL_FIELDS = [
+            'La','Ua','Lb','Ub','Lc','Uc',
+            'Lalpha','Ualpha','Lbeta','Ubeta','Lgamma','Ugamma'
+        ];
+
+        var DIFF_FIELDS = [
+            'wavelength_value','theta_value','intensity',
+            'TypeTxt','Tol','lineIntensity',
+            'diffValuesHidden','diffLinesHidden',
+            'toleranceHidden','sortDirectionHidden'
+        ];
+
+        function captureDiffSelectOptions() {
+            var opts = [];
+            var $sel = $('select[name="diffValueSelect"]');
+            if (!$sel.length) return opts;
+            // Skip the placeholder option at index 0.
+            for (var i = 1; i < $sel[0].options.length; i++) {
+                opts.push($sel[0].options[i].text);
+            }
+            return opts;
+        }
+
+        function restoreDiffSelectOptions(opts) {
+            if (!opts || !opts.length) return;
+            if (typeof populateSelectFromArray === 'function') {
+                populateSelectFromArray(opts);
+            }
+        }
+
+        // Parse the comma-separated, double-quote-wrapped list of selected
+        // names from a mineral/author input value.
+        function parseSelectedNames(raw) {
+            var out = [];
+            if (!raw) return out;
+            var re = /"([^"]+)"/g;
+            var m;
+            while ((m = re.exec(raw)) !== null) {
+                out.push(m[1]);
+            }
+            // If user typed without quotes, also accept comma-split fallback.
+            if (out.length === 0) {
+                raw.split(',').forEach(function (part) {
+                    var t = part.trim().replace(/^"|"$/g, '');
+                    if (t.length) out.push(t);
+                });
+            }
+            return out;
+        }
+
+        function syncListSelection(itemSelector, inputSelector, selectedClass) {
+            var raw = $(inputSelector).val() || '';
+            var names = parseSelectedNames(raw).map(function (n) { return n.toLowerCase(); });
+            $(itemSelector).each(function () {
+                // The existing modal handlers compare via .html(); match the same way.
+                var label = $(this).html();
+                if (label && names.indexOf(String(label).toLowerCase()) !== -1) {
+                    $(this).addClass(selectedClass);
+                } else {
+                    $(this).removeClass(selectedClass);
+                }
+            });
+        }
+
+        function syncMineralSelection() {
+            syncListSelection('.AMCSDMineralName', '#txt_mineral', 'AMCSDMineralNameSelected');
+        }
+        function syncAuthorSelection() {
+            syncListSelection('.AMCSDAuthorName', '#txt_author', 'AMCSDAuthorNameSelected');
+        }
+
+        function capturePeriodicTable() {
+            var state = {};
+            $('.periodic_table').each(function () {
+                var id = this.id;
+                if (!id) return;
+                var classes = [];
+                if ($(this).hasClass('included')) classes.push('included');
+                if ($(this).hasClass('excluded')) classes.push('excluded');
+                if (classes.length) state[id] = classes;
+            });
+            return state;
+        }
+
+        function restorePeriodicTable(state) {
+            if (!state) return;
+            $('.periodic_table').removeClass('included excluded');
+            for (var id in state) {
+                if (!state.hasOwnProperty(id)) continue;
+                var $el = $('#' + id);
+                if (!$el.length) continue;
+                state[id].forEach(function (cls) { $el.addClass(cls); });
+            }
+            // Let downstream code (chemistry field sync) react if available.
+            if (typeof setChemistryFields === 'function') {
+                try { setChemistryFields(); } catch (e) {}
+            }
+        }
+
+        function captureState() {
+            var state = { ts: Date.now(), main: {}, cell: {}, diff: {} };
+
+            MAIN_INPUTS.forEach(function (sel) {
+                var $el = $(sel);
+                if ($el.length) state.main[sel] = $el.val();
+            });
+
+            // Cell parameters modal
+            state.cell.Ranges = $('input[name="Ranges"]:checked').val() || '';
+            CELL_FIELDS.forEach(function (name) {
+                var $el = $('[name="' + name + '"]');
+                if ($el.length) state.cell[name] = $el.val();
+            });
+            var $sg = $('#sg');
+            if ($sg.length) state.cell.sg = $sg.val();
+            var $csys = $('[name="csys"]');
+            if ($csys.length) state.cell.csys = $csys.val();
+
+            // Diffraction modal
+            state.diff.Type = $('input[name="Type"]:checked').val() || '';
+            state.diff.separateMode = $('#separateMode').is(':checked');
+            var $wlSel = $('#wavelength_select');
+            if ($wlSel.length) state.diff.wavelength_select = $wlSel.val();
+            DIFF_FIELDS.forEach(function (name) {
+                var $el = $('[name="' + name + '"]');
+                if ($el.length) state.diff[name] = $el.val();
+            });
+            state.diff.diffValueSelectOptions = captureDiffSelectOptions();
+
+            state.periodic = capturePeriodicTable();
+            return state;
+        }
+
+        function applyState(state) {
+            if (!state) return;
+
+            MAIN_INPUTS.forEach(function (sel) {
+                if (state.main && typeof state.main[sel] !== 'undefined') {
+                    $(sel).val(state.main[sel]);
+                }
+            });
+
+            if (state.cell) {
+                if (state.cell.Ranges) {
+                    $('input[name="Ranges"][value="' + state.cell.Ranges + '"]')
+                        .prop('checked', true);
+                    // Sync the column labels via the existing handlers.
+                    if (state.cell.Ranges === 'Tolerance' && typeof Click2 === 'function') {
+                        Click2();
+                    } else if (typeof Click1 === 'function') {
+                        Click1();
+                    }
+                }
+                CELL_FIELDS.forEach(function (name) {
+                    if (typeof state.cell[name] !== 'undefined') {
+                        $('[name="' + name + '"]').val(state.cell[name]);
+                    }
+                });
+                if (typeof state.cell.sg !== 'undefined') $('#sg').val(state.cell.sg);
+                if (typeof state.cell.csys !== 'undefined') $('[name="csys"]').val(state.cell.csys);
+            }
+
+            if (state.diff) {
+                if (state.diff.Type) {
+                    $('input[name="Type"][value="' + state.diff.Type + '"]')
+                        .prop('checked', true);
+                }
+                if (typeof state.diff.separateMode !== 'undefined') {
+                    $('#separateMode').prop('checked', !!state.diff.separateMode);
+                    if (typeof toggleSeparateMode === 'function') toggleSeparateMode();
+                }
+                if (typeof state.diff.wavelength_select !== 'undefined') {
+                    $('#wavelength_select').val(state.diff.wavelength_select);
+                }
+                DIFF_FIELDS.forEach(function (name) {
+                    if (typeof state.diff[name] !== 'undefined') {
+                        $('[name="' + name + '"]').val(state.diff[name]);
+                    }
+                });
+                restoreDiffSelectOptions(state.diff.diffValueSelectOptions);
+            }
+
+            restorePeriodicTable(state.periodic);
+
+            // After restoring the input values, re-mark which mineral/author
+            // entries in the modals are "selected" so they appear bold.
+            syncMineralSelection();
+            syncAuthorSelection();
+
+            // If the restored search used chemistry inclusions/exclusions or
+            // had periodic-table elements selected, expand the periodic table
+            // panel so the user sees the saved chemistry state immediately.
+            var hasChem = ($('#txt_chemistry_incl').val() || '').trim().length > 0
+                       || ($('#txt_chemistry_excl').val() || '').trim().length > 0;
+            var hasPeriodic = state.periodic && Object.keys(state.periodic).length > 0;
+            if (hasChem || hasPeriodic) {
+                $('#AMCSDPeriodicTable').slideDown('100');
+            }
+        }
+
+        function saveState() {
+            try {
+                var snap = captureState();
+                sessionStorage.setItem(STORAGE_KEY, JSON.stringify(snap));
+                if (window.console && console.debug) {
+                    console.debug('AMCSD: saved form state', snap);
+                }
+            } catch (e) {
+                if (window.console && console.warn) {
+                    console.warn('AMCSD: could not save form state', e);
+                }
+            }
+        }
+
+        function loadState() {
+            try {
+                var raw = sessionStorage.getItem(STORAGE_KEY);
+                if (!raw) {
+                    if (window.console) console.log('AMCSD: no saved form state');
+                    return;
+                }
+                var state = JSON.parse(raw);
+                if (!state || !state.ts) return;
+                if (Date.now() - state.ts > TTL_MS) {
+                    sessionStorage.removeItem(STORAGE_KEY);
+                    if (window.console) console.log('AMCSD: form state expired, cleared');
+                    return;
+                }
+                if (window.console) console.log('AMCSD: restoring form state', state);
+                applyState(state);
+            } catch (e) {
+                if (window.console && console.warn) {
+                    console.warn('AMCSD: could not load form state', e);
+                }
+            }
+        }
+
+        function wireListeners() {
+            // Save state only when the user actually runs a search.
+            // Hook the search submit button — capture the form state at that
+            // moment so a future reload restores the search the user just ran.
+            // The existing search-submit handler does `return false`, which in
+            // jQuery stops propagation — so a delegated $(document).on('click')
+            // listener would never fire. Use a native capture-phase listener
+            // on document instead, which runs BEFORE any target-phase handlers
+            // and is unaffected by jQuery's stopPropagation.
+            document.addEventListener('click', function (e) {
+                var t = e.target;
+                if (t && (t.id === 'amcsd-search-form-submit'
+                    || (t.closest && t.closest('#amcsd-search-form-submit')))) {
+                    saveState();
+                }
+                if (t && (
+                    t.id === 'amcsd-search-form-reset'
+                    || t.id === 'reset_sample_search'
+                    || (t.closest && (t.closest('#amcsd-search-form-reset') || t.closest('#reset_sample_search')))
+                )) {
+                    try { sessionStorage.removeItem(STORAGE_KEY); } catch (err) {}
+                    $('#AMCSDPeriodicTable').slideUp('100');
+                    setTimeout(function () {
+                        syncMineralSelection();
+                        syncAuthorSelection();
+                    }, 0);
+                }
+            }, true);
+
+            // When opening the mineral or author modal, refresh the bold
+            // highlighting so already-selected entries match the current
+            // input value (e.g. after a sessionStorage restore or after the
+            // user typed/edited the field directly).
+            $(document).on('click', 'a[href="#AMCSDMineralList"]', function () {
+                setTimeout(syncMineralSelection, 0);
+            });
+            $(document).on('click', 'a[href="#AMCSDAuthorList"]', function () {
+                setTimeout(syncAuthorSelection, 0);
+            });
+
+            // Keep highlights in sync if the field is edited directly
+            // (typed or pasted) outside of the modal click flow.
+            $(document).on('input change', '#txt_mineral', syncMineralSelection);
+            $(document).on('input change', '#txt_author', syncAuthorSelection);
+        }
+
+        // Wire listeners early so any user input is captured.
+        $(wireListeners);
+
+        // Defer the restore to after window load + a tick so it runs
+        // *after* the existing window.load handler in odr-amcsd-search-public.js
+        // (which reads URL hash params and may rewrite some inputs). This
+        // way the sessionStorage values take precedence on reload.
+        $(window).on('load', function () {
+            setTimeout(loadState, 50);
+        });
+    })(jQuery);
+</script>
