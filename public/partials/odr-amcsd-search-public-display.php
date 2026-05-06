@@ -2472,6 +2472,66 @@
             }
 
             /*
+            * Compute the d-spacing range that corresponds to a given value
+            * and tolerance under the current Diffraction-Search Type:
+            *   2-Theta  -> uses wavelength_value to convert to d via Bragg's law
+            *   energy   -> uses theta_value to convert energy to d
+            *   d-spacing -> returns null (the line already shows a d range)
+            * Returns null if conversion isn't possible (missing wavelength /
+            * theta, invalid input, or singular geometry).
+            */
+            function computeDSpacingRange(value, tolerance) {
+                var form = document.DiffractionSearchForm;
+                var v = parseFloat(value);
+                var t = parseFloat(tolerance);
+                if (isNaN(v) || isNaN(t)) return null;
+
+                // Compare type case-insensitively — the radio uses '2-theta'
+                // but other code in the file uses '2-Theta' interchangeably.
+                var typeLc = (form.Type.value || '').toLowerCase();
+                var d_low, d_high;
+                if (typeLc === '2-theta') {
+                    var wl = parseFloat(form.wavelength_value.value);
+                    if (isNaN(wl) || wl <= 0) return null;
+                    var sinLow  = 2 * Math.sin((v + t) / 2 * Math.PI / 180);
+                    var sinHigh = 2 * Math.sin((v - t) / 2 * Math.PI / 180);
+                    if (sinLow === 0 || sinHigh === 0) return null;
+                    d_low  = wl / sinLow;
+                    d_high = wl / sinHigh;
+                } else if (typeLc === 'energy') {
+                    var theta = parseFloat(form.theta_value.value);
+                    if (isNaN(theta) || theta <= 0) return null;
+                    var theta_radians = Math.PI * theta / 180;
+                    var energy_low  = v + t;
+                    var energy_high = v - t;
+                    if (energy_high <= 0) return null;
+                    d_low  = 6.1993 / (Math.sin(theta_radians) * energy_low);
+                    d_high = 6.1993 / (Math.sin(theta_radians) * energy_high);
+                } else {
+                    // 'd-spacing' or anything else — nothing meaningful to add.
+                    return null;
+                }
+
+                if (d_low > d_high) {
+                    var tmp = d_low; d_low = d_high; d_high = tmp;
+                }
+                return {
+                    low:  Math.round(d_low  * 10000) / 10000,
+                    high: Math.round(d_high * 10000) / 10000
+                };
+            }
+
+            /*
+            * Build a "» d: low to high" suffix to append to a displayed
+            * diffraction-list line, or '' if no d-spacing conversion applies.
+            */
+            function dSpacingTag(value, tolerance) {
+                var d = computeDSpacingRange(value, tolerance);
+                if (!d) return '';
+                return '  » d-spacing: ' + d.low + ' to ' + d.high;
+            }
+
+            /*
             * get Array from hidden values field
             */
             function getArrayFromHiddenField() {
@@ -2503,8 +2563,8 @@
                     if ( elements[i] != null && elements[i].length > 0 ) {
                         var low = limitPrecision((parseFloat(elements[i])) - parseFloat(newTolerance));
                         var high= limitPrecision((parseFloat(elements[i])) + parseFloat(newTolerance));
-                        var thisLine = prepareLineForDisplay(low, high);
-                        resultArray[i] = thisLine;
+                        resultArray[i] = prepareLineForDisplay(low, high)
+                            + dSpacingTag(elements[i], newTolerance);
                     }
                 }
                 populateSelectFromArray(resultArray);
@@ -2622,7 +2682,11 @@
 
                     var high = limitPrecision(parseFloat(newValue) + parseFloat(newTolerance));
                     var low  = limitPrecision(parseFloat(newValue) - parseFloat(newTolerance));
-                    addValueToSelect(prepareLineForDisplay(low, high) + '  (I=' + newIntensity + ')');
+                    addValueToSelect(
+                        prepareLineForDisplay(low, high)
+                        + '  (I=' + newIntensity + ')'
+                        + dSpacingTag(newValue, newTolerance)
+                    );
                 } else {
                     // Legacy (shared) mode — unchanged behavior.
                     if(newTolerance && (newValue=='')) {
@@ -2635,7 +2699,10 @@
                             form.diffValuesHidden.value += newValue;
                             var high2 = limitPrecision(parseFloat(newValue) + parseFloat(newTolerance));
                             var low2  = limitPrecision(parseFloat(newValue) - parseFloat(newTolerance));
-                            addValueToSelect(prepareLineForDisplay(low2, high2));
+                            addValueToSelect(
+                                prepareLineForDisplay(low2, high2)
+                                + dSpacingTag(newValue, newTolerance)
+                            );
                         }
                         populateVisibleFieldFromHiddenArray(newTolerance);
                     }
@@ -2985,6 +3052,46 @@
                 )) {
                     try { sessionStorage.removeItem(STORAGE_KEY); } catch (err) {}
                     $('#AMCSDPeriodicTable').slideUp('100');
+
+                    // Reset the Cell Parameters & Symmetry modal so a fresh
+                    // search starts from scratch.
+                    CELL_FIELDS.forEach(function (name) {
+                        $('[name="' + name + '"]').val('');
+                    });
+                    $('#sg').val('');
+                    $('[name="csys"]').val('');
+                    $('input[name="Ranges"][value="Range"]').prop('checked', true);
+                    if (typeof Click1 === 'function') Click1();
+
+                    // Reset the Diffraction Pattern Search modal:
+                    //   - clear the entry row's value and tolerance
+                    //   - clear the accumulated lines (visible + hidden)
+                    // PRESERVE the wavelength source (Cu/Mo/etc), the
+                    // wavelength value, the theta value, the global intensity
+                    // cutoff, and the per-line intensity (current entry box +
+                    // the remembered "last intensity") so the user keeps
+                    // their instrument/setup choices on the next search.
+                    var diff = document.DiffractionSearchForm;
+                    if (diff) {
+                        diff.TypeTxt.value = '';
+                        diff.Tol.value = '';
+                        diff.diffValuesHidden.value = '';
+                        diff.diffLinesHidden.value = '';
+                        diff.toleranceHidden.value = '';
+                        if (diff.diffValueSelect) {
+                            diff.diffValueSelect.options.length = 1;
+                            if (typeof defaultValue !== 'undefined') {
+                                diff.diffValueSelect.options[0].text = defaultValue;
+                            }
+                        }
+                        // Tolerance was cleared, so drop the remembered last
+                        // tolerance too. lineIntensity and the remembered
+                        // last intensity are intentionally preserved.
+                        if (typeof separateModeLastTolerance !== 'undefined') {
+                            separateModeLastTolerance = '';
+                        }
+                    }
+
                     setTimeout(function () {
                         syncMineralSelection();
                         syncAuthorSelection();
