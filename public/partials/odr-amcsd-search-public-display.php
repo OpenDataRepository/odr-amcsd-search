@@ -3099,6 +3099,18 @@
                 }
             }, true);
 
+            // Enter inside any form input also submits via submitAmcsdSearchForm()
+            // — without a click event — so the click listener above misses
+            // those submissions and sessionStorage retains the previous
+            // saved state. Catch Enter here in capture phase too.
+            document.addEventListener('keydown', function (e) {
+                if (e.key !== 'Enter' && e.which !== 13) return;
+                var t = e.target;
+                if (t && t.closest && t.closest('#AMCSDInterfaceForm')) {
+                    saveState();
+                }
+            }, true);
+
             // When opening the mineral or author modal, refresh the bold
             // highlighting so already-selected entries match the current
             // input value (e.g. after a sessionStorage restore or after the
