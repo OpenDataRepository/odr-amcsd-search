@@ -957,29 +957,29 @@ let cellparams = [];
                 console.log('Diffraction criteria:', search_json[search_options['d_spacing']]);
             }
 
-            // Get chemistry excludes
-            if ($("#txt_chemistry_excl").val() !== undefined) {
-                // {"dt_id":"3","21":"!Ni"}
-                // {"dt_id":"3","21":"!Ni,!O"}
-                if (search_json[search_options['chemistry_incl']]) {
-                    search_json[search_options['chemistry_incl']] += ' ';
-                    $("#txt_chemistry_excl").val().split(/,/).forEach(
-                        function (item) {
-                            if (item.trim() !== '') {
-                                search_json[search_options['chemistry_incl']] += '!' + item.trim() + ' ';
-                            }
-                        }
-                    );
-                } else {
-                    // This is unset if we have no INCL value
-                    search_json[search_options['chemistry_incl']] = '';
-                    $("#txt_chemistry_excl").val().split(/,/).forEach(
-                        function (item) {
-                            if (item.trim() !== '') {
-                                search_json[search_options['chemistry_incl']] += '!' + item.trim() + ' ';
-                            }
-                        }
-                    );
+            // Get chemistry excludes.
+            // Build the "!X !Y ..." fragment into a local first; if the
+            // excludes field is empty (or contains nothing but commas /
+            // whitespace) we don't want to touch search_json at all,
+            // otherwise we leak an empty `chemistry_incl: ""` key to the
+            // backend.
+            // {"dt_id":"3","21":"!Ni"}
+            // {"dt_id":"3","21":"!Ni,!O"}
+            var excl_raw = $("#txt_chemistry_excl").val();
+            if (excl_raw !== undefined && excl_raw !== null && excl_raw.trim() !== '') {
+                var excl_fragment = '';
+                excl_raw.split(/,/).forEach(function (item) {
+                    if (item.trim() !== '')
+                        excl_fragment += '!' + item.trim() + ' ';
+                });
+                if (excl_fragment !== '') {
+                    if (search_json[search_options['chemistry_incl']]) {
+                        // Existing incl value: append a space, then the excludes.
+                        search_json[search_options['chemistry_incl']] += ' ' + excl_fragment;
+                    } else {
+                        // No incl value: create the key with just the excludes.
+                        search_json[search_options['chemistry_incl']] = excl_fragment;
+                    }
                 }
             }
 

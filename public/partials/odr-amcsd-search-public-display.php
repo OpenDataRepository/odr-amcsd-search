@@ -2198,6 +2198,39 @@
         <script type="text/javascript">
             var defaultValue = "Enter Values Above...";
 
+            // Tracks which diffraction type (2-theta / d-spacing / energy)
+            // the accumulated values currently belong to. Defaults to the
+            // radio that's CHECKED in the markup. Used to clear the entered
+            // values when the user switches type — the units differ between
+            // types, so carrying values across a switch would be nonsense.
+            var activeDiffractionType = '2-theta';
+
+            // Wipes the accumulated peak list + entry row, leaving the
+            // instrument prefs (wavelength source/value, theta, intensity)
+            // intact. Called when the diffraction type changes.
+            function clearDiffractionValues() {
+                var form = document.DiffractionSearchForm;
+                form.diffValueSelect.options.length = 1;
+                form.diffValueSelect.options[0].text = defaultValue;
+                form.TypeTxt.value = '';
+                form.Tol.value = '';
+                form.diffValuesHidden.value = '';
+                form.diffLinesHidden.value = '';
+                if (form.lineIntensity)
+                    form.lineIntensity.value = '';
+                form.toleranceHidden.value = '';
+                separateModeLastTolerance = '';
+                separateModeLastIntensity = '';
+            }
+
+            // If the user picked a different type than the values currently
+            // belong to, clear them. Records the new active type either way.
+            function clearDiffractionValuesOnTypeChange(newType) {
+                if (newType !== activeDiffractionType)
+                    clearDiffractionValues();
+                activeDiffractionType = newType;
+            }
+
             // Cookie helpers for diffraction search preferences
             function setDiffractionCookie(name, value) {
                 var expires = new Date();
@@ -2684,7 +2717,7 @@
                     var low  = limitPrecision(parseFloat(newValue) - parseFloat(newTolerance));
                     addValueToSelect(
                         prepareLineForDisplay(low, high)
-                        + '  (I=' + newIntensity + ')'
+                        + '  (I>=' + newIntensity + ')'
                         + dSpacingTag(newValue, newTolerance)
                     );
                 } else {
@@ -2714,6 +2747,7 @@
             }
 
             function ThetaSelection(wavelengthValue) {
+                clearDiffractionValuesOnTypeChange('2-theta');
                 document.getElementById('one').textContent = '2-theta';
                 document.getElementById('wavelength_layer').style.visibility = 'visible';
                 document.getElementById('theta_value_layer').style.visibility = 'hidden';
@@ -2737,6 +2771,7 @@
             }
 
             function DSpacingAnalysis() {
+                clearDiffractionValuesOnTypeChange('d-spacing');
                 document.getElementById('one').textContent = 'd-spacing';
                 document.getElementById('wavelength_layer').style.visibility = 'hidden';
                 document.getElementById('theta_value_layer').style.visibility = 'hidden';
@@ -2745,6 +2780,7 @@
             }
 
             function EnergySelection() {
+                clearDiffractionValuesOnTypeChange('energy');
                 document.getElementById('one').textContent = 'Energy';
                 document.getElementById('wavelength_layer').style.visibility = 'hidden';
                 document.getElementById('theta_value_layer').style.visibility = 'visible';
@@ -2959,6 +2995,13 @@
                 if (state.diff.Type) {
                     $('input[name="Type"][value="' + state.diff.Type + '"]')
                         .prop('checked', true);
+                    // Keep the type tracker in sync with the restored type.
+                    // Setting the radio via .prop() doesn't fire the onclick
+                    // handlers, so without this a later click on the matching
+                    // radio would look like a type change and wipe the
+                    // restored values.
+                    if (typeof activeDiffractionType !== 'undefined')
+                        activeDiffractionType = state.diff.Type;
                 }
                 if (typeof state.diff.separateMode !== 'undefined') {
                     $('#separateMode').prop('checked', !!state.diff.separateMode);

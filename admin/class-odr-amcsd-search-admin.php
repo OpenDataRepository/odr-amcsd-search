@@ -110,8 +110,6 @@ class Odr_Amcsd_Search_Admin
 
         wp_register_script($this->plugin_name . '-js', plugin_dir_url(__FILE__) . 'js/odr-amcsd-search-admin.js', array(), $this->version, false);
         wp_register_script($this->plugin_name . '-coloris-js', plugin_dir_url(__FILE__) . 'js/coloris.min.js', array(), $this->version, false);
-
-        add_action('admin_menu', 'odr_amcsd_search_add_settings_page');
     }
 
     public function addPluginAdminMenu()
@@ -177,12 +175,12 @@ class Odr_Amcsd_Search_Admin
         register_setting(
             'odr_amcsd_search_plugin_options',
             'odr_amcsd_search_plugin_options',
-            'odr_amcsd_search_plugin_options_validate'
+            array( 'sanitize_callback' => array( $this, 'odr_amcsd_search_plugin_options_validate' ) )
         );
         add_settings_section(
             'field_settings',
             'Field Settings',
-            'odr_amcsd_search_plugin_section_text',
+            array( $this, 'odr_amcsd_search_plugin_section_text' ),
             $this->plugin_name
         );
 
