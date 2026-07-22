@@ -382,160 +382,160 @@ class Odr_Amcsd_Search_Admin
     function odr_amcsd_search_datatype_id()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_datatype_id' name='odr_amcsd_search_plugin_options[datatype_id]' type='text' value='" . esc_attr($options['datatype_id']) . "' />";
+        echo "<input id='odr_amcsd_search_datatype_id' name='odr_amcsd_search_plugin_options[datatype_id]' type='text' value='" . esc_attr($options['datatype_id'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_general_search()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_general_search' name='odr_amcsd_search_plugin_options[general_search]' type='text' value='" . esc_attr($options['general_search']) . "' />";
+        echo "<input id='odr_amcsd_search_general_search' name='odr_amcsd_search_plugin_options[general_search]' type='text' value='" . esc_attr($options['general_search'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_author_names()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_author_names' name='odr_amcsd_search_plugin_options[author_names]' type='text' value='" . esc_attr($options['author_names']) . "' />";
+        echo "<input id='odr_amcsd_search_author_names' name='odr_amcsd_search_plugin_options[author_names]' type='text' value='" . esc_attr($options['author_names'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_chemistry_incl()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_chemistry_incl' name='odr_amcsd_search_plugin_options[chemistry_incl]' type='text' value='" . esc_attr($options['chemistry_incl']) . "' />";
+        echo "<input id='odr_amcsd_search_chemistry_incl' name='odr_amcsd_search_plugin_options[chemistry_incl]' type='text' value='" . esc_attr($options['chemistry_incl'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_mineral_name()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_mineral_name' name='odr_amcsd_search_plugin_options[mineral_name]' type='text' value='" . esc_attr($options['mineral_name']) . "' />";
+        echo "<input id='odr_amcsd_search_mineral_name' name='odr_amcsd_search_plugin_options[mineral_name]' type='text' value='" . esc_attr($options['mineral_name'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_a()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_a' name='odr_amcsd_search_plugin_options[a]' type='text' value='" . esc_attr($options['a']) . "' />";
+        echo "<input id='odr_amcsd_search_a' name='odr_amcsd_search_plugin_options[a]' type='text' value='" . esc_attr($options['a'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_b()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_b' name='odr_amcsd_search_plugin_options[b]' type='text' value='" . esc_attr($options['b']) . "' />";
+        echo "<input id='odr_amcsd_search_b' name='odr_amcsd_search_plugin_options[b]' type='text' value='" . esc_attr($options['b'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_c()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_c' name='odr_amcsd_search_plugin_options[c]' type='text' value='" . esc_attr($options['c']) . "' />";
+        echo "<input id='odr_amcsd_search_c' name='odr_amcsd_search_plugin_options[c]' type='text' value='" . esc_attr($options['c'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_alpha()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_alpha' name='odr_amcsd_search_plugin_options[alpha]' type='text' value='" . esc_attr($options['alpha']) . "' />";
+        echo "<input id='odr_amcsd_search_alpha' name='odr_amcsd_search_plugin_options[alpha]' type='text' value='" . esc_attr($options['alpha'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_beta()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_beta' name='odr_amcsd_search_plugin_options[beta]' type='text' value='" . esc_attr($options['beta']) . "' />";
+        echo "<input id='odr_amcsd_search_beta' name='odr_amcsd_search_plugin_options[beta]' type='text' value='" . esc_attr($options['beta'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_gamma()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_gamma' name='odr_amcsd_search_plugin_options[gamma]' type='text' value='" . esc_attr($options['gamma']) . "' />";
+        echo "<input id='odr_amcsd_search_gamma' name='odr_amcsd_search_plugin_options[gamma]' type='text' value='" . esc_attr($options['gamma'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_space_group()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_space_group' name='odr_amcsd_search_plugin_options[space_group]' type='text' value='" . esc_attr($options['space_group']) . "' />";
+        echo "<input id='odr_amcsd_search_space_group' name='odr_amcsd_search_plugin_options[space_group]' type='text' value='" . esc_attr($options['space_group'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_d_spacing()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_d_spacing' name='odr_amcsd_search_plugin_options[d_spacing]' type='text' value='" . esc_attr($options['d_spacing']) . "' />";
+        echo "<input id='odr_amcsd_search_d_spacing' name='odr_amcsd_search_plugin_options[d_spacing]' type='text' value='" . esc_attr($options['d_spacing'] ?? '') . "' />";
     }
     function odr_amcsd_search_intensity()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_intensity' name='odr_amcsd_search_plugin_options[intensity]' type='text' value='" . esc_attr($options['intensity']) . "' />";
+        echo "<input id='odr_amcsd_search_intensity' name='odr_amcsd_search_plugin_options[intensity]' type='text' value='" . esc_attr($options['intensity'] ?? '') . "' />";
     }
     function odr_amcsd_search_2_theta()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_2_theta' name='odr_amcsd_search_plugin_options[2_theta]' type='text' value='" . esc_attr($options['2_theta']) . "' />";
+        echo "<input id='odr_amcsd_search_2_theta' name='odr_amcsd_search_plugin_options[2_theta]' type='text' value='" . esc_attr($options['2_theta'] ?? '') . "' />";
     }
     function odr_amcsd_search_crystal_system()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_crystal_system' name='odr_amcsd_search_plugin_options[crystal_system]' type='text' value='" . esc_attr($options['crystal_system']) . "' />";
+        echo "<input id='odr_amcsd_search_crystal_system' name='odr_amcsd_search_plugin_options[crystal_system]' type='text' value='" . esc_attr($options['crystal_system'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_redirect_url()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_redirect_url' name='odr_amcsd_search_plugin_options[redirect_url]' type='text' value='" . esc_attr($options['redirect_url']) . "' />";
+        echo "<input id='odr_amcsd_search_redirect_url' name='odr_amcsd_search_plugin_options[redirect_url]' type='text' value='" . esc_attr($options['redirect_url'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_default_search()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_default_search' name='odr_amcsd_search_plugin_options[default_search]' type='text' value='" . esc_attr($options['default_search']) . "' />";
+        echo "<input id='odr_amcsd_search_default_search' name='odr_amcsd_search_plugin_options[default_search]' type='text' value='" . esc_attr($options['default_search'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_amc_short_form()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_amc_short_form' name='odr_amcsd_search_plugin_options[amc_short_form]' type='text' value='" . esc_attr($options['amc_short_form']) . "' />";
+        echo "<input id='odr_amcsd_search_amc_short_form' name='odr_amcsd_search_plugin_options[amc_short_form]' type='text' value='" . esc_attr($options['amc_short_form'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_cif()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_cif' name='odr_amcsd_search_plugin_options[cif]' type='text' value='" . esc_attr($options['cif']) . "' />";
+        echo "<input id='odr_amcsd_search_cif' name='odr_amcsd_search_plugin_options[cif]' type='text' value='" . esc_attr($options['cif'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_search_pictures()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_search_pictures' name='odr_amcsd_search_plugin_options[search_pictures]' type='text' value='" . esc_attr($options['search_pictures']) . "' />";
+        echo "<input id='odr_amcsd_search_search_pictures' name='odr_amcsd_search_plugin_options[search_pictures]' type='text' value='" . esc_attr($options['search_pictures'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_search_spectra()
     {
         $options = get_option('odr_amcsd_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_search_spectra' name='odr_amcsd_search_plugin_options[search_spectra]' type='text' value='" . esc_attr($options['search_spectra']) . "' />";
+        echo "<input id='odr_amcsd_search_search_spectra' name='odr_amcsd_search_plugin_options[search_spectra]' type='text' value='" . esc_attr($options['search_spectra'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_sort_name_field()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_sort_name_field' name='odr_amcsd_search_plugin_options[sort_name_field]' type='text' value='" . esc_attr($options['sort_name_field']) . "' />";
+        echo "<input id='odr_amcsd_search_sort_name_field' name='odr_amcsd_search_plugin_options[sort_name_field]' type='text' value='" . esc_attr($options['sort_name_field'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_sort_rruff_id_field()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_sort_rruff_id_field' name='odr_amcsd_search_plugin_options[sort_rruff_id_field]' type='text' value='" . esc_attr($options['sort_rruff_id_field']) . "' />";
+        echo "<input id='odr_amcsd_search_sort_rruff_id_field' name='odr_amcsd_search_plugin_options[sort_rruff_id_field]' type='text' value='" . esc_attr($options['sort_rruff_id_field'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_sort_ideal_chemistry_field()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_sort_ideal_chemistry_field' name='odr_amcsd_search_plugin_options[sort_ideal_chemistry_field]' type='text' value='" . esc_attr($options['sort_ideal_chemistry_field']) . "' />";
+        echo "<input id='odr_amcsd_search_sort_ideal_chemistry_field' name='odr_amcsd_search_plugin_options[sort_ideal_chemistry_field]' type='text' value='" . esc_attr($options['sort_ideal_chemistry_field'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_sort_source_field()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_sort_source_field' name='odr_amcsd_search_plugin_options[sort_source_field]' type='text' value='" . esc_attr($options['sort_source_field']) . "' />";
+        echo "<input id='odr_amcsd_search_sort_source_field' name='odr_amcsd_search_plugin_options[sort_source_field]' type='text' value='" . esc_attr($options['sort_source_field'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_sort_locality_field()
     {
         $options = get_option('odr_amcsd_search_plugin_options');
-        echo "<input id='odr_amcsd_search_sort_locality_field' name='odr_amcsd_search_plugin_options[sort_locality_field]' type='text' value='" . esc_attr($options['sort_locality_field']) . "' />";
+        echo "<input id='odr_amcsd_search_sort_locality_field' name='odr_amcsd_search_plugin_options[sort_locality_field]' type='text' value='" . esc_attr($options['sort_locality_field'] ?? '') . "' />";
     }
 
     function odr_amcsd_search_help_text()
